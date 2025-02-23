@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header">
+    <h3 class="title">Characteristics dashboard</h3>
+    <div class="actions">
+      <button
+        mat-flat-button
+        class="add"
+        (click)="openCreateCharacteristicDialog()"
+      >
+        <mat-icon class="icon" fontIcon="add"></mat-icon>
+        <span>Add characteristic</span>
+      </button>
+    </div>
+  </div>
+  <div class="characteristics">
+    @for (characteristic of characteristics; track characteristic.id) {
+    <app-characteristic
+      [characteristic]="characteristic"
+      (update)="openUpdateCharacteristicDialog(characteristic)"
+      (delete)="openConfirmDeleteCharacteristicDialog(characteristic)"
+    ></app-characteristic>
+    } @if (!characteristics.length) {
+    <span>No characteristics found.</span>
+    }
+  </div>
+</div>

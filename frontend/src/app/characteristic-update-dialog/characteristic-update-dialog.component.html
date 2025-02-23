@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+  Update characteristic '{{ data.characteristic.label }}'
+</h2>
+<mat-dialog-content
+  [formGroup]="characteristicFormGroup"
+  class="form-group-container"
+>
+  <form (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Characteristic color</mat-label>
+      <input matInput formControlName="color" placeholder="Enter color" />
+      @if (characteristicFormGroup.get('color')?.invalid &&
+      characteristicFormGroup.get('color')?.touched) {
+      <mat-error>Color is required.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Characteristic icon</mat-label>
+      <input matInput formControlName="icon" placeholder="Enter icon" />
+      @if (characteristicFormGroup.get('icon')?.invalid &&
+      characteristicFormGroup.get('icon')?.touched) {
+      <mat-error>Icon is required.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Characteristic label</mat-label>
+      <input matInput formControlName="label" placeholder="Enter label" />
+      @if (characteristicFormGroup.get('label')?.invalid &&
+      characteristicFormGroup.get('label')?.touched) {
+      <mat-error>Label is required.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="characteristicFormGroup.invalid"
+    (click)="onSubmit()"
+  >
+    Update
+  </button>
+</mat-dialog-actions>

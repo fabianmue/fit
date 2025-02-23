@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Add company</h2>
+<mat-dialog-content [formGroup]="companyFormGroup" class="form-group-container">
+  <form (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Company name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter name" />
+      @if (companyFormGroup.get('name')?.invalid &&
+      companyFormGroup.get('name')?.touched) {
+      <mat-error>Name is required.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Company logo URL</mat-label>
+      <input matInput formControlName="logoUrl" placeholder="Enter logo URL" />
+      @if (companyFormGroup.get('logoUrl')?.invalid &&
+      companyFormGroup.get('logoUrl')?.touched) {
+      <mat-error>
+        A valid URL is required (must start with https://).
+      </mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="companyFormGroup.invalid"
+    (click)="onSubmit()"
+  >
+    Create
+  </button>
+</mat-dialog-actions>

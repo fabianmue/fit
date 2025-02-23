@@ -1,0 +1,12 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+
+  .title {
+    color: black;
+    font-size: var(--font-size-large);
+    padding: 10px 0;
+    text-decoration: none;
+  }
+}

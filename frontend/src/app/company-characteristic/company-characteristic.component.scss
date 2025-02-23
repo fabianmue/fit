@@ -1,0 +1,69 @@
+.container {
+  align-items: center;
+  border: 1px solid;
+  border-radius: 30px;
+  box-sizing: border-box;
+  display: flex;
+  gap: 15px;
+  height: 50px;
+  padding: 5px 10px;
+
+  .content {
+    align-items: center;
+    display: flex;
+    font-size: var(--font-size-medium);
+    gap: 5px;
+
+    .icon {
+      font-size: 28px;
+      height: 28px;
+      width: 28px;
+    }
+
+    .company-characteristic-form {
+      display: flex;
+      gap: 5px;
+
+      .mat-mdc-form-field-infix {
+        padding: 4px 0;
+        min-height: 32px;
+      }
+
+      .mat-mdc-text-field-wrapper {
+        padding: 0 8px;
+      }
+
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+
+      .value {
+        width: 120px;
+      }
+
+      .unit {
+        width: 80px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 5px;
+
+    .action {
+      height: 30px;
+      min-height: 0;
+      min-width: 0;
+      padding: 0;
+      width: 30px;
+
+      .icon {
+        font-size: 16px;
+        height: 16px;
+        margin: 0;
+        width: 16px;
+      }
+    }
+  }
+}

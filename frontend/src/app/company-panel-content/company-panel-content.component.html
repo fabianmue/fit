@@ -1,0 +1,30 @@
+<div class="characteristics-header">
+  <span class="title">{{ company.name }} characteristics</span>
+  <div class="actions">
+    <button
+      mat-flat-button
+      (click)="onAddCompanyCharacteristic()"
+      class="action"
+    >
+      <mat-icon class="icon" fontIcon="add"></mat-icon>
+    </button>
+  </div>
+</div>
+<div class="characteristics">
+  @for (companyCharacteristic of company.companyCharacteristics; track
+  companyCharacteristic.id) {
+  <app-company-characteristic
+    [companyCharacteristic]="companyCharacteristic"
+    (update)="
+      onUpdateCompanyCharacteristic(
+        companyCharacteristic,
+        $event.companyCharacteristicUpdateDto
+      )
+    "
+    (delete)="onDeleteCompanyCharacteristic(companyCharacteristic)"
+  >
+  </app-company-characteristic>
+  } @if (!company.companyCharacteristics?.length) {
+  <span>No characteristics found.</span>
+  }
+</div>
