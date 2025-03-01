@@ -1,10 +1,13 @@
 using FitBackend;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(FitBackendProfile));
 builder.Services.AddControllers();
+builder.Services.AddDbContext<FitBackendContext>(options =>
+  options.UseNpgsql(Environment.GetEnvironmentVariable("FIT_DATABASE_CONNECTIONSTRING"))
+);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddEntityFrameworkSqlite().AddDbContext<FitBackendContext>();
 builder.Services.AddHttpLogging(options => { });
 builder.Services.AddSwaggerGen();
 

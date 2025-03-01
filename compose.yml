@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  fit-database:
+    image: postgres:17-alpine
+    container_name: fit-database
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: fit
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${FIT_DATABASE_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fit-network
+
+  fit-database-migrate:
+    image: fit-database-migrate
+    container_name: fit-database-migrate
+    command: postgresql://postgres:${FIT_DATABASE_PASSWORD}@fit-database/fit -f migrate.sql
+    depends_on:
+      fit-database:
+        condition: service_healthy
+    networks:
+      - fit-network
+
+  fit-backend:
+    image: fit-backend
+    container_name: fit-backend
+    ports:
+      - "3001:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      FIT_DATABASE_CONNECTIONSTRING: Host=fit-database;Database=fit;Username=postgres;Password=${FIT_DATABASE_PASSWORD};
+    depends_on:
+      fit-database-migrate:
+        condition: service_completed_successfully
+    networks:
+      - fit-network
+
+  fit-frontend:
+    image: fit-frontend
+    container_name: fit-frontend
+    ports:
+      - "4201:80"
+    depends_on:
+      fit-backend:
+        condition: service_started
+    networks:
+      - fit-network
+
+networks:
+  fit-network:
+    driver: bridge
