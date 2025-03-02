@@ -34,7 +34,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile.Database-Migrate
           push: true
-          tags: fit-database-migrate:latest
+          tags: ghcr.io/${{ github.repository_owner }}/fit-database-migrate:latest
 
       - name: Build and push fit-backend container image
         uses: docker/build-push-action@v6
@@ -42,7 +42,7 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile
           push: true
-          tags: fit-backend:latest
+          tags: ghcr.io/${{ github.repository_owner }}/fit-backend:latest
 
       - name: Build and push fit-frontend container image
         uses: docker/build-push-action@v6
@@ -50,4 +50,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: fit-frontend:latest
+          tags: ghcr.io/${{ github.repository_owner }}/fit-frontend:latest
