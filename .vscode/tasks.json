@@ -40,18 +40,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Run database container",
-      "type": "shell",
-      "command": "docker container run --name fit-database -e POSTGRES_DB=fit -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=${env:FIT_DATABASE_PASSWORD} -p 5433:5432 postgres:17-alpine",
-      "problemMatcher": []
-    },
-    {
-      "label": "Run database migrate container interactive",
-      "type": "shell",
-      "command": "docker container run -it --name fit-database-migrate --entrypoint sh fit-database-migrate",
-      "problemMatcher": []
-    },
-    {
       "label": "Compose up",
       "type": "shell",
       "command": "docker compose up",
