@@ -5,11 +5,12 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
-import { ApiModule } from './api/api.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+
+import { routes } from '@app/app.routes';
+import { ApiModule } from '@app/api/api.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     importProvidersFrom([ApiModule.forRoot({ rootUrl: '/api' })]),
     { provide: LOCALE_ID, useValue: 'de-CH' },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: { width: '650px', minWidth: '650px' },
+    },
   ],
 };

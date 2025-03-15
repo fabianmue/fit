@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Add '{{ data.company.name }}' characteristic</h2>
+<mat-dialog-content
+  [formGroup]="companyCharacteristicFormGroup"
+  class="form-group-container"
+>
+  <form (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field appearance="outline" class="form-field no-subscript">
+      <mat-label>Characteristic</mat-label>
+      <mat-select
+        formControlName="characteristicId"
+        placeholder="Select characteristic"
+      >
+        @for (characteristic of data.characteristicOptions; track
+        characteristic.id) {
+        <mat-option [value]="characteristic.id">
+          <mat-icon
+            class="icon"
+            [fontIcon]="getCharacteristicIcon(characteristic)"
+            [style.color]="characteristic.color"
+          >
+          </mat-icon>
+          {{ characteristic.label }}
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field no-subscript">
+      <mat-label>Unit</mat-label>
+      <input matInput formControlName="unit" placeholder="Enter unit" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Value</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="value"
+        placeholder="Enter value"
+      />
+      @if (companyCharacteristicFormGroup.get('value')?.invalid &&
+      companyCharacteristicFormGroup.get('value')?.touched) {
+      <mat-error>Value is required.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="companyCharacteristicFormGroup.invalid"
+    (click)="onSubmit()"
+  >
+    Create
+  </button>
+</mat-dialog-actions>

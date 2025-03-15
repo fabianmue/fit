@@ -5,3 +5,5 @@
 export { CharacteristicsService } from './services/characteristics.service';
 export { CompaniesService } from './services/companies.service';
 export { CompanyCharacteristicsService } from './services/company-characteristics.service';
+export { CompanyHistoricCharacteristicsService } from './services/company-historic-characteristics.service';
+export { HistoricCharacteristicsService } from './services/historic-characteristics.service';

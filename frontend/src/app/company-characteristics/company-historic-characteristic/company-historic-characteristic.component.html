@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="content">
+    <mat-icon
+      class="icon"
+      [fontIcon]="icon"
+      [style.color]="companyHistoricCharacteristic.color"
+    ></mat-icon>
+    <span>{{ companyHistoricCharacteristic.label }}</span>
+  </div>
+  <mat-icon class="icon" fontIcon="history"></mat-icon>
+  <div class="actions">
+    <button mat-flat-button (click)="onUpdate()" class="action">
+      <mat-icon class="icon" fontIcon="edit"> </mat-icon>
+    </button>
+    <button mat-flat-button (click)="onDelete()" class="action">
+      <mat-icon class="icon" fontIcon="delete"></mat-icon>
+    </button>
+  </div>
+</div>

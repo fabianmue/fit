@@ -1,0 +1,45 @@
+.characteristics-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+
+  &:not(:first-child) {
+    padding-top: 20px;
+  }
+
+  .title {
+    font-size: var(--font-size-medium);
+  }
+
+  .actions {
+    display: flex;
+    gap: 5px;
+
+    .action {
+      height: 30px;
+      min-height: 30px;
+      min-width: 30px;
+      padding: 0;
+      width: 30px;
+
+      .icon {
+        font-size: 16px;
+        height: 16px;
+        margin: 0;
+        width: 16px;
+      }
+    }
+  }
+}
+
+.characteristics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 24px;
+  height: 24px;
+  width: 24px;
+}

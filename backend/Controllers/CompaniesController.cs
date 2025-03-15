@@ -20,6 +20,12 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
     var companies = await _context
       .Companies.Include(company => company.CompanyCharacteristics)
       .ThenInclude(companyCharacteristic => companyCharacteristic.Characteristic)
+      .Include(company => company.CompanyHistoricCharacteristics)
+      .ThenInclude(companyHistoricCharacteristic =>
+        companyHistoricCharacteristic.HistoricCharacteristic
+      )
+      .Include(company => company.CompanyHistoricCharacteristics)
+      .ThenInclude(companyHistoricCharacteristic => companyHistoricCharacteristic.Values)
       .AsNoTracking()
       .ToListAsync();
     return Ok(_mapper.Map<List<CompanyReadDto>>(companies));
@@ -34,6 +40,12 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
     var company = await _context
       .Companies.Include(company => company.CompanyCharacteristics)
       .ThenInclude(companyCharacteristic => companyCharacteristic.Characteristic)
+      .Include(company => company.CompanyHistoricCharacteristics)
+      .ThenInclude(companyHistoricCharacteristic =>
+        companyHistoricCharacteristic.HistoricCharacteristic
+      )
+      .Include(company => company.CompanyHistoricCharacteristics)
+      .ThenInclude(companyHistoricCharacteristic => companyHistoricCharacteristic.Values)
       .AsNoTracking()
       .FirstOrDefaultAsync(company => company.Id == id);
     if (company == null)

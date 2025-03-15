@@ -32,13 +32,12 @@ namespace FitBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Label")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -91,6 +90,74 @@ namespace FitBackend.Migrations
                     b.ToTable("CompanyCharacteristics");
                 });
 
+            modelBuilder.Entity("FitBackend.CompanyHistoricCharacteristic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("HistoricCharacteristicId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("HistoricCharacteristicId");
+
+                    b.ToTable("CompanyHistoricCharacteristics");
+                });
+
+            modelBuilder.Entity("FitBackend.HistoricCharacteristic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HistoricCharacteristics");
+                });
+
+            modelBuilder.Entity("FitBackend.HistoricValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyHistoricCharacteristicId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyHistoricCharacteristicId");
+
+                    b.ToTable("HistoricValues");
+                });
+
             modelBuilder.Entity("FitBackend.CompanyCharacteristic", b =>
                 {
                     b.HasOne("FitBackend.Characteristic", "Characteristic")
@@ -110,6 +177,36 @@ namespace FitBackend.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("FitBackend.CompanyHistoricCharacteristic", b =>
+                {
+                    b.HasOne("FitBackend.Company", "Company")
+                        .WithMany("CompanyHistoricCharacteristics")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitBackend.HistoricCharacteristic", "HistoricCharacteristic")
+                        .WithMany("CompanyHistoricCharacteristics")
+                        .HasForeignKey("HistoricCharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("HistoricCharacteristic");
+                });
+
+            modelBuilder.Entity("FitBackend.HistoricValue", b =>
+                {
+                    b.HasOne("FitBackend.CompanyHistoricCharacteristic", "CompanyHistoricCharacteristic")
+                        .WithMany("Values")
+                        .HasForeignKey("CompanyHistoricCharacteristicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompanyHistoricCharacteristic");
+                });
+
             modelBuilder.Entity("FitBackend.Characteristic", b =>
                 {
                     b.Navigation("CompanyCharacteristics");
@@ -118,6 +215,18 @@ namespace FitBackend.Migrations
             modelBuilder.Entity("FitBackend.Company", b =>
                 {
                     b.Navigation("CompanyCharacteristics");
+
+                    b.Navigation("CompanyHistoricCharacteristics");
+                });
+
+            modelBuilder.Entity("FitBackend.CompanyHistoricCharacteristic", b =>
+                {
+                    b.Navigation("Values");
+                });
+
+            modelBuilder.Entity("FitBackend.HistoricCharacteristic", b =>
+                {
+                    b.Navigation("CompanyHistoricCharacteristics");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,16 +12,16 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { CharacteristicReadDto } from '../models/characteristic-read-dto';
-import { characteristicsGet } from '../fn/characteristics/characteristics-get';
-import { CharacteristicsGet$Params } from '../fn/characteristics/characteristics-get';
-import { characteristicsIdDelete } from '../fn/characteristics/characteristics-id-delete';
-import { CharacteristicsIdDelete$Params } from '../fn/characteristics/characteristics-id-delete';
-import { characteristicsIdGet } from '../fn/characteristics/characteristics-id-get';
-import { CharacteristicsIdGet$Params } from '../fn/characteristics/characteristics-id-get';
-import { characteristicsIdPut } from '../fn/characteristics/characteristics-id-put';
-import { CharacteristicsIdPut$Params } from '../fn/characteristics/characteristics-id-put';
-import { characteristicsPost } from '../fn/characteristics/characteristics-post';
-import { CharacteristicsPost$Params } from '../fn/characteristics/characteristics-post';
+import { deleteCharacteristic } from '../fn/characteristics/delete-characteristic';
+import { DeleteCharacteristic$Params } from '../fn/characteristics/delete-characteristic';
+import { getCharacteristic } from '../fn/characteristics/get-characteristic';
+import { GetCharacteristic$Params } from '../fn/characteristics/get-characteristic';
+import { getCharacteristics } from '../fn/characteristics/get-characteristics';
+import { GetCharacteristics$Params } from '../fn/characteristics/get-characteristics';
+import { postCharacteristic } from '../fn/characteristics/post-characteristic';
+import { PostCharacteristic$Params } from '../fn/characteristics/post-characteristic';
+import { putCharacteristic } from '../fn/characteristics/put-characteristic';
+import { PutCharacteristic$Params } from '../fn/characteristics/put-characteristic';
 
 @Injectable({ providedIn: 'root' })
 export class CharacteristicsService extends BaseService {
@@ -29,127 +29,127 @@ export class CharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `characteristicsGet()` */
-  static readonly CharacteristicsGetPath = '/Characteristics';
+  /** Path part for operation `getCharacteristics()` */
+  static readonly GetCharacteristicsPath = '/Characteristics';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `characteristicsGet()` instead.
+   * To access only the response body, use `getCharacteristics()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsGet$Response(params?: CharacteristicsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CharacteristicReadDto>>> {
-    return characteristicsGet(this.http, this.rootUrl, params, context);
+  getCharacteristics$Response(params?: GetCharacteristics$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CharacteristicReadDto>>> {
+    return getCharacteristics(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `characteristicsGet$Response()` instead.
+   * To access the full response (for headers, for example), `getCharacteristics$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsGet(params?: CharacteristicsGet$Params, context?: HttpContext): Observable<Array<CharacteristicReadDto>> {
-    return this.characteristicsGet$Response(params, context).pipe(
+  getCharacteristics(params?: GetCharacteristics$Params, context?: HttpContext): Observable<Array<CharacteristicReadDto>> {
+    return this.getCharacteristics$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<CharacteristicReadDto>>): Array<CharacteristicReadDto> => r.body)
     );
   }
 
-  /** Path part for operation `characteristicsPost()` */
-  static readonly CharacteristicsPostPath = '/Characteristics';
+  /** Path part for operation `postCharacteristic()` */
+  static readonly PostCharacteristicPath = '/Characteristics';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `characteristicsPost()` instead.
+   * To access only the response body, use `postCharacteristic()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  characteristicsPost$Response(params?: CharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CharacteristicReadDto>> {
-    return characteristicsPost(this.http, this.rootUrl, params, context);
+  postCharacteristic$Response(params?: PostCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<CharacteristicReadDto>> {
+    return postCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `characteristicsPost$Response()` instead.
+   * To access the full response (for headers, for example), `postCharacteristic$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  characteristicsPost(params?: CharacteristicsPost$Params, context?: HttpContext): Observable<CharacteristicReadDto> {
-    return this.characteristicsPost$Response(params, context).pipe(
+  postCharacteristic(params?: PostCharacteristic$Params, context?: HttpContext): Observable<CharacteristicReadDto> {
+    return this.postCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<CharacteristicReadDto>): CharacteristicReadDto => r.body)
     );
   }
 
-  /** Path part for operation `characteristicsIdGet()` */
-  static readonly CharacteristicsIdGetPath = '/Characteristics/{id}';
+  /** Path part for operation `getCharacteristic()` */
+  static readonly GetCharacteristicPath = '/Characteristics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `characteristicsIdGet()` instead.
+   * To access only the response body, use `getCharacteristic()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsIdGet$Response(params: CharacteristicsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CharacteristicReadDto>> {
-    return characteristicsIdGet(this.http, this.rootUrl, params, context);
+  getCharacteristic$Response(params: GetCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<CharacteristicReadDto>> {
+    return getCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `characteristicsIdGet$Response()` instead.
+   * To access the full response (for headers, for example), `getCharacteristic$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsIdGet(params: CharacteristicsIdGet$Params, context?: HttpContext): Observable<CharacteristicReadDto> {
-    return this.characteristicsIdGet$Response(params, context).pipe(
+  getCharacteristic(params: GetCharacteristic$Params, context?: HttpContext): Observable<CharacteristicReadDto> {
+    return this.getCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<CharacteristicReadDto>): CharacteristicReadDto => r.body)
     );
   }
 
-  /** Path part for operation `characteristicsIdPut()` */
-  static readonly CharacteristicsIdPutPath = '/Characteristics/{id}';
+  /** Path part for operation `putCharacteristic()` */
+  static readonly PutCharacteristicPath = '/Characteristics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `characteristicsIdPut()` instead.
+   * To access only the response body, use `putCharacteristic()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  characteristicsIdPut$Response(params: CharacteristicsIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return characteristicsIdPut(this.http, this.rootUrl, params, context);
+  putCharacteristic$Response(params: PutCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return putCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `characteristicsIdPut$Response()` instead.
+   * To access the full response (for headers, for example), `putCharacteristic$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  characteristicsIdPut(params: CharacteristicsIdPut$Params, context?: HttpContext): Observable<void> {
-    return this.characteristicsIdPut$Response(params, context).pipe(
+  putCharacteristic(params: PutCharacteristic$Params, context?: HttpContext): Observable<void> {
+    return this.putCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `characteristicsIdDelete()` */
-  static readonly CharacteristicsIdDeletePath = '/Characteristics/{id}';
+  /** Path part for operation `deleteCharacteristic()` */
+  static readonly DeleteCharacteristicPath = '/Characteristics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `characteristicsIdDelete()` instead.
+   * To access only the response body, use `deleteCharacteristic()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsIdDelete$Response(params: CharacteristicsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return characteristicsIdDelete(this.http, this.rootUrl, params, context);
+  deleteCharacteristic$Response(params: DeleteCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `characteristicsIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `deleteCharacteristic$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  characteristicsIdDelete(params: CharacteristicsIdDelete$Params, context?: HttpContext): Observable<void> {
-    return this.characteristicsIdDelete$Response(params, context).pipe(
+  deleteCharacteristic(params: DeleteCharacteristic$Params, context?: HttpContext): Observable<void> {
+    return this.deleteCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

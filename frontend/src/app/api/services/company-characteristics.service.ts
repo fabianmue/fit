@@ -11,12 +11,12 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { companyCharacteristicsIdDelete } from '../fn/company-characteristics/company-characteristics-id-delete';
-import { CompanyCharacteristicsIdDelete$Params } from '../fn/company-characteristics/company-characteristics-id-delete';
-import { companyCharacteristicsIdPut } from '../fn/company-characteristics/company-characteristics-id-put';
-import { CompanyCharacteristicsIdPut$Params } from '../fn/company-characteristics/company-characteristics-id-put';
-import { companyCharacteristicsPost } from '../fn/company-characteristics/company-characteristics-post';
-import { CompanyCharacteristicsPost$Params } from '../fn/company-characteristics/company-characteristics-post';
+import { deleteCompanyCharacteristic } from '../fn/company-characteristics/delete-company-characteristic';
+import { DeleteCompanyCharacteristic$Params } from '../fn/company-characteristics/delete-company-characteristic';
+import { postCompanyCharacteristic } from '../fn/company-characteristics/post-company-characteristic';
+import { PostCompanyCharacteristic$Params } from '../fn/company-characteristics/post-company-characteristic';
+import { putCompanyCharacteristic } from '../fn/company-characteristics/put-company-characteristic';
+import { PutCompanyCharacteristic$Params } from '../fn/company-characteristics/put-company-characteristic';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyCharacteristicsService extends BaseService {
@@ -24,77 +24,77 @@ export class CompanyCharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `companyCharacteristicsPost()` */
-  static readonly CompanyCharacteristicsPostPath = '/CompanyCharacteristics';
+  /** Path part for operation `postCompanyCharacteristic()` */
+  static readonly PostCompanyCharacteristicPath = '/CompanyCharacteristics';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `companyCharacteristicsPost()` instead.
+   * To access only the response body, use `postCompanyCharacteristic()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyCharacteristicsPost$Response(params?: CompanyCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return companyCharacteristicsPost(this.http, this.rootUrl, params, context);
+  postCompanyCharacteristic$Response(params?: PostCompanyCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return postCompanyCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `companyCharacteristicsPost$Response()` instead.
+   * To access the full response (for headers, for example), `postCompanyCharacteristic$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyCharacteristicsPost(params?: CompanyCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
-    return this.companyCharacteristicsPost$Response(params, context).pipe(
+  postCompanyCharacteristic(params?: PostCompanyCharacteristic$Params, context?: HttpContext): Observable<void> {
+    return this.postCompanyCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `companyCharacteristicsIdPut()` */
-  static readonly CompanyCharacteristicsIdPutPath = '/CompanyCharacteristics/{id}';
+  /** Path part for operation `putCompanyCharacteristic()` */
+  static readonly PutCompanyCharacteristicPath = '/CompanyCharacteristics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `companyCharacteristicsIdPut()` instead.
+   * To access only the response body, use `putCompanyCharacteristic()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyCharacteristicsIdPut$Response(params: CompanyCharacteristicsIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return companyCharacteristicsIdPut(this.http, this.rootUrl, params, context);
+  putCompanyCharacteristic$Response(params: PutCompanyCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return putCompanyCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `companyCharacteristicsIdPut$Response()` instead.
+   * To access the full response (for headers, for example), `putCompanyCharacteristic$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyCharacteristicsIdPut(params: CompanyCharacteristicsIdPut$Params, context?: HttpContext): Observable<void> {
-    return this.companyCharacteristicsIdPut$Response(params, context).pipe(
+  putCompanyCharacteristic(params: PutCompanyCharacteristic$Params, context?: HttpContext): Observable<void> {
+    return this.putCompanyCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `companyCharacteristicsIdDelete()` */
-  static readonly CompanyCharacteristicsIdDeletePath = '/CompanyCharacteristics/{id}';
+  /** Path part for operation `deleteCompanyCharacteristic()` */
+  static readonly DeleteCompanyCharacteristicPath = '/CompanyCharacteristics/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `companyCharacteristicsIdDelete()` instead.
+   * To access only the response body, use `deleteCompanyCharacteristic()` instead.
    *
    * This method doesn't expect any request body.
    */
-  companyCharacteristicsIdDelete$Response(params: CompanyCharacteristicsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return companyCharacteristicsIdDelete(this.http, this.rootUrl, params, context);
+  deleteCompanyCharacteristic$Response(params: DeleteCompanyCharacteristic$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteCompanyCharacteristic(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `companyCharacteristicsIdDelete$Response()` instead.
+   * To access the full response (for headers, for example), `deleteCompanyCharacteristic$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  companyCharacteristicsIdDelete(params: CompanyCharacteristicsIdDelete$Params, context?: HttpContext): Observable<void> {
-    return this.companyCharacteristicsIdDelete$Response(params, context).pipe(
+  deleteCompanyCharacteristic(params: DeleteCompanyCharacteristic$Params, context?: HttpContext): Observable<void> {
+    return this.deleteCompanyCharacteristic$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

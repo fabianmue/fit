@@ -1,0 +1,21 @@
+.form-group-container {
+  margin-top: 10px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px 0;
+
+    .historic {
+      align-items: center;
+      display: flex;
+      font-size: 16px;
+      gap: 15px;
+    }
+
+    .form-field {
+      width: 100%;
+    }
+  }
+}

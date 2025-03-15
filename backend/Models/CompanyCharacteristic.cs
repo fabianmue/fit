@@ -9,13 +9,12 @@ public class CompanyCharacteristic : Entity
 
   public string? Unit { get; set; }
 
-  [Required]
-  public required Guid CompanyId { get; set; }
+  // relationships
+  public Guid CompanyId { get; set; }
 
   public Company Company { get; set; } = null!;
 
-  [Required]
-  public required Guid CharacteristicId { get; set; }
+  public Guid CharacteristicId { get; set; }
 
   public Characteristic Characteristic { get; set; } = null!;
 }
@@ -23,11 +22,11 @@ public class CompanyCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public class CompanyCharacteristicReadDto : EntityReadDto
 {
-  public string Icon { get; set; }
-
-  public string Color { get; set; }
+  public CharacteristicType Type { get; set; }
 
   public string Label { get; set; }
+
+  public string Color { get; set; }
 
   public float Value { get; set; }
 
@@ -42,9 +41,9 @@ public class CompanyCharacteristicCreateDto
 
   public string? Unit { get; set; }
 
-  public Guid CompanyId { get; set; }
+  public required Guid CompanyId { get; set; }
 
-  public Guid CharacteristicId { get; set; }
+  public required Guid CharacteristicId { get; set; }
 }
 
 public class CompanyCharacteristicUpdateDto

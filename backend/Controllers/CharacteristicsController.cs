@@ -18,7 +18,7 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   public async Task<ActionResult<List<CharacteristicReadDto>>> GetCharacteristics()
   {
     var characteristics = await _context
-      .Characteristics.Include(company => company.CompanyCharacteristics)
+      .Characteristics.Include(characteristic => characteristic.CompanyCharacteristics)
       .AsNoTracking()
       .ToListAsync();
     return Ok(_mapper.Map<List<CharacteristicReadDto>>(characteristics));

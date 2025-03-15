@@ -1,0 +1,56 @@
+<div class="characteristics-header">
+  <span class="title">Characteristics</span>
+  <div class="actions">
+    <button
+      mat-flat-button
+      (click)="onAddCompanyCharacteristic()"
+      class="action"
+      [disabled]="disableAddCompanyCharacteristic"
+    >
+      <mat-icon class="icon" fontIcon="add"></mat-icon>
+    </button>
+  </div>
+</div>
+<div class="characteristics">
+  @for (companyCharacteristic of company.companyCharacteristics; track
+  companyCharacteristic.id) {
+  <app-company-characteristic
+    [companyCharacteristic]="companyCharacteristic"
+    (update)="onUpdateCompanyCharacteristic(companyCharacteristic, $event)"
+    (delete)="onDeleteCompanyCharacteristic(companyCharacteristic)"
+  >
+  </app-company-characteristic>
+  } @if (!company.companyCharacteristics?.length) {
+  <span>No characteristics found.</span>
+  }
+</div>
+<div class="characteristics-header">
+  <span class="title">Historic characteristics</span>
+  <div class="actions">
+    <button
+      mat-flat-button
+      (click)="onAddCompanyHistoricCharacteristic()"
+      class="action"
+      [disabled]="disableAddCompanyHistoricCharacteristic"
+    >
+      <mat-icon class="icon" fontIcon="add"></mat-icon>
+    </button>
+  </div>
+</div>
+<div class="characteristics">
+  @for (companyHistoricCharacteristic of company.companyHistoricCharacteristics;
+  track companyHistoricCharacteristic.id) {
+  <app-company-historic-characteristic
+    [companyHistoricCharacteristic]="companyHistoricCharacteristic"
+    (update)="
+      onUpdateCompanyHistoricCharacteristic(companyHistoricCharacteristic)
+    "
+    (delete)="
+      onDeleteCompanyHistoricCharacteristic(companyHistoricCharacteristic)
+    "
+  >
+  </app-company-historic-characteristic>
+  } @if (!company.companyHistoricCharacteristics?.length) {
+  <span>No historic characteristics found.</span>
+  }
+</div>

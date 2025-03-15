@@ -9,6 +9,8 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { CharacteristicsService } from './services/characteristics.service';
 import { CompaniesService } from './services/companies.service';
 import { CompanyCharacteristicsService } from './services/company-characteristics.service';
+import { CompanyHistoricCharacteristicsService } from './services/company-historic-characteristics.service';
+import { HistoricCharacteristicsService } from './services/historic-characteristics.service';
 
 /**
  * Module that provides all services and configuration.
@@ -21,6 +23,8 @@ import { CompanyCharacteristicsService } from './services/company-characteristic
     CharacteristicsService,
     CompaniesService,
     CompanyCharacteristicsService,
+    CompanyHistoricCharacteristicsService,
+    HistoricCharacteristicsService,
     ApiConfiguration
   ],
 })
