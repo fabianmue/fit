@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   fit-database:
     image: postgres:17-alpine
@@ -10,7 +8,7 @@ services:
       POSTGRES_DB: fit
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${FIT_DATABASE_PASSWORD}
-    volume:
+    volumes:
       - /app/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -21,7 +19,7 @@ services:
       - fit-network
 
   fit-database-migrate:
-    image: ghcr.io/fmueller/fit-database-migrate
+    image: ghcr.io/fabianmue/fit-database-migrate
     container_name: fit-database-migrate
     command: postgresql://postgres:${FIT_DATABASE_PASSWORD}@fit-database/fit -f migrate.sql
     depends_on:
@@ -31,7 +29,7 @@ services:
       - fit-network
 
   fit-backend:
-    image: ghcr.io/fmueller/fit-backend
+    image: ghcr.io/fabianmue/fit-backend
     container_name: fit-backend
     ports:
       - "3000:80"
@@ -45,7 +43,7 @@ services:
       - fit-network
 
   fit-frontend:
-    image: ghcr.io/fmueller/fit-frontend
+    image: ghcr.io/fabianmue/fit-frontend
     container_name: fit-frontend
     ports:
       - "80:80"

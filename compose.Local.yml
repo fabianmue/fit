@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   fit-database:
     image: postgres:17-alpine

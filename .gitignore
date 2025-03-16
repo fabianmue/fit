@@ -7,3 +7,6 @@ frontend/.angular/cache/
 backend/bin/
 backend/obj/
 backend/Migrations/migrate.sql
+
+# environment
+.env

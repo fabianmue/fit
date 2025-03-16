@@ -32,4 +32,4 @@ jobs:
       - name: Docker compose up
         run: |
           ssh-keyscan ${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }} "cd /app && docker-compose up -d"
+          ssh ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }} "cd /app && docker compose up -d"
