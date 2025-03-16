@@ -1,0 +1,33 @@
+name: Deploy to DigitalOcean droplet
+
+on:
+  workflow_run:
+    workflows: ["Publish container images"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Create .env
+        run: |
+          echo "FIT_DATABASE_PASSWORD=${{ secrets.FIT_DATABASE_PASSWORD }}" > .env
+
+      - name: Copy .env and compose.yml
+        run: |
+          scp -r .env ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
+          scp -r compose.yml ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
+
+      - name: Docker compose up
+        run: |
+          ssh ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }} "cd /app && docker-compose up -d"

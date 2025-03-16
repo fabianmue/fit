@@ -5,13 +5,11 @@ services:
     image: postgres:17-alpine
     container_name: fit-database
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       POSTGRES_DB: fit
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${FIT_DATABASE_PASSWORD}
-    volume:
-      - /app/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -21,7 +19,7 @@ services:
       - fit-network
 
   fit-database-migrate:
-    image: ghcr.io/fmueller/fit-database-migrate
+    image: fit-database-migrate
     container_name: fit-database-migrate
     command: postgresql://postgres:${FIT_DATABASE_PASSWORD}@fit-database/fit -f migrate.sql
     depends_on:
@@ -31,10 +29,10 @@ services:
       - fit-network
 
   fit-backend:
-    image: ghcr.io/fmueller/fit-backend
+    image: fit-backend
     container_name: fit-backend
     ports:
-      - "3000:80"
+      - "3001:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       FIT_DATABASE_CONNECTIONSTRING: Host=fit-database;Database=fit;Username=postgres;Password=${FIT_DATABASE_PASSWORD};
@@ -45,10 +43,10 @@ services:
       - fit-network
 
   fit-frontend:
-    image: ghcr.io/fmueller/fit-frontend
+    image: fit-frontend
     container_name: fit-frontend
     ports:
-      - "80:80"
+      - "4201:80"
     depends_on:
       fit-backend:
         condition: service_started
