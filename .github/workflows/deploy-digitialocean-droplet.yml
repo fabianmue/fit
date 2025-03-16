@@ -25,11 +25,11 @@ jobs:
 
       - name: Copy .env and compose.yml
         run: |
-          ssh-keyscan @${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan ${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
           scp -r .env ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
           scp -r compose.yml ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
 
       - name: Docker compose up
         run: |
-          ssh-keyscan @${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan ${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
           ssh ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }} "cd /app && docker-compose up -d"
