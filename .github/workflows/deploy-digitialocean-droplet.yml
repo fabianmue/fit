@@ -14,22 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: Create .env
         run: |
           echo "FIT_DATABASE_PASSWORD=${{ secrets.FIT_DATABASE_PASSWORD }}" > .env
 
       - name: Copy .env and compose.yml
-        run: |
-          ssh-keyscan ${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
-          scp -r .env ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
-          scp -r compose.yml ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }}:/app
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DIGITALOCEAN_DROPLET_IP }}
+          username: ${{ secrets.DIGITALOCEAN_DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ".env,compose.yml"
+          target: "/app"
 
-      - name: Docker compose up
-        run: |
-          ssh-keyscan ${{ secrets.DIGITALOCEAN_DROPLET_IP }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.DIGITALOCEAN_DROPLET_USER }}@${{ secrets.DIGITALOCEAN_DROPLET_IP }} "cd /app && docker compose up -d"
+      - name: Docker compose down and up
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.DIGITALOCEAN_DROPLET_IP }}
+          username: ${{ secrets.DIGITALOCEAN_DROPLET_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: "cd /app && docker compose down --remove-orphans && docker compose up -d"
