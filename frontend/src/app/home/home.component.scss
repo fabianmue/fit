@@ -1,0 +1,17 @@
+.welcome {
+  display: flex;
+  font-size: var(--font-size-large);
+  font-weight: normal;
+  margin: 100px 0 50px 0;
+  justify-content: center;
+}
+
+.routes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  .route {
+    font-size: var(--font-size-medium);
+  }
+}

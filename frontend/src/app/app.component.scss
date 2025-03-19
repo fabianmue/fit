@@ -1,12 +1,12 @@
 .toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 15px;
 
   .title {
     color: black;
     font-size: var(--font-size-large);
-    padding: 10px 0;
+    padding: 10px;
     text-decoration: none;
   }
 }
