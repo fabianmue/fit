@@ -3,13 +3,13 @@
     <h3 class="title">Companies dashboard</h3>
     <div class="actions">
       <button mat-icon-button (click)="accordion().openAll()">
-        <mat-icon class="icon" fontIcon="unfold_more"></mat-icon>
+        <mat-icon class="icon">unfold_more</mat-icon>
       </button>
       <button mat-icon-button (click)="accordion().closeAll()">
-        <mat-icon class="icon" fontIcon="unfold_less"></mat-icon>
+        <mat-icon class="icon">unfold_less</mat-icon>
       </button>
       <button mat-flat-button class="add" (click)="openCreateCompanyDialog()">
-        <mat-icon class="icon" fontIcon="add"></mat-icon>
+        <mat-icon class="icon">add</mat-icon>
         <span>Add company</span>
       </button>
     </div>
@@ -31,7 +31,7 @@
             (click)="openUpdateCompanyDialog(company); $event.stopPropagation()"
             class="flat-icon-button"
           >
-            <mat-icon class="icon" fontIcon="edit"></mat-icon>
+            <mat-icon class="icon">edit</mat-icon>
           </button>
           <button
             mat-flat-button
@@ -40,7 +40,7 @@
             "
             class="flat-icon-button"
           >
-            <mat-icon class="icon" fontIcon="delete"></mat-icon>
+            <mat-icon class="icon">delete</mat-icon>
           </button>
         </div>
         }

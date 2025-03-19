@@ -13,11 +13,8 @@
         @for (historicCharacteristic of data.historicCharacteristicOptions;
         track historicCharacteristic.id) {
         <mat-option [value]="historicCharacteristic.id">
-          <mat-icon
-            class="icon"
-            [fontIcon]="getCharacteristicIcon(historicCharacteristic)"
-            [style.color]="historicCharacteristic.color"
-          >
+          <mat-icon class="icon" [style.color]="historicCharacteristic.color">
+            {{ getCharacteristicIcon(historicCharacteristic) }}
           </mat-icon>
           {{ historicCharacteristic.label }}
         </mat-option>
@@ -35,7 +32,7 @@
         (click)="addCompanyHistoricCharacteristicValue()"
         class="action"
       >
-        <mat-icon class="icon" fontIcon="add"></mat-icon>
+        <mat-icon class="icon">add</mat-icon>
       </button>
     </div>
     <div formArrayName="values" class="values">
@@ -71,7 +68,7 @@
           (click)="removeCompanyHistoricCharacteristicValue(index)"
           class="action"
         >
-          <mat-icon class="icon" fontIcon="delete"></mat-icon>
+          <mat-icon class="icon">delete</mat-icon>
         </button>
       </div>
       }

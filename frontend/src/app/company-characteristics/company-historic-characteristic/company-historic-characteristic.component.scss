@@ -1,23 +1,29 @@
 .container {
-  align-items: center;
   border: 1px solid;
   border-radius: 30px;
   box-sizing: border-box;
   display: flex;
-  gap: 15px;
-  height: 50px;
-  padding: 5px 10px;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  padding: 10px 15px;
 
   .content {
-    align-items: center;
     display: flex;
-    font-size: var(--font-size-medium);
-    gap: 5px;
+    gap: 15px;
+    justify-content: space-between;
 
-    .icon {
-      font-size: 28px;
-      height: 28px;
-      width: 28px;
+    .description {
+      align-items: center;
+      display: flex;
+      font-size: var(--font-size-medium);
+      gap: 5px;
+
+      .icon {
+        font-size: 28px;
+        height: 28px;
+        width: 28px;
+      }
     }
   }
 

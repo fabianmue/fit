@@ -13,11 +13,8 @@
         @for (characteristic of data.characteristicOptions; track
         characteristic.id) {
         <mat-option [value]="characteristic.id">
-          <mat-icon
-            class="icon"
-            [fontIcon]="getCharacteristicIcon(characteristic)"
-            [style.color]="characteristic.color"
-          >
+          <mat-icon class="icon" [style.color]="characteristic.color">
+            {{ getCharacteristicIcon(characteristic) }}
           </mat-icon>
           {{ characteristic.label }}
         </mat-option>

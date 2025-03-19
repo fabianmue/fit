@@ -1,10 +1,8 @@
 <div class="container">
   <div class="content">
-    <mat-icon
-      class="icon"
-      [fontIcon]="icon"
-      [style.color]="companyCharacteristic.color"
-    ></mat-icon>
+    <mat-icon class="icon" [style.color]="companyCharacteristic.color">
+      {{ icon }}
+    </mat-icon>
     <span>{{ companyCharacteristic.label }}</span>
     <span>-</span>
     @if (companyCharacteristicFormGroup.enabled) {
@@ -38,14 +36,12 @@
         !companyCharacteristicFormGroup.valid
       "
     >
-      <mat-icon
-        class="icon"
-        [fontIcon]="companyCharacteristicFormGroup.enabled ? 'check' : 'edit'"
-      >
+      <mat-icon class="icon">
+        {{ companyCharacteristicFormGroup.enabled ? "check" : "edit" }}
       </mat-icon>
     </button>
     <button mat-flat-button (click)="onDelete()" class="action">
-      <mat-icon class="icon" fontIcon="delete"></mat-icon>
+      <mat-icon class="icon">delete</mat-icon>
     </button>
   </div>
 </div>
