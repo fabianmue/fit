@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: ${FIT_DATABASE_PASSWORD}
     volumes:
       - /app/data:/var/lib/postgresql/data
+    restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -31,11 +32,10 @@ services:
   fit-backend:
     image: ghcr.io/fabianmue/fit-backend
     container_name: fit-backend
-    ports:
-      - "3000:80"
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       FIT_DATABASE_CONNECTIONSTRING: Host=fit-database;Database=fit;Username=postgres;Password=${FIT_DATABASE_PASSWORD};
+    restart: always
     depends_on:
       fit-database-migrate:
         condition: service_completed_successfully
@@ -46,7 +46,10 @@ services:
     image: ghcr.io/fabianmue/fit-frontend
     container_name: fit-frontend
     ports:
-      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live:/app/certificates:ro
+    restart: always
     depends_on:
       fit-backend:
         condition: service_started
