@@ -33,4 +33,4 @@ jobs:
           host: ${{ secrets.DIGITALOCEAN_DROPLET_IP }}
           username: ${{ secrets.DIGITALOCEAN_DROPLET_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: "cd /app && docker compose down --remove-orphans && docker compose up -d"
+          script: "cd /app && docker compose down --remove-orphans && docker compose up --detach --force-recreate --no-build"
