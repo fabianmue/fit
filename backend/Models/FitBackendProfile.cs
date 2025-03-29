@@ -67,6 +67,13 @@ public class FitBackendProfile : Profile
           opt.MapFrom(companyHistoricCharacteristic =>
             companyHistoricCharacteristic.HistoricCharacteristic.Color
           )
+      )
+      .ForMember(
+        companyHistoricCharacteristicReadDto => companyHistoricCharacteristicReadDto.Values,
+        opt =>
+          opt.MapFrom(companyHistoricCharacteristic =>
+            companyHistoricCharacteristic.Values.OrderBy(historicValue => historicValue.Date)
+          )
       );
     CreateMap<CompanyHistoricCharacteristicCreateDto, CompanyHistoricCharacteristic>();
     CreateMap<CompanyHistoricCharacteristicUpdateDto, CompanyHistoricCharacteristic>();

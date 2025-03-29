@@ -1,22 +1,25 @@
 <div class="container">
-  <div class="content">
+  <div class="header">
     <div class="description">
-    <mat-icon
-      class="icon"
-      [style.color]="companyHistoricCharacteristic.color"
+      <mat-icon
+        class="icon"
+        [style.color]="companyHistoricCharacteristic.color"
       >
         {{ icon }}
       </mat-icon>
-    <span>{{ companyHistoricCharacteristic.label }}</span>
-      <mat-icon class="icon">history</mat-icon>
-  </div>
-  <div class="actions">
-    <button mat-flat-button (click)="onUpdate()" class="action">
+      <span>{{ companyHistoricCharacteristic.label }}</span>
+    </div>
+    <div class="actions">
+      <button mat-flat-button (click)="onUpdate()" class="action">
         <mat-icon class="icon">edit</mat-icon>
-    </button>
-    <button mat-flat-button (click)="onDelete()" class="action">
+      </button>
+      <button mat-flat-button (click)="onDelete()" class="action">
         <mat-icon class="icon">delete</mat-icon>
-    </button>
+      </button>
     </div>
   </div>
+  @if (companyHistoricCharacteristic.values?.length &&
+  companyHistoricCharacteristic.values!.length >= 2) {
+  <canvas #chartCanvas height="200px"></canvas>
+  }
 </div>
