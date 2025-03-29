@@ -17,11 +17,25 @@ Assign and track characteristics to the companies
 - Topics: generate investment ideas by thinking "bigger" than companies
 
   - Examples for topics: construction and infrastructure, demographic shift (aging population), digital transformation
+  - Describe chances and risks per topic
+  - Display as cards ?
   - Relate companies to topics - with notes
 
-- Quotes of inspirational and successful investors > to support a shift of mindset
+- Support mindset shift
 
-- Group companies into categories
+  - With quotes of inspirational and successful investors
 
-  - Examples for categories: growth rate, company size (turnover?), profitability (how to calculate), risk
+- Compare or cluster companies
+
+  - Examples for categories: growth rate, company size (turnover?), profitability (how to calculate?), risk
   - Display as a "spider net" with sectors and layers (similar to https://www.thoughtworks.com/radar)
+
+- Security
+
+  - Require auth for create, update and delete
+
+- Social
+
+  - Share your FIT data with friends
+  - Follow other people
+  - Decide whether your FIT data should be public
