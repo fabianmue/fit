@@ -14,9 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set short SHA
+        shell: bash
+        run: echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
       - name: Create .env
         run: |
           echo "FIT_DATABASE_PASSWORD=${{ secrets.FIT_DATABASE_PASSWORD }}" > .env
+          echo "IMAGE_TAG=${{ env.sha_short }}" > .env
 
       - name: Copy .env and compose.yml
         uses: appleboy/scp-action@v0.1.7

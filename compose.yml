@@ -20,7 +20,7 @@ services:
       - fit-network
 
   fit-database-migrate:
-    image: ghcr.io/fabianmue/fit-database-migrate
+    image: ghcr.io/fabianmue/fit-database-migrate:${IMAGE_TAG}
     container_name: fit-database-migrate
     command: postgresql://postgres:${FIT_DATABASE_PASSWORD}@fit-database/fit -f migrate.sql
     depends_on:
@@ -30,7 +30,7 @@ services:
       - fit-network
 
   fit-backend:
-    image: ghcr.io/fabianmue/fit-backend
+    image: ghcr.io/fabianmue/fit-backend:${IMAGE_TAG}
     container_name: fit-backend
     environment:
       ASPNETCORE_ENVIRONMENT: Production
@@ -43,7 +43,7 @@ services:
       - fit-network
 
   fit-frontend:
-    image: ghcr.io/fabianmue/fit-frontend
+    image: ghcr.io/fabianmue/fit-frontend:${IMAGE_TAG}
     container_name: fit-frontend
     ports:
       - "443:443"
