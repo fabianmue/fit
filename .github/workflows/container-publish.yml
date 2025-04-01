@@ -40,6 +40,14 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/fit-database-migrate:${{ env.sha_short }}
 
+      - name: Build and push fit-identity container image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./identity
+          file: ./identity/Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/fit-identity:${{ env.sha_short }}
+
       - name: Build and push fit-backend container image
         uses: docker/build-push-action@v6
         with:

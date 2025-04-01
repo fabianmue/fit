@@ -21,6 +21,7 @@ jobs:
       - name: Create .env
         run: |
           echo "FIT_DATABASE_PASSWORD=${{ secrets.FIT_DATABASE_PASSWORD }}" > .env
+          echo "FIT_IDENTITY_ADMIN_PASSWORD=${{ secrets.FIT_IDENTITY_ADMIN_PASSWORD }}" >> .env
           echo "IMAGE_TAG=${{ env.sha_short }}" >> .env
 
       - name: Copy .env and compose.yml
