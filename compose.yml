@@ -33,7 +33,7 @@ services:
     image: ghcr.io/fabianmue/fit-identity:${IMAGE_TAG}
     container_name: fit-identity
     ports:
-      - "8080:8080"
+      - "8443:8443"
     environment:
       KC_DB: postgres
       KC_DB_URL: fit-database/fit-identity # FIXME: automatically create database if not exists
@@ -41,8 +41,11 @@ services:
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/live/fit-invest.ch/fullchain.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/live/fit-invest.ch/privkey.pem
       KC_HOSTNAME: fit-invest.ch
-      KC_HTTP_ENABLED: true
+    volumes:
+      - /etc/letsencrypt:/opt/keycloak/certs:ro
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready"]
