@@ -14,8 +14,6 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:26.1
 COPY --from=build /opt/keycloak/ /opt/keycloak/
 COPY --from=ubi-micro-build /mnt/rootfs /
-ENV KC_DB=postgres
-ENV KC_HTTPS_CERTIFICATE_FILE=/app/certs/live/fit-invest.ch/fullchain.pem
-ENV KC_HTTPS_CERTIFICATE_KEY_FILE=/app/certs/live/fit-invest.ch/privkey.pem
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
-CMD ["start", "--optimized"]
+# ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+# CMD ["start", "--optimized"]
+ENTRYPOINT [""]
