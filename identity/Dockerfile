@@ -14,6 +14,5 @@ RUN /opt/keycloak/bin/kc.sh build
 FROM quay.io/keycloak/keycloak:26.1
 COPY --from=build /opt/keycloak/ /opt/keycloak/
 COPY --from=ubi-micro-build /mnt/rootfs /
-# ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
-# CMD ["start", "--optimized"]
-ENTRYPOINT [""]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
+CMD ["start", "--optimized"]
