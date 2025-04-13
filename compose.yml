@@ -32,6 +32,7 @@ services:
   fit-identity:
     image: ghcr.io/fabianmue/fit-identity:${IMAGE_TAG}
     container_name: fit-identity
+    command: ls -la /app/certs/live/fit-invest.ch && /opt/keycloak/bin/kc.sh start --optimized
     ports:
       - "8443:8443"
     environment:
@@ -41,11 +42,11 @@ services:
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
-      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/live/fit-invest.ch/fullchain.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/live/fit-invest.ch/privkey.pem
+      KC_HTTPS_CERTIFICATE_FILE: /app/certs/live/fit-invest.ch/fullchain.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /app/certs/live/fit-invest.ch/privkey.pem
       KC_HOSTNAME: fit-invest.ch
     volumes:
-      - /etc/letsencrypt:/opt/keycloak/certs:ro
+      - /etc/letsencrypt:/app/certs:ro
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready"]

@@ -8,11 +8,10 @@ FROM quay.io/keycloak/keycloak:26.1 AS build
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
-WORKDIR /opt/keycloak
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:26.1
-COPY --from=build /opt/keycloak/ /opt/keycloak/
 COPY --from=ubi-micro-build /mnt/rootfs /
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
-CMD ["start", "--optimized"]
+COPY --from=build /opt/keycloak/ /opt/keycloak/
+ENV KC_DB=postgres
+ENTRYPOINT ["/bin/bash"]
