@@ -14,4 +14,4 @@ FROM quay.io/keycloak/keycloak:26.1
 COPY --from=ubi-micro-build /mnt/rootfs /
 COPY --from=build /opt/keycloak/ /opt/keycloak/
 ENV KC_DB=postgres
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/sh"]
