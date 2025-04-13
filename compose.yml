@@ -43,13 +43,12 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
       KC_HOSTNAME: fit-invest.ch
-    restart: always
     healthcheck:
       test:
         ["CMD-SHELL", "curl --head -fsS https://localhost:9000/health/ready"]
-      interval: 10s
+      interval: 30s
       timeout: 30s
-      retries: 5
+      retries: 10
     depends_on:
       fit-database:
         condition: service_healthy
