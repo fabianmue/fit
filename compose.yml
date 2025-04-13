@@ -32,9 +32,10 @@ services:
   fit-identity:
     image: ghcr.io/fabianmue/fit-identity:${IMAGE_TAG}
     container_name: fit-identity
-    command: ls -la /app/certs/live/fit-invest.ch && /opt/keycloak/bin/kc.sh start --optimized
+    command: start --optimized
     ports:
       - "8443:8443"
+      - "9000:9000"
     environment:
       KC_DB_URL: fit-database/fit-identity # FIXME: automatically create database if not exists
       KC_DB_USERNAME: postgres
@@ -47,11 +48,6 @@ services:
     volumes:
       - /etc/letsencrypt:/app/certs:ro
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
     depends_on:
       fit-database:
         condition: service_healthy
@@ -68,8 +64,6 @@ services:
     depends_on:
       fit-database-migrate:
         condition: service_completed_successfully
-      fit-identity:
-        condition: service_healthy
     networks:
       - fit-network
 
@@ -84,8 +78,6 @@ services:
     depends_on:
       fit-backend:
         condition: service_started
-      fit-identity:
-        condition: service_healthy
     networks:
       - fit-network
 
