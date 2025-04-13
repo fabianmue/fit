@@ -42,12 +42,17 @@ services:
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
-      KC_HTTPS_CERTIFICATE_FILE: /app/certs/live/fit-invest.ch/cert.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /app/certs/live/fit-invest.ch/privkey.pem
+      KC_HTTPS_CERTIFICATE_FILE: /app/certs/archive/fit-invest.ch/fullchain1.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /app/certs/archive/fit-invest.ch/privkey1.pem
       KC_HOSTNAME: fit-invest.ch
     volumes:
       - /etc/letsencrypt:/app/certs:ro
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
     depends_on:
       fit-database:
         condition: service_healthy
@@ -64,6 +69,8 @@ services:
     depends_on:
       fit-database-migrate:
         condition: service_completed_successfully
+      fit-identity:
+        condition: service_healthy
     networks:
       - fit-network
 
@@ -78,6 +85,8 @@ services:
     depends_on:
       fit-backend:
         condition: service_started
+      fit-identity:
+        condition: service_healthy
     networks:
       - fit-network
 
