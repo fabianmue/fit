@@ -34,7 +34,7 @@ services:
     container_name: fit-identity
     command: start --optimized
     ports:
-      - "8443:8443"
+      - "8080:8080"
       - "9000:9000"
     environment:
       KC_DB_URL: fit-database/fit-identity # FIXME: automatically create database if not exists
@@ -42,11 +42,9 @@ services:
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
-      KC_HTTPS_CERTIFICATE_FILE: /app/certs/archive/fit-invest.ch/fullchain1.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /app/certs/archive/fit-invest.ch/privkey1.pem
-      KC_HOSTNAME: fit-invest.ch
-    volumes:
-      - /etc/letsencrypt:/app/certs:ro
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME: https://fit-invest.ch/identity
+      KC_PROXY_HEADERS: xforwarded
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "curl --head -fsS http://localhost:9000/health/ready"]
