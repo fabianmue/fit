@@ -49,15 +49,13 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl --head --connect-timeout 5 --fail --silent --show-error http://localhost:9000/health/ready",
+          "curl --head --connect-timeout 5 --fail --silent --show-error --insecure https://localhost:9000/health/ready",
         ]
       interval: 15s
       timeout: 15s
       retries: 5
     depends_on:
       fit-database:
-        condition: service_healthy
-      fit-identity:
         condition: service_healthy
     networks:
       - fit-network
@@ -72,6 +70,8 @@ services:
     depends_on:
       fit-database-migrate:
         condition: service_completed_successfully
+      fit-identity:
+        condition: service_healthy
     networks:
       - fit-network
 
