@@ -37,7 +37,7 @@ services:
       - "8443:8443"
       - "9000:9000"
     environment:
-      KC_DB_URL: fit-database/fit-identity # FIXME: automatically create database if not exists
+      KC_DB_URL: jdbc:postgresql://fit-database/fit-identity # FIXME: automatically create database if not exists
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
@@ -45,10 +45,13 @@ services:
       KC_HOSTNAME: fit-invest.ch
     healthcheck:
       test:
-        ["CMD-SHELL", "curl --head -fsS https://localhost:9000/health/ready"]
-      interval: 30s
-      timeout: 30s
-      retries: 10
+        [
+          "CMD-SHELL",
+          "curl --head --connect-timeout 5 --fail --silent --show-error https://localhost:9000/health/ready",
+        ]
+      interval: 15s
+      timeout: 15s
+      retries: 5
     depends_on:
       fit-database:
         condition: service_healthy
