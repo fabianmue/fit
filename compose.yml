@@ -42,7 +42,7 @@ services:
       KC_DB_PASSWORD: ${FIT_DATABASE_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${FIT_IDENTITY_ADMIN_PASSWORD}
-      KC_HTTPS_CERTIFICATE_FILE: /app/certs/live/fit-invest.ch/fullchain.pem
+      KC_HTTPS_CERTIFICATE_FILE: /app/certs/live/fit-invest.ch/cert.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /app/certs/live/fit-invest.ch/privkey.pem
       KC_HOSTNAME: fit-invest.ch
     volumes:
