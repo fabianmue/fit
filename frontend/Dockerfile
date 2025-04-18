@@ -3,7 +3,7 @@ FROM node:22.14-alpine AS build
 WORKDIR /app
 COPY ./ ./
 RUN npm ci
-RUN ng build --aot false
+RUN npm run build
 
 # serve
 FROM nginx:alpine
