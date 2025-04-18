@@ -5,6 +5,7 @@
     </mat-icon>
     <span>{{ characteristic.label }}</span>
   </div>
+  @if (authenticated$ | async) {
   <div class="actions">
     <button mat-flat-button (click)="onUpdate()" class="flat-icon-button">
       <mat-icon class="icon">edit</mat-icon>
@@ -13,4 +14,5 @@
       <mat-icon class="icon">delete</mat-icon>
     </button>
   </div>
+  }
 </div>

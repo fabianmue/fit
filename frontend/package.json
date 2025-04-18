@@ -22,6 +22,8 @@
     "@angular/platform-browser-dynamic": "^19.1.0",
     "@angular/router": "^19.1.0",
     "chart.js": "^4.4.8",
+    "keycloak-angular": "^19.0.2",
+    "keycloak-js": "^26.1.5",
     "ng-openapi-gen": "^0.52.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

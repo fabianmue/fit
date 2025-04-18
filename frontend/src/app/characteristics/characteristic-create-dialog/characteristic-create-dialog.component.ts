@@ -16,13 +16,13 @@ import { CharacteristicType } from '@app/api/models/characteristic-type';
 
 @Component({
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './characteristic-create-dialog.component.html',
   styleUrls: ['./characteristic-create-dialog.component.scss'],

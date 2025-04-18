@@ -1,46 +1,53 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
-import { ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
-import {
-  CharacteristicsService,
-  HistoricCharacteristicsService,
-} from '@app/api/services';
-import { CharacteristicReadDto } from '@app/api/models/characteristic-read-dto';
 import { CharacteristicCreateDto } from '@app/api/models/characteristic-create-dto';
+import { CharacteristicReadDto } from '@app/api/models/characteristic-read-dto';
+import { CharacteristicType } from '@app/api/models/characteristic-type';
 import { CharacteristicUpdateDto } from '@app/api/models/characteristic-update-dto';
 import { HistoricCharacteristicCreateDto } from '@app/api/models/historic-characteristic-create-dto';
 import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characteristic-read-dto';
 import { HistoricCharacteristicUpdateDto } from '@app/api/models/historic-characteristic-update-dto';
-import { CharacteristicType } from '@app/api/models/characteristic-type';
+import {
+  CharacteristicsService,
+  HistoricCharacteristicsService,
+} from '@app/api/services';
 import { CharacteristicComponent } from '@app/characteristics/characteristic/characteristic.component';
-import { HistoricCharacteristicComponent } from '@app/characteristics/historic-characteristic/historic-characteristic.component';
 import { CharacteristicCreateDialogComponent } from '@app/characteristics/characteristic-create-dialog/characteristic-create-dialog.component';
 import { CharacteristicUpdateDialogComponent } from '@app/characteristics/characteristic-update-dialog/characteristic-update-dialog.component';
+import { HistoricCharacteristicComponent } from '@app/characteristics/historic-characteristic/historic-characteristic.component';
+import { AuthenticationService } from '@app/shared/authentication.service';
+import { ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-characteristics-dashboard',
   imports: [
-    MatButtonModule,
-    MatIconModule,
+    AsyncPipe,
     CharacteristicComponent,
     HistoricCharacteristicComponent,
+    MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './characteristics-dashboard.component.html',
   styleUrl: './characteristics-dashboard.component.scss',
 })
 export class CharacteristicsDashboardComponent implements OnInit {
+  authenticated$: Observable<boolean>;
   characteristics = new Array<CharacteristicReadDto>();
   historicCharacteristics = new Array<HistoricCharacteristicReadDto>();
 
   constructor(
+    private readonly authenticationService: AuthenticationService,
     private readonly characteristicsService: CharacteristicsService,
-    private readonly historicCharacteristicsService: HistoricCharacteristicsService,
-    private readonly dialog: MatDialog
-  ) {}
+    private readonly dialog: MatDialog,
+    private readonly historicCharacteristicsService: HistoricCharacteristicsService
+  ) {
+    this.authenticated$ = this.authenticationService.authenticated$;
+  }
 
   ngOnInit(): void {
     this.readCharacteristics();

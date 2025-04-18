@@ -8,10 +8,12 @@
       <button mat-icon-button (click)="accordion().closeAll()">
         <mat-icon class="icon">unfold_less</mat-icon>
       </button>
+      @if (authenticated$ | async) {
       <button mat-flat-button class="add" (click)="openCreateCompanyDialog()">
         <mat-icon class="icon">add</mat-icon>
         <span>Add company</span>
       </button>
+      }
     </div>
   </div>
   <mat-accordion multi class="accordion">
@@ -24,7 +26,7 @@
         <mat-panel-description>
           <img [src]="company.logoUrl" class="logo" />
         </mat-panel-description>
-        @if (panel.expanded) {
+        @if (panel.expanded && (authenticated$ | async)) {
         <div class="actions">
           <button
             mat-flat-button

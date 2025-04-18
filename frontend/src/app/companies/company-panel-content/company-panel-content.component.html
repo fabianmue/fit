@@ -1,5 +1,6 @@
 <div class="characteristics-header">
   <span class="title">Characteristics</span>
+  @if (authenticated$ | async) {
   <div class="actions">
     <button
       mat-flat-button
@@ -10,6 +11,7 @@
       <mat-icon class="icon">add</mat-icon>
     </button>
   </div>
+  }
 </div>
 <div class="characteristics">
   @for (companyCharacteristic of company.companyCharacteristics; track
@@ -26,6 +28,7 @@
 </div>
 <div class="characteristics-header">
   <span class="title">Historic characteristics</span>
+  @if (authenticated$ | async) {
   <div class="actions">
     <button
       mat-flat-button
@@ -36,6 +39,7 @@
       <mat-icon class="icon">add</mat-icon>
     </button>
   </div>
+  }
 </div>
 <div class="characteristics">
   @for (companyHistoricCharacteristic of company.companyHistoricCharacteristics;

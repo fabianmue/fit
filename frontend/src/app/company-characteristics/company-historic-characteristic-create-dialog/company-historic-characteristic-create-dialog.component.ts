@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MatDialogRef,
@@ -19,14 +19,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 import { CompanyReadDto } from '@app/api/models/company-read-dto';
 import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characteristic-read-dto';
+import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 
 @Component({
   providers: [provideNativeDateAdapter()],
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
@@ -34,6 +33,7 @@ import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characte
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-historic-characteristic-create-dialog.component.html',
   styleUrls: ['./company-historic-characteristic-create-dialog.component.scss'],

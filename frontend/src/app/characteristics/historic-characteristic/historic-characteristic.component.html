@@ -6,6 +6,7 @@
     <span>{{ historicCharacteristic.label }}</span>
   </div>
   <mat-icon class="icon">history</mat-icon>
+  @if (authenticated$ | async) {
   <div class="actions">
     <button mat-flat-button (click)="onUpdate()" class="flat-icon-button">
       <mat-icon class="icon">edit</mat-icon>
@@ -14,4 +15,5 @@
       <mat-icon class="icon">delete</mat-icon>
     </button>
   </div>
+  }
 </div>

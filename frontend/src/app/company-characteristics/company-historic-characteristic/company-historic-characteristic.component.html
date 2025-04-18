@@ -9,6 +9,7 @@
       </mat-icon>
       <span>{{ companyHistoricCharacteristic.label }}</span>
     </div>
+    @if (authenticated$ | async) {
     <div class="actions">
       <button mat-flat-button (click)="onUpdate()" class="action">
         <mat-icon class="icon">edit</mat-icon>
@@ -17,6 +18,7 @@
         <mat-icon class="icon">delete</mat-icon>
       </button>
     </div>
+    }
   </div>
   @if (companyHistoricCharacteristic.values?.length &&
   companyHistoricCharacteristic.values!.length >= 2) {

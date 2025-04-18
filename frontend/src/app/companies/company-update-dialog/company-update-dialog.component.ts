@@ -18,11 +18,11 @@ import { CompanyUpdateDto } from '@app/api/models/company-update-dto';
 
 @Component({
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-update-dialog.component.html',
   styleUrls: ['./company-update-dialog.component.scss'],

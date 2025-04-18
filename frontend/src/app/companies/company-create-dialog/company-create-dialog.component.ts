@@ -12,11 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-create-dialog.component.html',
   styleUrls: ['./company-create-dialog.component.scss'],

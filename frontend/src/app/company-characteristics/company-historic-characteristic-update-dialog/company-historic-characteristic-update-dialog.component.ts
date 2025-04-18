@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MatDialogRef,
@@ -19,15 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
+import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-historic-characteristic-read-dto';
 import { CompanyReadDto } from '@app/api/models/company-read-dto';
 import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characteristic-read-dto';
-import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-historic-characteristic-read-dto';
+import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 
 @Component({
   providers: [provideNativeDateAdapter()],
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
@@ -35,6 +34,7 @@ import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-hi
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-historic-characteristic-update-dialog.component.html',
   styleUrls: ['./company-historic-characteristic-update-dialog.component.scss'],

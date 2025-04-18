@@ -1,11 +1,22 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, viewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
-import { ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
+import { CharacteristicReadDto } from '@app/api/models/characteristic-read-dto';
+import { CompanyCreateDto } from '@app/api/models/company-create-dto';
+import { CompanyUpdateDto } from '@app/api/models/company-update-dto';
+import { CompanyCharacteristicCreateDto } from '@app/api/models/company-characteristic-create-dto';
+import { CompanyCharacteristicReadDto } from '@app/api/models/company-characteristic-read-dto';
+import { CompanyCharacteristicUpdateDto } from '@app/api/models/company-characteristic-update-dto';
+import { CompanyHistoricCharacteristicCreateDto } from '@app/api/models/company-historic-characteristic-create-dto';
+import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-historic-characteristic-read-dto';
+import { CompanyHistoricCharacteristicUpdateDto } from '@app/api/models/company-historic-characteristic-update-dto';
+import { CompanyReadDto } from '@app/api/models/company-read-dto';
+import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characteristic-read-dto';
 import {
   CharacteristicsService,
   CompaniesService,
@@ -13,49 +24,45 @@ import {
   CompanyHistoricCharacteristicsService,
   HistoricCharacteristicsService,
 } from '@app/api/services';
-import { CompanyReadDto } from '@app/api/models/company-read-dto';
-import { CompanyCreateDto } from '@app/api/models/company-create-dto';
-import { CompanyUpdateDto } from '@app/api/models/company-update-dto';
-import { CharacteristicReadDto } from '@app/api/models/characteristic-read-dto';
-import { CompanyCharacteristicReadDto } from '@app/api/models/company-characteristic-read-dto';
-import { CompanyCharacteristicCreateDto } from '@app/api/models/company-characteristic-create-dto';
-import { CompanyCharacteristicUpdateDto } from '@app/api/models/company-characteristic-update-dto';
-import { HistoricCharacteristicReadDto } from '@app/api/models/historic-characteristic-read-dto';
-import { CompanyHistoricCharacteristicCreateDto } from '@app/api/models/company-historic-characteristic-create-dto';
-import { CompanyPanelContentComponent } from '@app/companies/company-panel-content/company-panel-content.component';
 import { CompanyCreateDialogComponent } from '@app/companies/company-create-dialog/company-create-dialog.component';
+import { CompanyPanelContentComponent } from '@app/companies/company-panel-content/company-panel-content.component';
 import { CompanyUpdateDialogComponent } from '@app/companies/company-update-dialog/company-update-dialog.component';
 import { CompanyCharacteristicCreateDialogComponent } from '@app/company-characteristics/company-characteristic-create-dialog/company-characteristic-create-dialog.component';
 import { CompanyHistoricCharacteristicCreateDialogComponent } from '@app/company-characteristics/company-historic-characteristic-create-dialog/company-historic-characteristic-create-dialog.component';
-import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-historic-characteristic-read-dto';
 import { CompanyHistoricCharacteristicUpdateDialogComponent } from '@app/company-characteristics/company-historic-characteristic-update-dialog/company-historic-characteristic-update-dialog.component';
-import { CompanyHistoricCharacteristicUpdateDto } from '@app/api/models/company-historic-characteristic-update-dto';
+import { AuthenticationService } from '@app/shared/authentication.service';
+import { ConfirmDialogComponent } from '@app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-companies-dashboard',
   imports: [
+    AsyncPipe,
+    CompanyPanelContentComponent,
     MatButtonModule,
     MatExpansionModule,
     MatIconModule,
-    CompanyPanelContentComponent,
   ],
   templateUrl: './companies-dashboard.component.html',
   styleUrl: './companies-dashboard.component.scss',
 })
 export class CompaniesDashboardComponent implements OnInit {
   accordion = viewChild.required(MatAccordion);
+  authenticated$: Observable<boolean>;
   companies = new Array<CompanyReadDto>();
   characteristics = new Array<CharacteristicReadDto>();
   historicCharacteristics = new Array<HistoricCharacteristicReadDto>();
 
   constructor(
-    private readonly companiesService: CompaniesService,
+    private readonly authenticationService: AuthenticationService,
     private readonly characteristicsService: CharacteristicsService,
-    private readonly historicCharacteristicsService: HistoricCharacteristicsService,
+    private readonly companiesService: CompaniesService,
     private readonly companyCharacteristicsService: CompanyCharacteristicsService,
     private readonly companyHistoricCharacteristicsService: CompanyHistoricCharacteristicsService,
-    private readonly dialog: MatDialog
-  ) {}
+    private readonly dialog: MatDialog,
+    private readonly historicCharacteristicsService: HistoricCharacteristicsService
+  ) {
+    this.authenticated$ = this.authenticationService.authenticated$;
+  }
 
   ngOnInit(): void {
     this.readCompanies();

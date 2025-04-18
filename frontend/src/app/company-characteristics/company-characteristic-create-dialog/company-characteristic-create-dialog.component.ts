@@ -16,19 +16,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 import { CharacteristicReadDto } from '@app/api/models/characteristic-read-dto';
 import { CompanyReadDto } from '@app/api/models/company-read-dto';
+import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 
 @Component({
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-characteristic-create-dialog.component.html',
   styleUrls: ['./company-characteristic-create-dialog.component.scss'],

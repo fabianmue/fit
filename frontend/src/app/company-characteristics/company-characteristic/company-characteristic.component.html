@@ -26,6 +26,7 @@
     <span>{{ companyCharacteristic.unit }}</span>
     } }
   </div>
+  @if (authenticated$ | async) {
   <div class="actions">
     <button
       mat-flat-button
@@ -44,4 +45,5 @@
       <mat-icon class="icon">delete</mat-icon>
     </button>
   </div>
+  }
 </div>

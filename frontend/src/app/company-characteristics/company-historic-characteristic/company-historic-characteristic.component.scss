@@ -10,8 +10,10 @@
   padding: 10px 15px;
 
   .header {
+    align-items: center;
     display: flex;
     gap: 15px;
+    height: 30px;
     justify-content: space-between;
 
     .description {

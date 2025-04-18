@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -15,19 +16,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Chart } from 'chart.js/auto';
+import { Observable } from 'rxjs';
 
-import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 import { CompanyHistoricCharacteristicReadDto } from '@app/api/models/company-historic-characteristic-read-dto';
 import { configureCompanyHistoricCharacteristicScatterChart } from '@app/company-characteristics/historic-values-scatter-chart';
+import { AuthenticationService } from '@app/shared/authentication.service';
+import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 
 @Component({
   selector: 'app-company-historic-characteristic',
   imports: [
-    ReactiveFormsModule,
+    AsyncPipe,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-historic-characteristic.component.html',
   styleUrl: './company-historic-characteristic.component.scss',
@@ -41,10 +45,15 @@ export class CompanyHistoricCharacteristicComponent
   @Output() delete = new EventEmitter<void>();
   @ViewChild('chartCanvas')
   private chartCanvas?: ElementRef<HTMLCanvasElement>;
+  authenticated$: Observable<boolean>;
   private chart?: Chart<'scatter'>;
 
   get icon(): string {
     return getCharacteristicIcon(this.companyHistoricCharacteristic);
+  }
+
+  constructor(private readonly authenticationService: AuthenticationService) {
+    this.authenticated$ = this.authenticationService.authenticated$;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

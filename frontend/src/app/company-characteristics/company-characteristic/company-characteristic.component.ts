@@ -1,12 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -17,19 +10,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { Observable } from 'rxjs';
 
-import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 import { CompanyCharacteristicReadDto } from '@app/api/models/company-characteristic-read-dto';
+import { AuthenticationService } from '@app/shared/authentication.service';
+import { getCharacteristicIcon } from '@app/shared/get-characteristic-icon';
 
 @Component({
   selector: 'app-company-characteristic',
   imports: [
+    AsyncPipe,
     DecimalPipe,
-    ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './company-characteristic.component.html',
   styleUrl: './company-characteristic.component.scss',
@@ -41,12 +37,14 @@ export class CompanyCharacteristicComponent implements OnInit {
     Partial<{ value: number | null; unit: string | null }>
   >();
   @Output() delete = new EventEmitter<void>();
+  authenticated$: Observable<boolean>;
   companyCharacteristicFormGroup = new FormGroup({
     value: new FormControl<number | null>(null, Validators.required),
     unit: new FormControl<string | null>(null),
   });
 
-  constructor() {
+  constructor(private readonly authenticationService: AuthenticationService) {
+    this.authenticated$ = this.authenticationService.authenticated$;
     this.companyCharacteristicFormGroup.disable();
   }
 

@@ -19,12 +19,12 @@ import { CharacteristicType } from '@app/api/models/characteristic-type';
 
 @Component({
   imports: [
-    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './characteristic-update-dialog.component.html',
   styleUrls: ['./characteristic-update-dialog.component.scss'],
