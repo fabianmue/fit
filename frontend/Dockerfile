@@ -1,9 +1,9 @@
 # build
-FROM node:latest AS build
+FROM node:22.14-alpine AS build
 WORKDIR /app
 COPY ./ ./
 RUN npm ci
-RUN npm run build --prod
+RUN ng build --aot false
 
 # serve
 FROM nginx:alpine
