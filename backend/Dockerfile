@@ -1,12 +1,12 @@
 # build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 COPY ./ ./
 RUN dotnet restore
 RUN dotnet publish -c Release --property:PublishDir=/out
 
 # serve
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /out .
 EXPOSE 80
