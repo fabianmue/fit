@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +59,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   }
 
   [HttpPost]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status201Created)]
@@ -74,6 +76,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   }
 
   [HttpPut("{id}")]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -111,6 +114,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   }
 
   [HttpDelete("{id}")]
+  [Authorize("Authenticated")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCompany([FromRoute] Guid id)

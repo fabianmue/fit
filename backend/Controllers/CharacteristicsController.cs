@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,6 +41,7 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   }
 
   [HttpPost]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status201Created)]
@@ -60,6 +62,7 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   }
 
   [HttpPut("{id}")]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -97,6 +100,7 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   }
 
   [HttpDelete("{id}")]
+  [Authorize("Authenticated")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCharacteristic([FromRoute] Guid id)

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,7 @@ public class HistoricCharacteristicsController(FitBackendContext context, IMappe
   }
 
   [HttpPost]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status201Created)]
@@ -69,6 +71,7 @@ public class HistoricCharacteristicsController(FitBackendContext context, IMappe
   }
 
   [HttpPut("{id}")]
+  [Authorize("Authenticated")]
   [Consumes("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -106,6 +109,7 @@ public class HistoricCharacteristicsController(FitBackendContext context, IMappe
   }
 
   [HttpDelete("{id}")]
+  [Authorize("Authenticated")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteHistoricCharacteristic([FromRoute] Guid id)

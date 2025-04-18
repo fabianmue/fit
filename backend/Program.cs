@@ -1,8 +1,20 @@
 using System.Text.Json.Serialization;
 using FitBackend;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder
+  .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+  .AddJwtBearer(options =>
+  {
+    options.Authority = Environment.GetEnvironmentVariable("FIT_IDENTITY_BASEURL");
+    options.Audience = "fit-app";
+    options.RequireHttpsMetadata = builder.Environment.IsProduction();
+  });
+builder
+  .Services.AddAuthorizationBuilder()
+  .AddPolicy("Authenticated", policy => policy.RequireAuthenticatedUser());
 builder.Services.AddAutoMapper(typeof(FitBackendProfile));
 builder
   .Services.AddControllers()
@@ -21,8 +33,9 @@ builder.Services.AddSwaggerGen(options =>
 );
 
 var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpLogging();
 app.UseSwagger();
-app.UseSwaggerUI();
 app.MapControllers();
 app.Run();
