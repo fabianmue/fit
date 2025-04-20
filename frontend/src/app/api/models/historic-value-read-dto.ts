@@ -4,6 +4,5 @@
 
 export interface HistoricValueReadDto {
   date?: string;
-  id?: string;
   value?: number;
 }

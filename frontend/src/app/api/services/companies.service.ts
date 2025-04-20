@@ -11,17 +11,17 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { companiesGet } from '../fn/companies/companies-get';
+import { CompaniesGet$Params } from '../fn/companies/companies-get';
+import { companiesIdDelete } from '../fn/companies/companies-id-delete';
+import { CompaniesIdDelete$Params } from '../fn/companies/companies-id-delete';
+import { companiesIdGet } from '../fn/companies/companies-id-get';
+import { CompaniesIdGet$Params } from '../fn/companies/companies-id-get';
+import { companiesIdPut } from '../fn/companies/companies-id-put';
+import { CompaniesIdPut$Params } from '../fn/companies/companies-id-put';
+import { companiesPost } from '../fn/companies/companies-post';
+import { CompaniesPost$Params } from '../fn/companies/companies-post';
 import { CompanyReadDto } from '../models/company-read-dto';
-import { deleteCompany } from '../fn/companies/delete-company';
-import { DeleteCompany$Params } from '../fn/companies/delete-company';
-import { getCompanies } from '../fn/companies/get-companies';
-import { GetCompanies$Params } from '../fn/companies/get-companies';
-import { getCompany } from '../fn/companies/get-company';
-import { GetCompany$Params } from '../fn/companies/get-company';
-import { postCompany } from '../fn/companies/post-company';
-import { PostCompany$Params } from '../fn/companies/post-company';
-import { putCompany } from '../fn/companies/put-company';
-import { PutCompany$Params } from '../fn/companies/put-company';
 
 @Injectable({ providedIn: 'root' })
 export class CompaniesService extends BaseService {
@@ -29,127 +29,127 @@ export class CompaniesService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `getCompanies()` */
-  static readonly GetCompaniesPath = '/Companies';
+  /** Path part for operation `companiesGet()` */
+  static readonly CompaniesGetPath = '/Companies';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getCompanies()` instead.
+   * To access only the response body, use `companiesGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCompanies$Response(params?: GetCompanies$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CompanyReadDto>>> {
-    return getCompanies(this.http, this.rootUrl, params, context);
+  companiesGet$Response(params?: CompaniesGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CompanyReadDto>>> {
+    return companiesGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getCompanies$Response()` instead.
+   * To access the full response (for headers, for example), `companiesGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCompanies(params?: GetCompanies$Params, context?: HttpContext): Observable<Array<CompanyReadDto>> {
-    return this.getCompanies$Response(params, context).pipe(
+  companiesGet(params?: CompaniesGet$Params, context?: HttpContext): Observable<Array<CompanyReadDto>> {
+    return this.companiesGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<CompanyReadDto>>): Array<CompanyReadDto> => r.body)
     );
   }
 
-  /** Path part for operation `postCompany()` */
-  static readonly PostCompanyPath = '/Companies';
+  /** Path part for operation `companiesPost()` */
+  static readonly CompaniesPostPath = '/Companies';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `postCompany()` instead.
+   * To access only the response body, use `companiesPost()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  postCompany$Response(params?: PostCompany$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
-    return postCompany(this.http, this.rootUrl, params, context);
+  companiesPost$Response(params?: CompaniesPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
+    return companiesPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `postCompany$Response()` instead.
+   * To access the full response (for headers, for example), `companiesPost$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  postCompany(params?: PostCompany$Params, context?: HttpContext): Observable<CompanyReadDto> {
-    return this.postCompany$Response(params, context).pipe(
+  companiesPost(params?: CompaniesPost$Params, context?: HttpContext): Observable<CompanyReadDto> {
+    return this.companiesPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<CompanyReadDto>): CompanyReadDto => r.body)
     );
   }
 
-  /** Path part for operation `getCompany()` */
-  static readonly GetCompanyPath = '/Companies/{id}';
+  /** Path part for operation `companiesIdGet()` */
+  static readonly CompaniesIdGetPath = '/Companies/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getCompany()` instead.
+   * To access only the response body, use `companiesIdGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCompany$Response(params: GetCompany$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
-    return getCompany(this.http, this.rootUrl, params, context);
+  companiesIdGet$Response(params: CompaniesIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
+    return companiesIdGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getCompany$Response()` instead.
+   * To access the full response (for headers, for example), `companiesIdGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getCompany(params: GetCompany$Params, context?: HttpContext): Observable<CompanyReadDto> {
-    return this.getCompany$Response(params, context).pipe(
+  companiesIdGet(params: CompaniesIdGet$Params, context?: HttpContext): Observable<CompanyReadDto> {
+    return this.companiesIdGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<CompanyReadDto>): CompanyReadDto => r.body)
     );
   }
 
-  /** Path part for operation `putCompany()` */
-  static readonly PutCompanyPath = '/Companies/{id}';
+  /** Path part for operation `companiesIdPut()` */
+  static readonly CompaniesIdPutPath = '/Companies/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `putCompany()` instead.
+   * To access only the response body, use `companiesIdPut()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  putCompany$Response(params: PutCompany$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return putCompany(this.http, this.rootUrl, params, context);
+  companiesIdPut$Response(params: CompaniesIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return companiesIdPut(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `putCompany$Response()` instead.
+   * To access the full response (for headers, for example), `companiesIdPut$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  putCompany(params: PutCompany$Params, context?: HttpContext): Observable<void> {
-    return this.putCompany$Response(params, context).pipe(
+  companiesIdPut(params: CompaniesIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.companiesIdPut$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
-  /** Path part for operation `deleteCompany()` */
-  static readonly DeleteCompanyPath = '/Companies/{id}';
+  /** Path part for operation `companiesIdDelete()` */
+  static readonly CompaniesIdDeletePath = '/Companies/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `deleteCompany()` instead.
+   * To access only the response body, use `companiesIdDelete()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteCompany$Response(params: DeleteCompany$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return deleteCompany(this.http, this.rootUrl, params, context);
+  companiesIdDelete$Response(params: CompaniesIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return companiesIdDelete(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `deleteCompany$Response()` instead.
+   * To access the full response (for headers, for example), `companiesIdDelete$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  deleteCompany(params: DeleteCompany$Params, context?: HttpContext): Observable<void> {
-    return this.deleteCompany$Response(params, context).pipe(
+  companiesIdDelete(params: CompaniesIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.companiesIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

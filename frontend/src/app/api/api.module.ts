@@ -6,11 +6,15 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { CharacteristicsService } from './services/characteristics.service';
 import { CompaniesService } from './services/companies.service';
-import { CompanyCharacteristicsService } from './services/company-characteristics.service';
-import { CompanyHistoricCharacteristicsService } from './services/company-historic-characteristics.service';
-import { HistoricCharacteristicsService } from './services/historic-characteristics.service';
+import { CompanyHistoricCurrencyCharacteristicsService } from './services/company-historic-currency-characteristics.service';
+import { CompanyHistoricNumberCharacteristicsService } from './services/company-historic-number-characteristics.service';
+import { CompanyNumberCharacteristicsService } from './services/company-number-characteristics.service';
+import { CompanyTextCharacteristicsService } from './services/company-text-characteristics.service';
+import { HistoricCurrencyCharacteristicsService } from './services/historic-currency-characteristics.service';
+import { HistoricNumberCharacteristicsService } from './services/historic-number-characteristics.service';
+import { NumberCharacteristicsService } from './services/number-characteristics.service';
+import { TextCharacteristicsService } from './services/text-characteristics.service';
 
 /**
  * Module that provides all services and configuration.
@@ -20,11 +24,15 @@ import { HistoricCharacteristicsService } from './services/historic-characterist
   exports: [],
   declarations: [],
   providers: [
-    CharacteristicsService,
     CompaniesService,
-    CompanyCharacteristicsService,
-    CompanyHistoricCharacteristicsService,
-    HistoricCharacteristicsService,
+    CompanyHistoricCurrencyCharacteristicsService,
+    CompanyHistoricNumberCharacteristicsService,
+    CompanyNumberCharacteristicsService,
+    CompanyTextCharacteristicsService,
+    HistoricCurrencyCharacteristicsService,
+    HistoricNumberCharacteristicsService,
+    NumberCharacteristicsService,
+    TextCharacteristicsService,
     ApiConfiguration
   ],
 })
