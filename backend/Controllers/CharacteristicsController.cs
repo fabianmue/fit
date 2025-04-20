@@ -5,9 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitBackend;
 
-[Route("[controller]")]
-[ApiController]
-public class CharacteristicsController(FitBackendContext context, IMapper mapper) : ControllerBase
+public abstract class CharacteristicsController<
+  TCharacteristic,
+  TCharacteristicReadDto,
+  TCharacteristicCreateDto,
+  TCharacteristicUpdateDto
+>(FitBackendContext context, IMapper mapper) : ControllerBase
+  where TCharacteristic : Entity
+  where TCharacteristicReadDto : EntityReadDto
 {
   private readonly FitBackendContext _context = context;
 
@@ -16,28 +21,29 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   [HttpGet]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status200OK)]
-  public async Task<ActionResult<List<CharacteristicReadDto>>> GetCharacteristics()
+  public async Task<ActionResult<List<TCharacteristicReadDto>>> GetCharacteristics()
   {
-    var characteristics = await _context
-      .Characteristics.Include(characteristic => characteristic.CompanyCharacteristics)
+    var characteristics = await AddDefaultIncludes(_context.Set<TCharacteristic>())
       .AsNoTracking()
       .ToListAsync();
-    return Ok(_mapper.Map<List<CharacteristicReadDto>>(characteristics));
+    return Ok(_mapper.Map<List<TCharacteristicReadDto>>(characteristics));
   }
 
   [HttpGet("{id}")]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
-  public async Task<ActionResult<CharacteristicReadDto>> GetCharacteristic([FromRoute] Guid id)
+  public async Task<ActionResult<TCharacteristicReadDto>> GetCharacteristic([FromRoute] Guid id)
   {
-    var characteristic = await TryGetCharacteristicAsync(id);
+    var characteristic = await AddDefaultIncludes(_context.Set<TCharacteristic>())
+      .AsNoTracking()
+      .FirstOrDefaultAsync(characteristic => characteristic.Id == id);
     if (characteristic == null)
     {
       return NotFound();
     }
 
-    return Ok(_mapper.Map<CharacteristicReadDto>(characteristic));
+    return Ok(_mapper.Map<TCharacteristicReadDto>(characteristic));
   }
 
   [HttpPost]
@@ -45,15 +51,15 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   [Consumes("application/json")]
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status201Created)]
-  public async Task<ActionResult<CharacteristicReadDto>> PostCharacteristic(
-    [FromBody] CharacteristicCreateDto characteristicCreateDto
+  public async Task<ActionResult<TCharacteristicReadDto>> PostCharacteristic(
+    [FromBody] TCharacteristicCreateDto characteristicCreateDto
   )
   {
-    var characteristic = _mapper.Map<Characteristic>(characteristicCreateDto);
-    _context.Characteristics.Add(characteristic);
+    var characteristic = _mapper.Map<TCharacteristic>(characteristicCreateDto);
+    _context.Set<TCharacteristic>().Add(characteristic);
     await _context.SaveChangesAsync();
 
-    var characteristicReadDto = _mapper.Map<CharacteristicReadDto>(characteristic);
+    var characteristicReadDto = _mapper.Map<TCharacteristicReadDto>(characteristic);
     return CreatedAtAction(
       nameof(GetCharacteristic),
       new { id = characteristic.Id },
@@ -68,10 +74,12 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> PutCharacteristic(
     [FromRoute] Guid id,
-    [FromBody] CharacteristicUpdateDto characteristicUpdateDto
+    [FromBody] TCharacteristicUpdateDto characteristicUpdateDto
   )
   {
-    var characteristic = await TryGetCharacteristicAsync(id);
+    var characteristic = await _context
+      .Set<TCharacteristic>()
+      .FirstOrDefaultAsync(characteristic => characteristic.Id == id);
     if (characteristic == null)
     {
       return NotFound();
@@ -86,7 +94,7 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
     }
     catch (DbUpdateConcurrencyException)
     {
-      if (!CharacteristicExists(id))
+      if (!_context.Set<TCharacteristic>().Any(characteristic => characteristic.Id == id))
       {
         return NotFound();
       }
@@ -105,25 +113,21 @@ public class CharacteristicsController(FitBackendContext context, IMapper mapper
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCharacteristic([FromRoute] Guid id)
   {
-    var characteristic = await TryGetCharacteristicAsync(id);
+    var characteristic = await _context
+      .Set<TCharacteristic>()
+      .FirstOrDefaultAsync(characteristic => characteristic.Id == id);
     if (characteristic == null)
     {
       return NotFound();
     }
 
-    _context.Characteristics.Remove(characteristic);
+    _context.Set<TCharacteristic>().Remove(characteristic);
     await _context.SaveChangesAsync();
 
     return NoContent();
   }
 
-  private bool CharacteristicExists(Guid id)
-  {
-    return _context.Characteristics.Any(characteristic => characteristic.Id == id);
-  }
-
-  private async Task<Characteristic?> TryGetCharacteristicAsync(Guid id)
-  {
-    return await _context.Characteristics.FindAsync(id);
-  }
+  protected abstract IQueryable<TCharacteristic> AddDefaultIncludes(
+    IQueryable<TCharacteristic> characteristics
+  );
 }

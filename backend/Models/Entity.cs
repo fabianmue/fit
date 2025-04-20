@@ -8,7 +8,7 @@ public class Entity
   public Guid Id { get; set; }
 }
 
-public class EntityReadDto
+public record EntityReadDto
 {
   public Guid Id { get; set; }
 }

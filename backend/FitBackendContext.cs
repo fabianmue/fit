@@ -6,13 +6,21 @@ public class FitBackendContext(DbContextOptions<FitBackendContext> options) : Db
 {
   public DbSet<Company> Companies { get; set; }
 
-  public DbSet<Characteristic> Characteristics { get; set; }
+  public DbSet<TextCharacteristic> TextCharacteristics { get; set; }
 
-  public DbSet<HistoricCharacteristic> HistoricCharacteristics { get; set; }
+  public DbSet<NumberCharacteristic> NumberCharacteristics { get; set; }
 
-  public DbSet<CompanyCharacteristic> CompanyCharacteristics { get; set; }
+  public DbSet<HistoricNumberCharacteristic> HistoricNumberCharacteristics { get; set; }
 
-  public DbSet<CompanyHistoricCharacteristic> CompanyHistoricCharacteristics { get; set; }
+  public DbSet<HistoricCurrencyCharacteristic> HistoricCurrencyCharacteristics { get; set; }
+
+  public DbSet<CompanyTextCharacteristic> CompanyTextCharacteristics { get; set; }
+
+  public DbSet<CompanyNumberCharacteristic> CompanyNumberCharacteristics { get; set; }
+
+  public DbSet<CompanyHistoricNumberCharacteristic> CompanyHistoricNumberCharacteristics { get; set; }
+
+  public DbSet<CompanyHistoricCurrencyCharacteristic> CompanyHistoricCurrencyCharacteristics { get; set; }
 
   public DbSet<HistoricValue> HistoricValues { get; set; }
 }

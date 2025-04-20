@@ -7,78 +7,154 @@ public class FitBackendProfile : Profile
   public FitBackendProfile()
   {
     CreateMap<Company, CompanyReadDto>();
-    CreateMap<CompanyCreateDto, Company>();
-    CreateMap<CompanyUpdateDto, Company>();
-
-    CreateMap<Characteristic, CharacteristicReadDto>()
+    CreateMap<CompanyCreateDto, Company>()
       .ForMember(
-        characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
-        opt => opt.MapFrom(characteristic => characteristic.CompanyCharacteristics.Count)
-      );
-    CreateMap<CharacteristicCreateDto, Characteristic>();
-    CreateMap<CharacteristicUpdateDto, Characteristic>();
-
-    CreateMap<HistoricCharacteristic, HistoricCharacteristicReadDto>()
-      .ForMember(
-        historicCharacteristicReadDto =>
-          historicCharacteristicReadDto.AssociatedCompanyHistoricCharacteristicCount,
+        company => company.StockExchangeCurrency,
         opt =>
-          opt.MapFrom(historicCharacteristic =>
-            historicCharacteristic.CompanyHistoricCharacteristics.Count
+          opt.MapFrom(companyCreateDto =>
+            MapStockExchangeToCurrency(companyCreateDto.StockExchange)
           )
       );
-    CreateMap<HistoricCharacteristicCreateDto, HistoricCharacteristic>();
-    CreateMap<HistoricCharacteristicUpdateDto, HistoricCharacteristic>();
-
-    CreateMap<CompanyCharacteristic, CompanyCharacteristicReadDto>()
+    CreateMap<CompanyUpdateDto, Company>()
       .ForMember(
-        companyCharacteristicReadDto => companyCharacteristicReadDto.Type,
-        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.Characteristic.Type)
-      )
+        company => company.StockExchangeCurrency,
+        opt =>
+          opt.MapFrom(companyUpdateDto =>
+            MapStockExchangeToCurrency(companyUpdateDto.StockExchange)
+          )
+      );
+
+    CreateMap<TextCharacteristic, TextCharacteristicReadDto>()
+      .ForMember(
+        characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
+        opt => opt.MapFrom(characteristic => characteristic.CompanyTextCharacteristics.Count)
+      );
+    CreateMap<TextCharacteristicCreateDto, TextCharacteristic>();
+    CreateMap<TextCharacteristicUpdateDto, TextCharacteristic>();
+
+    CreateMap<NumberCharacteristic, NumberCharacteristicReadDto>()
+      .ForMember(
+        characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
+        opt => opt.MapFrom(characteristic => characteristic.CompanyNumberCharacteristics.Count)
+      );
+    CreateMap<NumberCharacteristicCreateDto, NumberCharacteristic>();
+    CreateMap<NumberCharacteristicUpdateDto, NumberCharacteristic>();
+
+    CreateMap<HistoricNumberCharacteristic, HistoricNumberCharacteristicReadDto>()
+      .ForMember(
+        characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
+        opt =>
+          opt.MapFrom(characteristic => characteristic.CompanyHistoricNumberCharacteristics.Count)
+      );
+    CreateMap<HistoricNumberCharacteristicCreateDto, HistoricNumberCharacteristic>();
+    CreateMap<HistoricNumberCharacteristicUpdateDto, HistoricNumberCharacteristic>();
+
+    CreateMap<HistoricCurrencyCharacteristic, HistoricCurrencyCharacteristicReadDto>()
+      .ForMember(
+        characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
+        opt =>
+          opt.MapFrom(characteristic => characteristic.CompanyHistoricCurrencyCharacteristics.Count)
+      );
+    CreateMap<HistoricCurrencyCharacteristicCreateDto, HistoricCurrencyCharacteristic>();
+    CreateMap<HistoricCurrencyCharacteristicUpdateDto, HistoricCurrencyCharacteristic>();
+
+    CreateMap<CompanyTextCharacteristic, CompanyTextCharacteristicReadDto>()
       .ForMember(
         companyCharacteristicReadDto => companyCharacteristicReadDto.Label,
-        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.Characteristic.Label)
+        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.TextCharacteristic.Label)
       )
       .ForMember(
         companyCharacteristicReadDto => companyCharacteristicReadDto.Color,
-        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.Characteristic.Color)
+        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.TextCharacteristic.Color)
       );
-    CreateMap<CompanyCharacteristicCreateDto, CompanyCharacteristic>();
-    CreateMap<CompanyCharacteristicUpdateDto, CompanyCharacteristic>();
+    CreateMap<CompanyTextCharacteristicCreateDto, CompanyTextCharacteristic>();
+    CreateMap<CompanyTextCharacteristicUpdateDto, CompanyTextCharacteristic>();
 
-    CreateMap<CompanyHistoricCharacteristic, CompanyHistoricCharacteristicReadDto>()
+    CreateMap<CompanyNumberCharacteristic, CompanyNumberCharacteristicReadDto>()
       .ForMember(
-        companyHistoricCharacteristicReadDto => companyHistoricCharacteristicReadDto.Type,
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Label,
         opt =>
-          opt.MapFrom(companyHistoricCharacteristic =>
-            companyHistoricCharacteristic.HistoricCharacteristic.Type
+          opt.MapFrom(companyCharacteristic => companyCharacteristic.NumberCharacteristic.Label)
+      )
+      .ForMember(
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Color,
+        opt =>
+          opt.MapFrom(companyCharacteristic => companyCharacteristic.NumberCharacteristic.Color)
+      )
+      .ForMember(
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Unit,
+        opt => opt.MapFrom(companyCharacteristic => companyCharacteristic.NumberCharacteristic.Unit)
+      );
+    CreateMap<CompanyNumberCharacteristicCreateDto, CompanyNumberCharacteristic>();
+    CreateMap<CompanyNumberCharacteristicUpdateDto, CompanyNumberCharacteristic>();
+
+    CreateMap<CompanyHistoricNumberCharacteristic, CompanyHistoricNumberCharacteristicReadDto>()
+      .ForMember(
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Label,
+        opt =>
+          opt.MapFrom(companyCharacteristic =>
+            companyCharacteristic.HistoricNumberCharacteristic.Label
           )
       )
       .ForMember(
-        companyHistoricCharacteristicReadDto => companyHistoricCharacteristicReadDto.Label,
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Color,
         opt =>
-          opt.MapFrom(companyHistoricCharacteristic =>
-            companyHistoricCharacteristic.HistoricCharacteristic.Label
+          opt.MapFrom(companyCharacteristic =>
+            companyCharacteristic.HistoricNumberCharacteristic.Color
           )
       )
       .ForMember(
-        companyHistoricCharacteristicReadDto => companyHistoricCharacteristicReadDto.Color,
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Unit,
         opt =>
-          opt.MapFrom(companyHistoricCharacteristic =>
-            companyHistoricCharacteristic.HistoricCharacteristic.Color
-          )
-      )
-      .ForMember(
-        companyHistoricCharacteristicReadDto => companyHistoricCharacteristicReadDto.Values,
-        opt =>
-          opt.MapFrom(companyHistoricCharacteristic =>
-            companyHistoricCharacteristic.Values.OrderBy(historicValue => historicValue.Date)
+          opt.MapFrom(companyCharacteristic =>
+            companyCharacteristic.HistoricNumberCharacteristic.Unit
           )
       );
-    CreateMap<CompanyHistoricCharacteristicCreateDto, CompanyHistoricCharacteristic>();
-    CreateMap<CompanyHistoricCharacteristicUpdateDto, CompanyHistoricCharacteristic>();
+    CreateMap<CompanyHistoricNumberCharacteristicCreateDto, CompanyHistoricNumberCharacteristic>();
+    CreateMap<CompanyHistoricNumberCharacteristicUpdateDto, CompanyHistoricNumberCharacteristic>();
+
+    CreateMap<CompanyHistoricCurrencyCharacteristic, CompanyHistoricCurrencyCharacteristicReadDto>()
+      .ForMember(
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Label,
+        opt =>
+          opt.MapFrom(companyCharacteristic =>
+            companyCharacteristic.HistoricCurrencyCharacteristic.Label
+          )
+      )
+      .ForMember(
+        companyCharacteristicReadDto => companyCharacteristicReadDto.Color,
+        opt =>
+          opt.MapFrom(companyCharacteristic =>
+            companyCharacteristic.HistoricCurrencyCharacteristic.Color
+          )
+      );
+    CreateMap<
+      CompanyHistoricCurrencyCharacteristicCreateDto,
+      CompanyHistoricCurrencyCharacteristic
+    >();
+    CreateMap<
+      CompanyHistoricCurrencyCharacteristicUpdateDto,
+      CompanyHistoricCurrencyCharacteristic
+    >();
 
     CreateMap<HistoricValue, HistoricValueReadDto>();
     CreateMap<HistoricValueCreateDto, HistoricValue>();
+  }
+
+  private static Currency MapStockExchangeToCurrency(StockExchange? stockExchange)
+  {
+    return stockExchange switch
+    {
+      StockExchange.SWX => Currency.CHF,
+      StockExchange.NYSE => Currency.USD,
+      StockExchange.NASDAQ => Currency.USD,
+      StockExchange.LON => Currency.GBP,
+      StockExchange.ETR => Currency.EUR,
+      _ => throw new ArgumentOutOfRangeException(
+        nameof(stockExchange),
+        stockExchange,
+        "Stock exchange cannot be mapped to a currency"
+      ),
+    };
   }
 }

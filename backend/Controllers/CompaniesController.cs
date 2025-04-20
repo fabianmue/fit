@@ -18,17 +18,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   [ProducesResponseType(StatusCodes.Status200OK)]
   public async Task<ActionResult<List<CompanyReadDto>>> GetCompanies()
   {
-    var companies = await _context
-      .Companies.Include(company => company.CompanyCharacteristics)
-      .ThenInclude(companyCharacteristic => companyCharacteristic.Characteristic)
-      .Include(company => company.CompanyHistoricCharacteristics)
-      .ThenInclude(companyHistoricCharacteristic =>
-        companyHistoricCharacteristic.HistoricCharacteristic
-      )
-      .Include(company => company.CompanyHistoricCharacteristics)
-      .ThenInclude(companyHistoricCharacteristic => companyHistoricCharacteristic.Values)
-      .AsNoTracking()
-      .ToListAsync();
+    var companies = await AddDefaultIncludes(_context.Set<Company>()).AsNoTracking().ToListAsync();
     return Ok(_mapper.Map<List<CompanyReadDto>>(companies));
   }
 
@@ -38,15 +28,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<ActionResult<CompanyReadDto>> GetCompany([FromRoute] Guid id)
   {
-    var company = await _context
-      .Companies.Include(company => company.CompanyCharacteristics)
-      .ThenInclude(companyCharacteristic => companyCharacteristic.Characteristic)
-      .Include(company => company.CompanyHistoricCharacteristics)
-      .ThenInclude(companyHistoricCharacteristic =>
-        companyHistoricCharacteristic.HistoricCharacteristic
-      )
-      .Include(company => company.CompanyHistoricCharacteristics)
-      .ThenInclude(companyHistoricCharacteristic => companyHistoricCharacteristic.Values)
+    var company = await AddDefaultIncludes(_context.Set<Company>())
       .AsNoTracking()
       .FirstOrDefaultAsync(company => company.Id == id);
     if (company == null)
@@ -68,7 +50,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   )
   {
     var company = _mapper.Map<Company>(companyCreateDto);
-    _context.Companies.Add(company);
+    _context.Set<Company>().Add(company);
     await _context.SaveChangesAsync();
 
     var companyReadDto = _mapper.Map<CompanyReadDto>(company);
@@ -125,7 +107,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
       return NotFound();
     }
 
-    _context.Companies.Remove(company);
+    _context.Set<Company>().Remove(company);
     await _context.SaveChangesAsync();
 
     return NoContent();
@@ -133,11 +115,28 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
 
   private bool CompanyExists(Guid id)
   {
-    return _context.Companies.Any(company => company.Id == id);
+    return _context.Set<Company>().Any(company => company.Id == id);
   }
 
   private async Task<Company?> TryGetCompanyAsync(Guid id)
   {
-    return await _context.Companies.FindAsync(id);
+    return await _context.Set<Company>().FindAsync(id);
+  }
+
+  protected IQueryable<Company> AddDefaultIncludes(IQueryable<Company> companies)
+  {
+    return companies
+      .Include(company => company.CompanyTextCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.TextCharacteristic)
+      .Include(company => company.CompanyNumberCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.NumberCharacteristic)
+      .Include(company => company.CompanyHistoricNumberCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.HistoricNumberCharacteristic)
+      .Include(company => company.CompanyHistoricNumberCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.Values)
+      .Include(company => company.CompanyHistoricCurrencyCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.HistoricCurrencyCharacteristic)
+      .Include(company => company.CompanyHistoricCurrencyCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.Values);
   }
 }

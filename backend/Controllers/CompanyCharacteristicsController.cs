@@ -5,12 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitBackend;
 
-[Route("[controller]")]
-[ApiController]
-public class CompanyCharacteristicsController(FitBackendContext context, IMapper mapper)
-  : ControllerBase
+public abstract class CompanyCharacteristicsController<
+  TCompanyCharacteristic,
+  TCharacteristic,
+  TCompanyCharacteristicCreateDto,
+  TCompanyCharacteristicUpdateDto
+>(FitBackendContext context, IMapper mapper) : ControllerBase
+  where TCompanyCharacteristic : Entity
+  where TCharacteristic : Entity
 {
-  private readonly FitBackendContext _context = context;
+  protected readonly FitBackendContext _context = context;
 
   private readonly IMapper _mapper = mapper;
 
@@ -21,29 +25,21 @@ public class CompanyCharacteristicsController(FitBackendContext context, IMapper
   [ProducesResponseType(StatusCodes.Status201Created)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   public async Task<IActionResult> PostCompanyCharacteristic(
-    [FromBody] CompanyCharacteristicCreateDto companyCharacteristicCreateDto
+    [FromBody] TCompanyCharacteristicCreateDto companyCharacteristicCreateDto
   )
   {
-    if (
-      !CompanyExists(companyCharacteristicCreateDto.CompanyId)
-      || !CharacteristicExists(companyCharacteristicCreateDto.CharacteristicId)
-    )
+    if (!await AllRelatedEntitiesExistAsync(companyCharacteristicCreateDto))
     {
       return BadRequest();
     }
 
-    if (
-      await _context.CompanyCharacteristics.AnyAsync(companyCharacteristic =>
-        companyCharacteristic.CompanyId == companyCharacteristicCreateDto.CompanyId
-        && companyCharacteristic.CharacteristicId == companyCharacteristicCreateDto.CharacteristicId
-      )
-    )
+    if (await CompanyCharacteristicWithSameParentsExistsAsync(companyCharacteristicCreateDto))
     {
       return BadRequest();
     }
 
-    var companyCharacteristic = _mapper.Map<CompanyCharacteristic>(companyCharacteristicCreateDto);
-    _context.CompanyCharacteristics.Add(companyCharacteristic);
+    var companyCharacteristic = _mapper.Map<TCompanyCharacteristic>(companyCharacteristicCreateDto);
+    _context.Set<TCompanyCharacteristic>().Add(companyCharacteristic);
     await _context.SaveChangesAsync();
 
     return CreatedAtAction(null, new { id = companyCharacteristic.Id });
@@ -53,18 +49,21 @@ public class CompanyCharacteristicsController(FitBackendContext context, IMapper
   [Authorize("Authenticated")]
   [Consumes("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> PutCompanyCharacteristic(
     [FromRoute] Guid id,
-    [FromBody] CompanyCharacteristicUpdateDto companyCharacteristicUpdateDto
+    [FromBody] TCompanyCharacteristicUpdateDto companyCharacteristicUpdateDto
   )
   {
-    var companyCharacteristic = await TryGetCompanyCharacteristicAsync(id);
+    var companyCharacteristic = await AddDefaultIncludes(_context.Set<TCompanyCharacteristic>())
+      .FirstOrDefaultAsync(companyCharacteristic => companyCharacteristic.Id == id);
     if (companyCharacteristic == null)
     {
       return NotFound();
     }
 
+    ClearHistoricValuesIfNeeded(companyCharacteristic);
     _mapper.Map(companyCharacteristicUpdateDto, companyCharacteristic);
     _context.Entry(companyCharacteristic).State = EntityState.Modified;
 
@@ -74,7 +73,11 @@ public class CompanyCharacteristicsController(FitBackendContext context, IMapper
     }
     catch (DbUpdateConcurrencyException)
     {
-      if (!CompanyCharacteristicExists(id))
+      if (
+        !_context
+          .Set<TCompanyCharacteristic>()
+          .Any(companyCharacteristic => companyCharacteristic.Id == id)
+      )
       {
         return NotFound();
       }
@@ -93,37 +96,31 @@ public class CompanyCharacteristicsController(FitBackendContext context, IMapper
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCompanyCharacteristic([FromRoute] Guid id)
   {
-    var companyCharacteristic = await TryGetCompanyCharacteristicAsync(id);
+    var companyCharacteristic = await _context
+      .Set<TCompanyCharacteristic>()
+      .FirstOrDefaultAsync(companyCharacteristic => companyCharacteristic.Id == id);
     if (companyCharacteristic == null)
     {
       return NotFound();
     }
 
-    _context.CompanyCharacteristics.Remove(companyCharacteristic);
+    _context.Set<TCompanyCharacteristic>().Remove(companyCharacteristic);
     await _context.SaveChangesAsync();
 
     return NoContent();
   }
 
-  private bool CompanyExists(Guid id)
-  {
-    return _context.Companies.Any(company => company.Id == id);
-  }
+  protected abstract Task<bool> AllRelatedEntitiesExistAsync(
+    TCompanyCharacteristicCreateDto companyCharacteristicCreateDto
+  );
 
-  private bool CharacteristicExists(Guid id)
-  {
-    return _context.Characteristics.Any(characteristic => characteristic.Id == id);
-  }
+  protected abstract Task<bool> CompanyCharacteristicWithSameParentsExistsAsync(
+    TCompanyCharacteristicCreateDto companyCharacteristicCreateDto
+  );
 
-  private bool CompanyCharacteristicExists(Guid id)
-  {
-    return _context.CompanyCharacteristics.Any(companyCharacteristic =>
-      companyCharacteristic.Id == id
-    );
-  }
+  protected abstract void ClearHistoricValuesIfNeeded(TCompanyCharacteristic companyCharacteristic);
 
-  private async Task<CompanyCharacteristic?> TryGetCompanyCharacteristicAsync(Guid id)
-  {
-    return await _context.CompanyCharacteristics.FindAsync(id);
-  }
+  protected abstract IQueryable<TCompanyCharacteristic> AddDefaultIncludes(
+    IQueryable<TCompanyCharacteristic> companyCharacteristics
+  );
 }

@@ -25,12 +25,8 @@ builder.Services.AddDbContext<FitBackendContext>(options =>
   options.UseNpgsql(Environment.GetEnvironmentVariable("FIT_DATABASE_CONNECTIONSTRING"))
 );
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpLogging(options => { });
-builder.Services.AddSwaggerGen(options =>
-  options.CustomOperationIds(apiDescription =>
-    $"{apiDescription.ActionDescriptor.RouteValues["action"]}"
-  )
-);
+builder.Services.AddHttpLogging();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 app.UseAuthentication();
