@@ -4,10 +4,10 @@
 
 import { Currency } from '../models/currency';
 import { HistoricValueReadDto } from '../models/historic-value-read-dto';
-export interface CompanyHistoricCurrencyCharacteristicReadDto {
+export interface CompanyHistoricFinancialCharacteristicReadDto {
   color?: string | null;
   currency?: Currency;
-  historicCurrencyCharacteristicId?: string;
+  historicFinancialCharacteristicId?: string;
   id?: string;
   label?: string | null;
   values?: Array<HistoricValueReadDto> | null;

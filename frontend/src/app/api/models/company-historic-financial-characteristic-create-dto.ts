@@ -4,7 +4,9 @@
 
 import { Currency } from '../models/currency';
 import { HistoricValueCreateDto } from '../models/historic-value-create-dto';
-export interface CompanyHistoricCurrencyCharacteristicUpdateDto {
+export interface CompanyHistoricFinancialCharacteristicCreateDto {
+  companyId: string;
   currency: Currency;
+  historicFinancialCharacteristicId: string;
   values: Array<HistoricValueCreateDto>;
 }

@@ -7,13 +7,13 @@ import { FinancialReportingInterval } from '../models/financial-reporting-interv
 import { Multiplier } from '../models/multiplier';
 import { StockExchange } from '../models/stock-exchange';
 export interface CompanyCreateDto {
-  comments: Array<string>;
+  comment?: string | null;
   financialReportingCurrency: Currency;
   financialReportingInterval: FinancialReportingInterval;
   financialReportingMultiplier: Multiplier;
   financialReportingSourceUrls: Array<string>;
   logoUrl?: string | null;
   name: string;
+  stockCode: string;
   stockExchange: StockExchange;
-  stockExchangeCode: string;
 }

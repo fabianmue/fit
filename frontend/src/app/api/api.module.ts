@@ -7,11 +7,11 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { CompaniesService } from './services/companies.service';
-import { CompanyHistoricCurrencyCharacteristicsService } from './services/company-historic-currency-characteristics.service';
+import { CompanyHistoricFinancialCharacteristicsService } from './services/company-historic-financial-characteristics.service';
 import { CompanyHistoricNumberCharacteristicsService } from './services/company-historic-number-characteristics.service';
 import { CompanyNumberCharacteristicsService } from './services/company-number-characteristics.service';
 import { CompanyTextCharacteristicsService } from './services/company-text-characteristics.service';
-import { HistoricCurrencyCharacteristicsService } from './services/historic-currency-characteristics.service';
+import { HistoricFinancialCharacteristicsService } from './services/historic-financial-characteristics.service';
 import { HistoricNumberCharacteristicsService } from './services/historic-number-characteristics.service';
 import { NumberCharacteristicsService } from './services/number-characteristics.service';
 import { TextCharacteristicsService } from './services/text-characteristics.service';
@@ -25,11 +25,11 @@ import { TextCharacteristicsService } from './services/text-characteristics.serv
   declarations: [],
   providers: [
     CompaniesService,
-    CompanyHistoricCurrencyCharacteristicsService,
+    CompanyHistoricFinancialCharacteristicsService,
     CompanyHistoricNumberCharacteristicsService,
     CompanyNumberCharacteristicsService,
     CompanyTextCharacteristicsService,
-    HistoricCurrencyCharacteristicsService,
+    HistoricFinancialCharacteristicsService,
     HistoricNumberCharacteristicsService,
     NumberCharacteristicsService,
     TextCharacteristicsService,
