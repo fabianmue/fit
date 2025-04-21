@@ -134,9 +134,9 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
       .ThenInclude(companyCharacteristic => companyCharacteristic.HistoricNumberCharacteristic)
       .Include(company => company.CompanyHistoricNumberCharacteristics)
       .ThenInclude(companyCharacteristic => companyCharacteristic.Values)
-      .Include(company => company.CompanyHistoricCurrencyCharacteristics)
-      .ThenInclude(companyCharacteristic => companyCharacteristic.HistoricCurrencyCharacteristic)
-      .Include(company => company.CompanyHistoricCurrencyCharacteristics)
+      .Include(company => company.CompanyHistoricFinancialCharacteristics)
+      .ThenInclude(companyCharacteristic => companyCharacteristic.HistoricFinancialCharacteristic)
+      .Include(company => company.CompanyHistoricFinancialCharacteristics)
       .ThenInclude(companyCharacteristic => companyCharacteristic.Values);
   }
 }

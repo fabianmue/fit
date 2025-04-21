@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FitBackend;
 
-public class CompanyHistoricCurrencyCharacteristic : Entity
+public class CompanyHistoricFinancialCharacteristic : Entity
 {
   [Required]
   public ICollection<HistoricValue> Values { get; set; } = [];
@@ -15,13 +15,13 @@ public class CompanyHistoricCurrencyCharacteristic : Entity
 
   public Company Company { get; set; } = null!;
 
-  public Guid HistoricCurrencyCharacteristicId { get; set; }
+  public Guid HistoricFinancialCharacteristicId { get; set; }
 
-  public HistoricCurrencyCharacteristic HistoricCurrencyCharacteristic { get; set; } = null!;
+  public HistoricFinancialCharacteristic HistoricFinancialCharacteristic { get; set; } = null!;
 }
 
 #pragma warning disable CS8618 // Dto classes
-public record CompanyHistoricCurrencyCharacteristicReadDto : EntityReadDto
+public record CompanyHistoricFinancialCharacteristicReadDto : EntityReadDto
 {
   public string Label { get; set; }
 
@@ -31,10 +31,10 @@ public record CompanyHistoricCurrencyCharacteristicReadDto : EntityReadDto
 
   public Currency Currency { get; set; }
 
-  public Guid HistoricCurrencyCharacteristicId { get; set; }
+  public Guid HistoricFinancialCharacteristicId { get; set; }
 }
 
-public record CompanyHistoricCurrencyCharacteristicCreateDto
+public record CompanyHistoricFinancialCharacteristicCreateDto
 {
   [Required]
   public ICollection<HistoricValueCreateDto> Values { get; set; }
@@ -46,10 +46,10 @@ public record CompanyHistoricCurrencyCharacteristicCreateDto
   public Guid CompanyId { get; set; }
 
   [Required]
-  public Guid HistoricCurrencyCharacteristicId { get; set; }
+  public Guid HistoricFinancialCharacteristicId { get; set; }
 }
 
-public record CompanyHistoricCurrencyCharacteristicUpdateDto
+public record CompanyHistoricFinancialCharacteristicUpdateDto
 {
   [Required]
   public ICollection<HistoricValueCreateDto> Values { get; set; }

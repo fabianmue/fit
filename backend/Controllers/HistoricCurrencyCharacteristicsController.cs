@@ -6,20 +6,20 @@ namespace FitBackend;
 
 [Route("[controller]")]
 [ApiController]
-public class HistoricCurrencyCharacteristicsController(FitBackendContext context, IMapper mapper)
+public class HistoricFinancialCharacteristicsController(FitBackendContext context, IMapper mapper)
   : CharacteristicsController<
-    HistoricCurrencyCharacteristic,
-    HistoricCurrencyCharacteristicReadDto,
-    HistoricCurrencyCharacteristicCreateDto,
-    HistoricCurrencyCharacteristicUpdateDto
+    HistoricFinancialCharacteristic,
+    HistoricFinancialCharacteristicReadDto,
+    HistoricFinancialCharacteristicCreateDto,
+    HistoricFinancialCharacteristicUpdateDto
   >(context, mapper)
 {
-  protected override IQueryable<HistoricCurrencyCharacteristic> AddDefaultIncludes(
-    IQueryable<HistoricCurrencyCharacteristic> characteristics
+  protected override IQueryable<HistoricFinancialCharacteristic> AddDefaultIncludes(
+    IQueryable<HistoricFinancialCharacteristic> characteristics
   )
   {
     return characteristics.Include(characteristic =>
-      characteristic.CompanyHistoricCurrencyCharacteristics
+      characteristic.CompanyHistoricFinancialCharacteristics
     );
   }
 }

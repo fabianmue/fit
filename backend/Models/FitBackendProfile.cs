@@ -9,7 +9,7 @@ public class FitBackendProfile : Profile
     CreateMap<Company, CompanyReadDto>();
     CreateMap<CompanyCreateDto, Company>()
       .ForMember(
-        company => company.StockExchangeCurrency,
+        company => company.StockCurrency,
         opt =>
           opt.MapFrom(companyCreateDto =>
             MapStockExchangeToCurrency(companyCreateDto.StockExchange)
@@ -17,7 +17,7 @@ public class FitBackendProfile : Profile
       );
     CreateMap<CompanyUpdateDto, Company>()
       .ForMember(
-        company => company.StockExchangeCurrency,
+        company => company.StockCurrency,
         opt =>
           opt.MapFrom(companyUpdateDto =>
             MapStockExchangeToCurrency(companyUpdateDto.StockExchange)
@@ -49,14 +49,16 @@ public class FitBackendProfile : Profile
     CreateMap<HistoricNumberCharacteristicCreateDto, HistoricNumberCharacteristic>();
     CreateMap<HistoricNumberCharacteristicUpdateDto, HistoricNumberCharacteristic>();
 
-    CreateMap<HistoricCurrencyCharacteristic, HistoricCurrencyCharacteristicReadDto>()
+    CreateMap<HistoricFinancialCharacteristic, HistoricFinancialCharacteristicReadDto>()
       .ForMember(
         characteristicReadDto => characteristicReadDto.AssociatedCompanyCharacteristicCount,
         opt =>
-          opt.MapFrom(characteristic => characteristic.CompanyHistoricCurrencyCharacteristics.Count)
+          opt.MapFrom(characteristic =>
+            characteristic.CompanyHistoricFinancialCharacteristics.Count
+          )
       );
-    CreateMap<HistoricCurrencyCharacteristicCreateDto, HistoricCurrencyCharacteristic>();
-    CreateMap<HistoricCurrencyCharacteristicUpdateDto, HistoricCurrencyCharacteristic>();
+    CreateMap<HistoricFinancialCharacteristicCreateDto, HistoricFinancialCharacteristic>();
+    CreateMap<HistoricFinancialCharacteristicUpdateDto, HistoricFinancialCharacteristic>();
 
     CreateMap<CompanyTextCharacteristic, CompanyTextCharacteristicReadDto>()
       .ForMember(
@@ -113,28 +115,31 @@ public class FitBackendProfile : Profile
     CreateMap<CompanyHistoricNumberCharacteristicCreateDto, CompanyHistoricNumberCharacteristic>();
     CreateMap<CompanyHistoricNumberCharacteristicUpdateDto, CompanyHistoricNumberCharacteristic>();
 
-    CreateMap<CompanyHistoricCurrencyCharacteristic, CompanyHistoricCurrencyCharacteristicReadDto>()
+    CreateMap<
+      CompanyHistoricFinancialCharacteristic,
+      CompanyHistoricFinancialCharacteristicReadDto
+    >()
       .ForMember(
         companyCharacteristicReadDto => companyCharacteristicReadDto.Label,
         opt =>
           opt.MapFrom(companyCharacteristic =>
-            companyCharacteristic.HistoricCurrencyCharacteristic.Label
+            companyCharacteristic.HistoricFinancialCharacteristic.Label
           )
       )
       .ForMember(
         companyCharacteristicReadDto => companyCharacteristicReadDto.Color,
         opt =>
           opt.MapFrom(companyCharacteristic =>
-            companyCharacteristic.HistoricCurrencyCharacteristic.Color
+            companyCharacteristic.HistoricFinancialCharacteristic.Color
           )
       );
     CreateMap<
-      CompanyHistoricCurrencyCharacteristicCreateDto,
-      CompanyHistoricCurrencyCharacteristic
+      CompanyHistoricFinancialCharacteristicCreateDto,
+      CompanyHistoricFinancialCharacteristic
     >();
     CreateMap<
-      CompanyHistoricCurrencyCharacteristicUpdateDto,
-      CompanyHistoricCurrencyCharacteristic
+      CompanyHistoricFinancialCharacteristicUpdateDto,
+      CompanyHistoricFinancialCharacteristic
     >();
 
     CreateMap<HistoricValue, HistoricValueReadDto>();

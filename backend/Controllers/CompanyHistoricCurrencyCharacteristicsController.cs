@@ -6,57 +6,57 @@ namespace FitBackend;
 
 [Route("[controller]")]
 [ApiController]
-public class CompanyHistoricCurrencyCharacteristicsController(
+public class CompanyHistoricFinancialCharacteristicsController(
   FitBackendContext context,
   IMapper mapper
 )
   : CompanyCharacteristicsController<
-    CompanyHistoricCurrencyCharacteristic,
-    HistoricCurrencyCharacteristic,
-    CompanyHistoricCurrencyCharacteristicCreateDto,
-    CompanyHistoricCurrencyCharacteristicUpdateDto
+    CompanyHistoricFinancialCharacteristic,
+    HistoricFinancialCharacteristic,
+    CompanyHistoricFinancialCharacteristicCreateDto,
+    CompanyHistoricFinancialCharacteristicUpdateDto
   >(context, mapper)
 {
   protected override async Task<bool> AllRelatedEntitiesExistAsync(
-    CompanyHistoricCurrencyCharacteristicCreateDto companyCharacteristicCreateDto
+    CompanyHistoricFinancialCharacteristicCreateDto companyCharacteristicCreateDto
   )
   {
     return await _context
         .Set<Company>()
         .AnyAsync(company => company.Id == companyCharacteristicCreateDto.CompanyId)
       && await _context
-        .Set<HistoricCurrencyCharacteristic>()
+        .Set<HistoricFinancialCharacteristic>()
         .AnyAsync(characteristic =>
-          characteristic.Id == companyCharacteristicCreateDto.HistoricCurrencyCharacteristicId
+          characteristic.Id == companyCharacteristicCreateDto.HistoricFinancialCharacteristicId
         );
   }
 
   protected override Task<bool> CompanyCharacteristicWithSameParentsExistsAsync(
-    CompanyHistoricCurrencyCharacteristicCreateDto companyCharacteristicCreateDto
+    CompanyHistoricFinancialCharacteristicCreateDto companyCharacteristicCreateDto
   )
   {
     return _context
-      .Set<CompanyHistoricCurrencyCharacteristic>()
+      .Set<CompanyHistoricFinancialCharacteristic>()
       .AnyAsync(companyCharacteristic =>
         companyCharacteristic.CompanyId == companyCharacteristicCreateDto.CompanyId
-        && companyCharacteristic.HistoricCurrencyCharacteristicId
-          == companyCharacteristicCreateDto.HistoricCurrencyCharacteristicId
+        && companyCharacteristic.HistoricFinancialCharacteristicId
+          == companyCharacteristicCreateDto.HistoricFinancialCharacteristicId
       );
   }
 
   protected override void ClearHistoricValuesIfNeeded(
-    CompanyHistoricCurrencyCharacteristic companyCharacteristic
+    CompanyHistoricFinancialCharacteristic companyCharacteristic
   )
   {
     companyCharacteristic.Values.Clear();
   }
 
-  protected override IQueryable<CompanyHistoricCurrencyCharacteristic> AddDefaultIncludes(
-    IQueryable<CompanyHistoricCurrencyCharacteristic> companyCharacteristics
+  protected override IQueryable<CompanyHistoricFinancialCharacteristic> AddDefaultIncludes(
+    IQueryable<CompanyHistoricFinancialCharacteristic> companyCharacteristics
   )
   {
     return companyCharacteristics
-      .Include(companyCharacteristic => companyCharacteristic.HistoricCurrencyCharacteristic)
+      .Include(companyCharacteristic => companyCharacteristic.HistoricFinancialCharacteristic)
       .Include(companyCharacteristic => companyCharacteristic.Values);
   }
 }

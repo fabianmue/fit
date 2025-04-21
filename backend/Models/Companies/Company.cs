@@ -11,23 +11,23 @@ public class Company : Entity
   public required StockExchange StockExchange { get; set; }
 
   [Required]
-  public required Currency StockExchangeCurrency { get; set; }
+  public required Currency StockCurrency { get; set; }
 
   [Required]
-  public required string StockExchangeCode { get; set; }
-
-  [Required]
-  public required FinancialReportingInterval FinancialReportingInterval { get; set; }
+  public required string StockCode { get; set; }
 
   [Required]
   public required Currency FinancialReportingCurrency { get; set; }
 
   [Required]
+  public required FinancialReportingInterval FinancialReportingInterval { get; set; }
+
+  [Required]
   public required Multiplier FinancialReportingMultiplier { get; set; }
 
-  public string[] Comments { get; set; } = [];
-
   public string[] FinancialReportingSourceUrls { get; set; } = [];
+
+  public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
 
@@ -39,7 +39,7 @@ public class Company : Entity
   public ICollection<CompanyHistoricNumberCharacteristic> CompanyHistoricNumberCharacteristics { get; set; } =
     [];
 
-  public ICollection<CompanyHistoricCurrencyCharacteristic> CompanyHistoricCurrencyCharacteristics { get; set; } =
+  public ICollection<CompanyHistoricFinancialCharacteristic> CompanyHistoricFinancialCharacteristics { get; set; } =
     [];
 }
 
@@ -50,19 +50,19 @@ public record CompanyReadDto : EntityReadDto
 
   public StockExchange StockExchange { get; set; }
 
-  public Currency StockExchangeCurrency { get; set; }
+  public Currency StockCurrency { get; set; }
 
-  public string StockExchangeCode { get; set; }
-
-  public FinancialReportingInterval FinancialReportingInterval { get; set; }
+  public string StockCode { get; set; }
 
   public Currency FinancialReportingCurrency { get; set; }
 
+  public FinancialReportingInterval FinancialReportingInterval { get; set; }
+
   public Multiplier FinancialReportingMultiplier { get; set; }
 
-  public ICollection<string> Comments { get; set; }
-
   public ICollection<string> FinancialReportingSourceUrls { get; set; }
+
+  public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
 
@@ -75,7 +75,7 @@ public record CompanyReadDto : EntityReadDto
   public ICollection<CompanyHistoricNumberCharacteristicReadDto> CompanyHistoricNumberCharacteristics { get; set; } =
     [];
 
-  public ICollection<CompanyHistoricCurrencyCharacteristicReadDto> CompanyHistoricCurrencyCharacteristics { get; set; } =
+  public ICollection<CompanyHistoricFinancialCharacteristicReadDto> CompanyHistoricFinancialCharacteristics { get; set; } =
     [];
 }
 
@@ -88,22 +88,21 @@ public record CompanyCreateDto
   public StockExchange? StockExchange { get; set; }
 
   [Required]
-  public string StockExchangeCode { get; set; }
-
-  [Required]
-  public FinancialReportingInterval? FinancialReportingInterval { get; set; }
+  public string StockCode { get; set; }
 
   [Required]
   public Currency? FinancialReportingCurrency { get; set; }
 
   [Required]
+  public FinancialReportingInterval? FinancialReportingInterval { get; set; }
+
+  [Required]
   public Multiplier? FinancialReportingMultiplier { get; set; }
 
   [Required]
-  public ICollection<string> Comments { get; set; }
-
-  [Required]
   public ICollection<string> FinancialReportingSourceUrls { get; set; }
+
+  public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
 }
@@ -117,22 +116,21 @@ public record CompanyUpdateDto
   public StockExchange? StockExchange { get; set; }
 
   [Required]
-  public string StockExchangeCode { get; set; }
-
-  [Required]
-  public FinancialReportingInterval? FinancialReportingInterval { get; set; }
+  public string StockCode { get; set; }
 
   [Required]
   public Currency? FinancialReportingCurrency { get; set; }
 
   [Required]
+  public FinancialReportingInterval? FinancialReportingInterval { get; set; }
+
+  [Required]
   public Multiplier? FinancialReportingMultiplier { get; set; }
 
   [Required]
-  public ICollection<string> Comments { get; set; }
-
-  [Required]
   public ICollection<string> FinancialReportingSourceUrls { get; set; }
+
+  public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
 }

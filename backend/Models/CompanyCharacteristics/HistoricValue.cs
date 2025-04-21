@@ -15,9 +15,9 @@ public class HistoricValue : Entity
 
   public CompanyHistoricNumberCharacteristic? CompanyHistoricNumberCharacteristic { get; set; }
 
-  public Guid? CompanyHistoricCurrencyCharacteristicId { get; set; }
+  public Guid? CompanyHistoricFinancialCharacteristicId { get; set; }
 
-  public CompanyHistoricCurrencyCharacteristic? CompanyHistoricCurrencyCharacteristic { get; set; }
+  public CompanyHistoricFinancialCharacteristic? CompanyHistoricFinancialCharacteristic { get; set; }
 }
 
 public record HistoricValueReadDto

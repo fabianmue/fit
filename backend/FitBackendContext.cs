@@ -12,7 +12,7 @@ public class FitBackendContext(DbContextOptions<FitBackendContext> options) : Db
 
   public DbSet<HistoricNumberCharacteristic> HistoricNumberCharacteristics { get; set; }
 
-  public DbSet<HistoricCurrencyCharacteristic> HistoricCurrencyCharacteristics { get; set; }
+  public DbSet<HistoricFinancialCharacteristic> HistoricFinancialCharacteristics { get; set; }
 
   public DbSet<CompanyTextCharacteristic> CompanyTextCharacteristics { get; set; }
 
@@ -20,7 +20,7 @@ public class FitBackendContext(DbContextOptions<FitBackendContext> options) : Db
 
   public DbSet<CompanyHistoricNumberCharacteristic> CompanyHistoricNumberCharacteristics { get; set; }
 
-  public DbSet<CompanyHistoricCurrencyCharacteristic> CompanyHistoricCurrencyCharacteristics { get; set; }
+  public DbSet<CompanyHistoricFinancialCharacteristic> CompanyHistoricFinancialCharacteristics { get; set; }
 
   public DbSet<HistoricValue> HistoricValues { get; set; }
 }
