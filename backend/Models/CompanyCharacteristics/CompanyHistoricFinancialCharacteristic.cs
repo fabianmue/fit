@@ -23,14 +23,19 @@ public class CompanyHistoricFinancialCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public record CompanyHistoricFinancialCharacteristicReadDto : EntityReadDto
 {
+  [Required]
   public string Label { get; set; }
 
+  [Required]
   public string Color { get; set; }
 
+  [Required]
   public ICollection<HistoricValueReadDto> Values { get; set; }
 
+  [Required]
   public Currency Currency { get; set; }
 
+  [Required]
   public Guid HistoricFinancialCharacteristicId { get; set; }
 }
 

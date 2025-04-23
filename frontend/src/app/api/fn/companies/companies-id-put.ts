@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { CompanyReadDto } from '../../models/company-read-dto';
 import { CompanyUpdateDto } from '../../models/company-update-dto';
 
 export interface CompaniesIdPut$Params {
@@ -15,7 +16,7 @@ export interface CompaniesIdPut$Params {
       body?: CompanyUpdateDto
 }
 
-export function companiesIdPut(http: HttpClient, rootUrl: string, params: CompaniesIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function companiesIdPut(http: HttpClient, rootUrl: string, params: CompaniesIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
   const rb = new RequestBuilder(rootUrl, companiesIdPut.PATH, 'put');
   if (params) {
     rb.path('id', params.id, {});
@@ -23,11 +24,11 @@ export function companiesIdPut(http: HttpClient, rootUrl: string, params: Compan
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<CompanyReadDto>;
     })
   );
 }

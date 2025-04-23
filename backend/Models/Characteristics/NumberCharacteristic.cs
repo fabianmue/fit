@@ -19,12 +19,15 @@ public class NumberCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public record NumberCharacteristicReadDto : EntityReadDto
 {
+  [Required]
   public string Label { get; set; }
 
+  [Required]
   public string Color { get; set; }
 
   public string? Unit { get; set; }
 
+  [Required]
   public int AssociatedCompanyCharacteristicCount { get; set; }
 }
 

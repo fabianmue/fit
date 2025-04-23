@@ -22,8 +22,10 @@ public class HistoricValue : Entity
 
 public record HistoricValueReadDto
 {
+  [Required]
   public float Value { get; set; }
 
+  [Required]
   public DateTime Date { get; set; }
 }
 

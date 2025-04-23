@@ -10,9 +10,10 @@ public class CompanyHistoricFinancialCharacteristicsController(
   FitBackendContext context,
   IMapper mapper
 )
-  : CompanyCharacteristicsController<
+  : CompanyCharacteristicsControllerBase<
     CompanyHistoricFinancialCharacteristic,
     HistoricFinancialCharacteristic,
+    CompanyHistoricFinancialCharacteristicReadDto,
     CompanyHistoricFinancialCharacteristicCreateDto,
     CompanyHistoricFinancialCharacteristicUpdateDto
   >(context, mapper)

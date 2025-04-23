@@ -9,24 +9,23 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { HistoricFinancialCharacteristicCreateDto } from '../../models/historic-financial-characteristic-create-dto';
-import { HistoricFinancialCharacteristicReadDto } from '../../models/historic-financial-characteristic-read-dto';
 
 export interface HistoricFinancialCharacteristicsPost$Params {
       body?: HistoricFinancialCharacteristicCreateDto
 }
 
-export function historicFinancialCharacteristicsPost(http: HttpClient, rootUrl: string, params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<HistoricFinancialCharacteristicReadDto>> {
+export function historicFinancialCharacteristicsPost(http: HttpClient, rootUrl: string, params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, historicFinancialCharacteristicsPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<HistoricFinancialCharacteristicReadDto>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }

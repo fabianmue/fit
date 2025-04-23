@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { CompanyHistoricFinancialCharacteristicReadDto } from '../models/company-historic-financial-characteristic-read-dto';
 import { companyHistoricFinancialCharacteristicsIdDelete } from '../fn/company-historic-financial-characteristics/company-historic-financial-characteristics-id-delete';
 import { CompanyHistoricFinancialCharacteristicsIdDelete$Params } from '../fn/company-historic-financial-characteristics/company-historic-financial-characteristics-id-delete';
 import { companyHistoricFinancialCharacteristicsIdPut } from '../fn/company-historic-financial-characteristics/company-historic-financial-characteristics-id-put';
@@ -33,7 +34,7 @@ export class CompanyHistoricFinancialCharacteristicsService extends BaseService 
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyHistoricFinancialCharacteristicsPost$Response(params?: CompanyHistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  companyHistoricFinancialCharacteristicsPost$Response(params?: CompanyHistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyHistoricFinancialCharacteristicReadDto>> {
     return companyHistoricFinancialCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -43,9 +44,9 @@ export class CompanyHistoricFinancialCharacteristicsService extends BaseService 
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyHistoricFinancialCharacteristicsPost(params?: CompanyHistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
+  companyHistoricFinancialCharacteristicsPost(params?: CompanyHistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<CompanyHistoricFinancialCharacteristicReadDto> {
     return this.companyHistoricFinancialCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CompanyHistoricFinancialCharacteristicReadDto>): CompanyHistoricFinancialCharacteristicReadDto => r.body)
     );
   }
 

@@ -7,7 +7,7 @@ namespace FitBackend;
 [Route("[controller]")]
 [ApiController]
 public class HistoricNumberCharacteristicsController(FitBackendContext context, IMapper mapper)
-  : CharacteristicsController<
+  : CharacteristicsControllerBase<
     HistoricNumberCharacteristic,
     HistoricNumberCharacteristicReadDto,
     HistoricNumberCharacteristicCreateDto,

@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { CompanyNumberCharacteristicReadDto } from '../models/company-number-characteristic-read-dto';
 import { companyNumberCharacteristicsIdDelete } from '../fn/company-number-characteristics/company-number-characteristics-id-delete';
 import { CompanyNumberCharacteristicsIdDelete$Params } from '../fn/company-number-characteristics/company-number-characteristics-id-delete';
 import { companyNumberCharacteristicsIdPut } from '../fn/company-number-characteristics/company-number-characteristics-id-put';
@@ -33,7 +34,7 @@ export class CompanyNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyNumberCharacteristicsPost$Response(params?: CompanyNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  companyNumberCharacteristicsPost$Response(params?: CompanyNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyNumberCharacteristicReadDto>> {
     return companyNumberCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -43,9 +44,9 @@ export class CompanyNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyNumberCharacteristicsPost(params?: CompanyNumberCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
+  companyNumberCharacteristicsPost(params?: CompanyNumberCharacteristicsPost$Params, context?: HttpContext): Observable<CompanyNumberCharacteristicReadDto> {
     return this.companyNumberCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CompanyNumberCharacteristicReadDto>): CompanyNumberCharacteristicReadDto => r.body)
     );
   }
 

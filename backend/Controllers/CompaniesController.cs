@@ -15,8 +15,8 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
 
   [HttpGet]
   [Produces("application/json")]
-  [ProducesResponseType(StatusCodes.Status200OK)]
-  public async Task<ActionResult<List<CompanyReadDto>>> GetCompanies()
+  [ProducesResponseType(typeof(List<CompanyReadDto>), StatusCodes.Status200OK)]
+  public async Task<IActionResult> GetCompanies()
   {
     var companies = await AddDefaultIncludes(_context.Set<Company>()).AsNoTracking().ToListAsync();
     return Ok(_mapper.Map<List<CompanyReadDto>>(companies));
@@ -24,9 +24,9 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
 
   [HttpGet("{id}")]
   [Produces("application/json")]
-  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(CompanyReadDto), StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
-  public async Task<ActionResult<CompanyReadDto>> GetCompany([FromRoute] Guid id)
+  public async Task<IActionResult> GetCompany([FromRoute] Guid id)
   {
     var company = await AddDefaultIncludes(_context.Set<Company>())
       .AsNoTracking()
@@ -37,17 +37,14 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
     }
 
     return Ok(_mapper.Map<CompanyReadDto>(company));
-    ;
   }
 
   [HttpPost]
   [Authorize("Authenticated")]
   [Consumes("application/json")]
   [Produces("application/json")]
-  [ProducesResponseType(StatusCodes.Status201Created)]
-  public async Task<ActionResult<CompanyReadDto>> PostCompany(
-    [FromBody] CompanyCreateDto companyCreateDto
-  )
+  [ProducesResponseType(typeof(CompanyReadDto), StatusCodes.Status201Created)]
+  public async Task<IActionResult> PostCompany([FromBody] CompanyCreateDto companyCreateDto)
   {
     var company = _mapper.Map<Company>(companyCreateDto);
     _context.Set<Company>().Add(company);
@@ -60,7 +57,8 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
   [HttpPut("{id}")]
   [Authorize("Authenticated")]
   [Consumes("application/json")]
-  [ProducesResponseType(StatusCodes.Status204NoContent)]
+  [Produces("application/json")]
+  [ProducesResponseType(typeof(CompanyReadDto), StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> PutCompany(
     [FromRoute] Guid id,
@@ -92,11 +90,13 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
       }
     }
 
-    return NoContent();
+    var companyReadDto = _mapper.Map<CompanyReadDto>(company);
+    return Ok(companyReadDto);
   }
 
   [HttpDelete("{id}")]
   [Authorize("Authenticated")]
+  [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCompany([FromRoute] Guid id)

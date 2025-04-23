@@ -9,24 +9,23 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { NumberCharacteristicCreateDto } from '../../models/number-characteristic-create-dto';
-import { NumberCharacteristicReadDto } from '../../models/number-characteristic-read-dto';
 
 export interface NumberCharacteristicsPost$Params {
       body?: NumberCharacteristicCreateDto
 }
 
-export function numberCharacteristicsPost(http: HttpClient, rootUrl: string, params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<NumberCharacteristicReadDto>> {
+export function numberCharacteristicsPost(http: HttpClient, rootUrl: string, params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, numberCharacteristicsPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<NumberCharacteristicReadDto>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }

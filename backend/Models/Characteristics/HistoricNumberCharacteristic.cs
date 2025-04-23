@@ -20,12 +20,15 @@ public class HistoricNumberCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public record HistoricNumberCharacteristicReadDto : EntityReadDto
 {
+  [Required]
   public string Label { get; set; }
 
+  [Required]
   public string Color { get; set; }
 
   public string? Unit { get; set; }
 
+  [Required]
   public int AssociatedCompanyCharacteristicCount { get; set; }
 }
 

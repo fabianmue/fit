@@ -9,24 +9,23 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { TextCharacteristicCreateDto } from '../../models/text-characteristic-create-dto';
-import { TextCharacteristicReadDto } from '../../models/text-characteristic-read-dto';
 
 export interface TextCharacteristicsPost$Params {
       body?: TextCharacteristicCreateDto
 }
 
-export function textCharacteristicsPost(http: HttpClient, rootUrl: string, params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<TextCharacteristicReadDto>> {
+export function textCharacteristicsPost(http: HttpClient, rootUrl: string, params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, textCharacteristicsPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<TextCharacteristicReadDto>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }

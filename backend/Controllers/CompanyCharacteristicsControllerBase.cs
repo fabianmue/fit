@@ -5,9 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitBackend;
 
-public abstract class CompanyCharacteristicsController<
+public abstract class CompanyCharacteristicsControllerBase<
   TCompanyCharacteristic,
   TCharacteristic,
+  TCompanyCharacteristicReadDto,
   TCompanyCharacteristicCreateDto,
   TCompanyCharacteristicUpdateDto
 >(FitBackendContext context, IMapper mapper) : ControllerBase
@@ -24,7 +25,7 @@ public abstract class CompanyCharacteristicsController<
   [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status201Created)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  public async Task<IActionResult> PostCompanyCharacteristic(
+  public async Task<ActionResult<TCompanyCharacteristicReadDto>> PostCompanyCharacteristic(
     [FromBody] TCompanyCharacteristicCreateDto companyCharacteristicCreateDto
   )
   {
@@ -42,16 +43,24 @@ public abstract class CompanyCharacteristicsController<
     _context.Set<TCompanyCharacteristic>().Add(companyCharacteristic);
     await _context.SaveChangesAsync();
 
-    return CreatedAtAction(null, new { id = companyCharacteristic.Id });
+    var companyCharacteristicReadDto = _mapper.Map<TCompanyCharacteristicReadDto>(
+      companyCharacteristic
+    );
+    return CreatedAtAction(
+      null,
+      new { id = companyCharacteristic.Id },
+      companyCharacteristicReadDto
+    );
   }
 
   [HttpPut("{id}")]
   [Authorize("Authenticated")]
   [Consumes("application/json")]
+  [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
-  public async Task<IActionResult> PutCompanyCharacteristic(
+  public async Task<ActionResult<TCompanyCharacteristicReadDto>> PutCompanyCharacteristic(
     [FromRoute] Guid id,
     [FromBody] TCompanyCharacteristicUpdateDto companyCharacteristicUpdateDto
   )
@@ -92,6 +101,7 @@ public abstract class CompanyCharacteristicsController<
 
   [HttpDelete("{id}")]
   [Authorize("Authenticated")]
+  [Produces("application/json")]
   [ProducesResponseType(StatusCodes.Status204NoContent)]
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public async Task<IActionResult> DeleteCompanyCharacteristic([FromRoute] Guid id)

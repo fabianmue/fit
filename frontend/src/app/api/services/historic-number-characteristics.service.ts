@@ -11,13 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { HistoricNumberCharacteristicReadDto } from '../models/historic-number-characteristic-read-dto';
-import { historicNumberCharacteristicsGet } from '../fn/historic-number-characteristics/historic-number-characteristics-get';
-import { HistoricNumberCharacteristicsGet$Params } from '../fn/historic-number-characteristics/historic-number-characteristics-get';
 import { historicNumberCharacteristicsIdDelete } from '../fn/historic-number-characteristics/historic-number-characteristics-id-delete';
 import { HistoricNumberCharacteristicsIdDelete$Params } from '../fn/historic-number-characteristics/historic-number-characteristics-id-delete';
-import { historicNumberCharacteristicsIdGet } from '../fn/historic-number-characteristics/historic-number-characteristics-id-get';
-import { HistoricNumberCharacteristicsIdGet$Params } from '../fn/historic-number-characteristics/historic-number-characteristics-id-get';
 import { historicNumberCharacteristicsIdPut } from '../fn/historic-number-characteristics/historic-number-characteristics-id-put';
 import { HistoricNumberCharacteristicsIdPut$Params } from '../fn/historic-number-characteristics/historic-number-characteristics-id-put';
 import { historicNumberCharacteristicsPost } from '../fn/historic-number-characteristics/historic-number-characteristics-post';
@@ -29,31 +24,6 @@ export class HistoricNumberCharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `historicNumberCharacteristicsGet()` */
-  static readonly HistoricNumberCharacteristicsGetPath = '/HistoricNumberCharacteristics';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `historicNumberCharacteristicsGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicNumberCharacteristicsGet$Response(params?: HistoricNumberCharacteristicsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HistoricNumberCharacteristicReadDto>>> {
-    return historicNumberCharacteristicsGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `historicNumberCharacteristicsGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicNumberCharacteristicsGet(params?: HistoricNumberCharacteristicsGet$Params, context?: HttpContext): Observable<Array<HistoricNumberCharacteristicReadDto>> {
-    return this.historicNumberCharacteristicsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<HistoricNumberCharacteristicReadDto>>): Array<HistoricNumberCharacteristicReadDto> => r.body)
-    );
-  }
-
   /** Path part for operation `historicNumberCharacteristicsPost()` */
   static readonly HistoricNumberCharacteristicsPostPath = '/HistoricNumberCharacteristics';
 
@@ -63,7 +33,7 @@ export class HistoricNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  historicNumberCharacteristicsPost$Response(params?: HistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<HistoricNumberCharacteristicReadDto>> {
+  historicNumberCharacteristicsPost$Response(params?: HistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return historicNumberCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -73,34 +43,9 @@ export class HistoricNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  historicNumberCharacteristicsPost(params?: HistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<HistoricNumberCharacteristicReadDto> {
+  historicNumberCharacteristicsPost(params?: HistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
     return this.historicNumberCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HistoricNumberCharacteristicReadDto>): HistoricNumberCharacteristicReadDto => r.body)
-    );
-  }
-
-  /** Path part for operation `historicNumberCharacteristicsIdGet()` */
-  static readonly HistoricNumberCharacteristicsIdGetPath = '/HistoricNumberCharacteristics/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `historicNumberCharacteristicsIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicNumberCharacteristicsIdGet$Response(params: HistoricNumberCharacteristicsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<HistoricNumberCharacteristicReadDto>> {
-    return historicNumberCharacteristicsIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `historicNumberCharacteristicsIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicNumberCharacteristicsIdGet(params: HistoricNumberCharacteristicsIdGet$Params, context?: HttpContext): Observable<HistoricNumberCharacteristicReadDto> {
-    return this.historicNumberCharacteristicsIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HistoricNumberCharacteristicReadDto>): HistoricNumberCharacteristicReadDto => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

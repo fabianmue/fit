@@ -17,10 +17,13 @@ public class TextCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public record TextCharacteristicReadDto : EntityReadDto
 {
+  [Required]
   public string Label { get; set; }
 
+  [Required]
   public string Color { get; set; }
 
+  [Required]
   public int AssociatedCompanyCharacteristicCount { get; set; }
 }
 

@@ -20,12 +20,16 @@ public class CompanyTextCharacteristic : Entity
 #pragma warning disable CS8618 // Dto classes
 public record CompanyTextCharacteristicReadDto : EntityReadDto
 {
+  [Required]
   public string Label { get; set; }
 
+  [Required]
   public string Color { get; set; }
 
+  [Required]
   public string Value { get; set; }
 
+  [Required]
   public Guid TextCharacteristicId { get; set; }
 }
 

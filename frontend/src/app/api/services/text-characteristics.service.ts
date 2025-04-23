@@ -11,13 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { TextCharacteristicReadDto } from '../models/text-characteristic-read-dto';
-import { textCharacteristicsGet } from '../fn/text-characteristics/text-characteristics-get';
-import { TextCharacteristicsGet$Params } from '../fn/text-characteristics/text-characteristics-get';
 import { textCharacteristicsIdDelete } from '../fn/text-characteristics/text-characteristics-id-delete';
 import { TextCharacteristicsIdDelete$Params } from '../fn/text-characteristics/text-characteristics-id-delete';
-import { textCharacteristicsIdGet } from '../fn/text-characteristics/text-characteristics-id-get';
-import { TextCharacteristicsIdGet$Params } from '../fn/text-characteristics/text-characteristics-id-get';
 import { textCharacteristicsIdPut } from '../fn/text-characteristics/text-characteristics-id-put';
 import { TextCharacteristicsIdPut$Params } from '../fn/text-characteristics/text-characteristics-id-put';
 import { textCharacteristicsPost } from '../fn/text-characteristics/text-characteristics-post';
@@ -29,31 +24,6 @@ export class TextCharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `textCharacteristicsGet()` */
-  static readonly TextCharacteristicsGetPath = '/TextCharacteristics';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `textCharacteristicsGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  textCharacteristicsGet$Response(params?: TextCharacteristicsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<TextCharacteristicReadDto>>> {
-    return textCharacteristicsGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `textCharacteristicsGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  textCharacteristicsGet(params?: TextCharacteristicsGet$Params, context?: HttpContext): Observable<Array<TextCharacteristicReadDto>> {
-    return this.textCharacteristicsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<TextCharacteristicReadDto>>): Array<TextCharacteristicReadDto> => r.body)
-    );
-  }
-
   /** Path part for operation `textCharacteristicsPost()` */
   static readonly TextCharacteristicsPostPath = '/TextCharacteristics';
 
@@ -63,7 +33,7 @@ export class TextCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  textCharacteristicsPost$Response(params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<TextCharacteristicReadDto>> {
+  textCharacteristicsPost$Response(params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return textCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -73,34 +43,9 @@ export class TextCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  textCharacteristicsPost(params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<TextCharacteristicReadDto> {
+  textCharacteristicsPost(params?: TextCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
     return this.textCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<TextCharacteristicReadDto>): TextCharacteristicReadDto => r.body)
-    );
-  }
-
-  /** Path part for operation `textCharacteristicsIdGet()` */
-  static readonly TextCharacteristicsIdGetPath = '/TextCharacteristics/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `textCharacteristicsIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  textCharacteristicsIdGet$Response(params: TextCharacteristicsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<TextCharacteristicReadDto>> {
-    return textCharacteristicsIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `textCharacteristicsIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  textCharacteristicsIdGet(params: TextCharacteristicsIdGet$Params, context?: HttpContext): Observable<TextCharacteristicReadDto> {
-    return this.textCharacteristicsIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<TextCharacteristicReadDto>): TextCharacteristicReadDto => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

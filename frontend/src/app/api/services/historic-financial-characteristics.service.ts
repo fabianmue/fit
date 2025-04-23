@@ -11,13 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { HistoricFinancialCharacteristicReadDto } from '../models/historic-financial-characteristic-read-dto';
-import { historicFinancialCharacteristicsGet } from '../fn/historic-financial-characteristics/historic-financial-characteristics-get';
-import { HistoricFinancialCharacteristicsGet$Params } from '../fn/historic-financial-characteristics/historic-financial-characteristics-get';
 import { historicFinancialCharacteristicsIdDelete } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-delete';
 import { HistoricFinancialCharacteristicsIdDelete$Params } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-delete';
-import { historicFinancialCharacteristicsIdGet } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-get';
-import { HistoricFinancialCharacteristicsIdGet$Params } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-get';
 import { historicFinancialCharacteristicsIdPut } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-put';
 import { HistoricFinancialCharacteristicsIdPut$Params } from '../fn/historic-financial-characteristics/historic-financial-characteristics-id-put';
 import { historicFinancialCharacteristicsPost } from '../fn/historic-financial-characteristics/historic-financial-characteristics-post';
@@ -29,31 +24,6 @@ export class HistoricFinancialCharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `historicFinancialCharacteristicsGet()` */
-  static readonly HistoricFinancialCharacteristicsGetPath = '/HistoricFinancialCharacteristics';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `historicFinancialCharacteristicsGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicFinancialCharacteristicsGet$Response(params?: HistoricFinancialCharacteristicsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<HistoricFinancialCharacteristicReadDto>>> {
-    return historicFinancialCharacteristicsGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `historicFinancialCharacteristicsGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicFinancialCharacteristicsGet(params?: HistoricFinancialCharacteristicsGet$Params, context?: HttpContext): Observable<Array<HistoricFinancialCharacteristicReadDto>> {
-    return this.historicFinancialCharacteristicsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<HistoricFinancialCharacteristicReadDto>>): Array<HistoricFinancialCharacteristicReadDto> => r.body)
-    );
-  }
-
   /** Path part for operation `historicFinancialCharacteristicsPost()` */
   static readonly HistoricFinancialCharacteristicsPostPath = '/HistoricFinancialCharacteristics';
 
@@ -63,7 +33,7 @@ export class HistoricFinancialCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  historicFinancialCharacteristicsPost$Response(params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<HistoricFinancialCharacteristicReadDto>> {
+  historicFinancialCharacteristicsPost$Response(params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return historicFinancialCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -73,34 +43,9 @@ export class HistoricFinancialCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  historicFinancialCharacteristicsPost(params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<HistoricFinancialCharacteristicReadDto> {
+  historicFinancialCharacteristicsPost(params?: HistoricFinancialCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
     return this.historicFinancialCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HistoricFinancialCharacteristicReadDto>): HistoricFinancialCharacteristicReadDto => r.body)
-    );
-  }
-
-  /** Path part for operation `historicFinancialCharacteristicsIdGet()` */
-  static readonly HistoricFinancialCharacteristicsIdGetPath = '/HistoricFinancialCharacteristics/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `historicFinancialCharacteristicsIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicFinancialCharacteristicsIdGet$Response(params: HistoricFinancialCharacteristicsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<HistoricFinancialCharacteristicReadDto>> {
-    return historicFinancialCharacteristicsIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `historicFinancialCharacteristicsIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  historicFinancialCharacteristicsIdGet(params: HistoricFinancialCharacteristicsIdGet$Params, context?: HttpContext): Observable<HistoricFinancialCharacteristicReadDto> {
-    return this.historicFinancialCharacteristicsIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<HistoricFinancialCharacteristicReadDto>): HistoricFinancialCharacteristicReadDto => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { CompanyTextCharacteristicReadDto } from '../models/company-text-characteristic-read-dto';
 import { companyTextCharacteristicsIdDelete } from '../fn/company-text-characteristics/company-text-characteristics-id-delete';
 import { CompanyTextCharacteristicsIdDelete$Params } from '../fn/company-text-characteristics/company-text-characteristics-id-delete';
 import { companyTextCharacteristicsIdPut } from '../fn/company-text-characteristics/company-text-characteristics-id-put';
@@ -33,7 +34,7 @@ export class CompanyTextCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyTextCharacteristicsPost$Response(params?: CompanyTextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  companyTextCharacteristicsPost$Response(params?: CompanyTextCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyTextCharacteristicReadDto>> {
     return companyTextCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -43,9 +44,9 @@ export class CompanyTextCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyTextCharacteristicsPost(params?: CompanyTextCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
+  companyTextCharacteristicsPost(params?: CompanyTextCharacteristicsPost$Params, context?: HttpContext): Observable<CompanyTextCharacteristicReadDto> {
     return this.companyTextCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CompanyTextCharacteristicReadDto>): CompanyTextCharacteristicReadDto => r.body)
     );
   }
 

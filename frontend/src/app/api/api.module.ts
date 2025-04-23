@@ -6,6 +6,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { CharacteristicsService } from './services/characteristics.service';
 import { CompaniesService } from './services/companies.service';
 import { CompanyHistoricFinancialCharacteristicsService } from './services/company-historic-financial-characteristics.service';
 import { CompanyHistoricNumberCharacteristicsService } from './services/company-historic-number-characteristics.service';
@@ -24,6 +25,7 @@ import { TextCharacteristicsService } from './services/text-characteristics.serv
   exports: [],
   declarations: [],
   providers: [
+    CharacteristicsService,
     CompaniesService,
     CompanyHistoricFinancialCharacteristicsService,
     CompanyHistoricNumberCharacteristicsService,

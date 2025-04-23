@@ -11,7 +11,7 @@ export interface CompanyCreateDto {
   financialReportingCurrency: Currency;
   financialReportingInterval: FinancialReportingInterval;
   financialReportingMultiplier: Multiplier;
-  financialReportingSourceUrls: Array<string>;
+  financialReportingSourceUrls?: Array<string> | null;
   logoUrl?: string | null;
   name: string;
   stockCode: string;

@@ -7,7 +7,7 @@ namespace FitBackend;
 [Route("[controller]")]
 [ApiController]
 public class NumberCharacteristicsController(FitBackendContext context, IMapper mapper)
-  : CharacteristicsController<
+  : CharacteristicsControllerBase<
     NumberCharacteristic,
     NumberCharacteristicReadDto,
     NumberCharacteristicCreateDto,

@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { CompanyHistoricNumberCharacteristicReadDto } from '../models/company-historic-number-characteristic-read-dto';
 import { companyHistoricNumberCharacteristicsIdDelete } from '../fn/company-historic-number-characteristics/company-historic-number-characteristics-id-delete';
 import { CompanyHistoricNumberCharacteristicsIdDelete$Params } from '../fn/company-historic-number-characteristics/company-historic-number-characteristics-id-delete';
 import { companyHistoricNumberCharacteristicsIdPut } from '../fn/company-historic-number-characteristics/company-historic-number-characteristics-id-put';
@@ -33,7 +34,7 @@ export class CompanyHistoricNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyHistoricNumberCharacteristicsPost$Response(params?: CompanyHistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  companyHistoricNumberCharacteristicsPost$Response(params?: CompanyHistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyHistoricNumberCharacteristicReadDto>> {
     return companyHistoricNumberCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -43,9 +44,9 @@ export class CompanyHistoricNumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companyHistoricNumberCharacteristicsPost(params?: CompanyHistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
+  companyHistoricNumberCharacteristicsPost(params?: CompanyHistoricNumberCharacteristicsPost$Params, context?: HttpContext): Observable<CompanyHistoricNumberCharacteristicReadDto> {
     return this.companyHistoricNumberCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CompanyHistoricNumberCharacteristicReadDto>): CompanyHistoricNumberCharacteristicReadDto => r.body)
     );
   }
 

@@ -11,13 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { NumberCharacteristicReadDto } from '../models/number-characteristic-read-dto';
-import { numberCharacteristicsGet } from '../fn/number-characteristics/number-characteristics-get';
-import { NumberCharacteristicsGet$Params } from '../fn/number-characteristics/number-characteristics-get';
 import { numberCharacteristicsIdDelete } from '../fn/number-characteristics/number-characteristics-id-delete';
 import { NumberCharacteristicsIdDelete$Params } from '../fn/number-characteristics/number-characteristics-id-delete';
-import { numberCharacteristicsIdGet } from '../fn/number-characteristics/number-characteristics-id-get';
-import { NumberCharacteristicsIdGet$Params } from '../fn/number-characteristics/number-characteristics-id-get';
 import { numberCharacteristicsIdPut } from '../fn/number-characteristics/number-characteristics-id-put';
 import { NumberCharacteristicsIdPut$Params } from '../fn/number-characteristics/number-characteristics-id-put';
 import { numberCharacteristicsPost } from '../fn/number-characteristics/number-characteristics-post';
@@ -29,31 +24,6 @@ export class NumberCharacteristicsService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `numberCharacteristicsGet()` */
-  static readonly NumberCharacteristicsGetPath = '/NumberCharacteristics';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `numberCharacteristicsGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  numberCharacteristicsGet$Response(params?: NumberCharacteristicsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<NumberCharacteristicReadDto>>> {
-    return numberCharacteristicsGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `numberCharacteristicsGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  numberCharacteristicsGet(params?: NumberCharacteristicsGet$Params, context?: HttpContext): Observable<Array<NumberCharacteristicReadDto>> {
-    return this.numberCharacteristicsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<NumberCharacteristicReadDto>>): Array<NumberCharacteristicReadDto> => r.body)
-    );
-  }
-
   /** Path part for operation `numberCharacteristicsPost()` */
   static readonly NumberCharacteristicsPostPath = '/NumberCharacteristics';
 
@@ -63,7 +33,7 @@ export class NumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  numberCharacteristicsPost$Response(params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<NumberCharacteristicReadDto>> {
+  numberCharacteristicsPost$Response(params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return numberCharacteristicsPost(this.http, this.rootUrl, params, context);
   }
 
@@ -73,34 +43,9 @@ export class NumberCharacteristicsService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  numberCharacteristicsPost(params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<NumberCharacteristicReadDto> {
+  numberCharacteristicsPost(params?: NumberCharacteristicsPost$Params, context?: HttpContext): Observable<void> {
     return this.numberCharacteristicsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<NumberCharacteristicReadDto>): NumberCharacteristicReadDto => r.body)
-    );
-  }
-
-  /** Path part for operation `numberCharacteristicsIdGet()` */
-  static readonly NumberCharacteristicsIdGetPath = '/NumberCharacteristics/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `numberCharacteristicsIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  numberCharacteristicsIdGet$Response(params: NumberCharacteristicsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<NumberCharacteristicReadDto>> {
-    return numberCharacteristicsIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `numberCharacteristicsIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  numberCharacteristicsIdGet(params: NumberCharacteristicsIdGet$Params, context?: HttpContext): Observable<NumberCharacteristicReadDto> {
-    return this.numberCharacteristicsIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<NumberCharacteristicReadDto>): NumberCharacteristicReadDto => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

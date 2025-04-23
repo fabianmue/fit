@@ -113,7 +113,7 @@ export class CompaniesService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companiesIdPut$Response(params: CompaniesIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  companiesIdPut$Response(params: CompaniesIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyReadDto>> {
     return companiesIdPut(this.http, this.rootUrl, params, context);
   }
 
@@ -123,9 +123,9 @@ export class CompaniesService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  companiesIdPut(params: CompaniesIdPut$Params, context?: HttpContext): Observable<void> {
+  companiesIdPut(params: CompaniesIdPut$Params, context?: HttpContext): Observable<CompanyReadDto> {
     return this.companiesIdPut$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CompanyReadDto>): CompanyReadDto => r.body)
     );
   }
 

@@ -4,10 +4,10 @@
 
 import { HistoricValueReadDto } from '../models/historic-value-read-dto';
 export interface CompanyHistoricNumberCharacteristicReadDto {
-  color?: string | null;
-  historicNumberCharacteristicId?: string;
-  id?: string;
-  label?: string | null;
+  color: string;
+  historicNumberCharacteristicId: string;
+  id: string;
+  label: string;
   unit?: string | null;
-  values?: Array<HistoricValueReadDto> | null;
+  values: Array<HistoricValueReadDto>;
 }
