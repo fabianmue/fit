@@ -8,6 +8,7 @@ import { CompanyNumberCharacteristicReadDto } from '../models/company-number-cha
 import { CompanyTextCharacteristicReadDto } from '../models/company-text-characteristic-read-dto';
 import { Currency } from '../models/currency';
 import { FinancialReportingInterval } from '../models/financial-reporting-interval';
+import { LinkReadDto } from '../models/link-read-dto';
 import { Multiplier } from '../models/multiplier';
 import { StockExchange } from '../models/stock-exchange';
 export interface CompanyReadDto {
@@ -19,8 +20,8 @@ export interface CompanyReadDto {
   financialReportingCurrency: Currency;
   financialReportingInterval: FinancialReportingInterval;
   financialReportingMultiplier: Multiplier;
-  financialReportingSourceUrls?: Array<string> | null;
   id: string;
+  links: Array<LinkReadDto>;
   logoUrl?: string | null;
   name: string;
   stockCode: string;

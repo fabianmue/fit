@@ -4,6 +4,7 @@
 
 import { Currency } from '../models/currency';
 import { FinancialReportingInterval } from '../models/financial-reporting-interval';
+import { LinkCreateDto } from '../models/link-create-dto';
 import { Multiplier } from '../models/multiplier';
 import { StockExchange } from '../models/stock-exchange';
 export interface CompanyUpdateDto {
@@ -11,7 +12,7 @@ export interface CompanyUpdateDto {
   financialReportingCurrency: Currency;
   financialReportingInterval: FinancialReportingInterval;
   financialReportingMultiplier: Multiplier;
-  financialReportingSourceUrls?: Array<string> | null;
+  links: Array<LinkCreateDto>;
   logoUrl?: string | null;
   name: string;
   stockCode: string;

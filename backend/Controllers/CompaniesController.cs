@@ -71,6 +71,7 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
       return NotFound();
     }
 
+    company.Links.Clear();
     _mapper.Map(companyUpdateDto, company);
     _context.Entry(company).State = EntityState.Modified;
 
@@ -120,12 +121,16 @@ public class CompaniesController(FitBackendContext context, IMapper mapper) : Co
 
   private async Task<Company?> TryGetCompanyAsync(Guid id)
   {
-    return await _context.Set<Company>().FindAsync(id);
+    return await _context
+      .Set<Company>()
+      .Include(company => company.Links)
+      .FirstOrDefaultAsync(company => company.Id == id);
   }
 
   protected IQueryable<Company> AddDefaultIncludes(IQueryable<Company> companies)
   {
     return companies
+      .Include(company => company.Links)
       .Include(company => company.CompanyTextCharacteristics)
       .ThenInclude(companyCharacteristic => companyCharacteristic.TextCharacteristic)
       .Include(company => company.CompanyNumberCharacteristics)

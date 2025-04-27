@@ -142,6 +142,9 @@ public class FitBackendProfile : Profile
       CompanyHistoricFinancialCharacteristic
     >();
 
+    CreateMap<Link, LinkReadDto>();
+    CreateMap<LinkCreateDto, Link>();
+
     CreateMap<HistoricValue, HistoricValueReadDto>();
     CreateMap<HistoricValueCreateDto, HistoricValue>();
   }

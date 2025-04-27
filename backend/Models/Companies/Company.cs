@@ -25,13 +25,13 @@ public class Company : Entity
   [Required]
   public required Multiplier FinancialReportingMultiplier { get; set; }
 
-  public string[]? FinancialReportingSourceUrls { get; set; }
-
   public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
 
   // relationships
+  public ICollection<Link> Links { get; set; } = [];
+
   public ICollection<CompanyTextCharacteristic> CompanyTextCharacteristics { get; set; } = [];
 
   public ICollection<CompanyNumberCharacteristic> CompanyNumberCharacteristics { get; set; } = [];
@@ -67,11 +67,12 @@ public record CompanyReadDto : EntityReadDto
   [Required]
   public Multiplier FinancialReportingMultiplier { get; set; }
 
-  public ICollection<string>? FinancialReportingSourceUrls { get; set; }
-
   public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
+
+  [Required]
+  public ICollection<LinkReadDto> Links { get; set; }
 
   [Required]
   public ICollection<CompanyTextCharacteristicReadDto> CompanyTextCharacteristics { get; set; }
@@ -106,11 +107,12 @@ public record CompanyCreateDto
   [Required]
   public Multiplier? FinancialReportingMultiplier { get; set; }
 
-  public ICollection<string>? FinancialReportingSourceUrls { get; set; }
-
   public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
+
+  [Required]
+  public ICollection<LinkCreateDto> Links { get; set; }
 }
 
 public record CompanyUpdateDto
@@ -133,9 +135,10 @@ public record CompanyUpdateDto
   [Required]
   public Multiplier? FinancialReportingMultiplier { get; set; }
 
-  public ICollection<string>? FinancialReportingSourceUrls { get; set; }
-
   public string? Comment { get; set; }
 
   public string? LogoUrl { get; set; }
+
+  [Required]
+  public ICollection<LinkCreateDto> Links { get; set; }
 }
