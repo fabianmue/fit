@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -18,9 +18,12 @@ namespace FitApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    NextReportingDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     ReportingMultiplier = table.Column<int>(type: "INTEGER", nullable: false),
                     ReportingCurrency = table.Column<string>(type: "TEXT", nullable: false),
                     ShareCurrency = table.Column<string>(type: "TEXT", nullable: false),
+                    ShareIsin = table.Column<string>(type: "TEXT", nullable: false),
+                    ShareSymbol = table.Column<string>(type: "TEXT", nullable: false),
                     DividendCurrency = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -59,9 +62,9 @@ namespace FitApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     PeriodStart = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     PeriodEnd = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    NetSales = table.Column<int>(type: "INTEGER", nullable: false),
-                    NetIncome = table.Column<int>(type: "INTEGER", nullable: false),
-                    OutstandingShares = table.Column<int>(type: "INTEGER", nullable: false),
+                    Revenue = table.Column<int>(type: "INTEGER", nullable: false),
+                    Earnings = table.Column<int>(type: "INTEGER", nullable: false),
+                    EarningsPerShare = table.Column<double>(type: "REAL", nullable: false),
                     TotalAssets = table.Column<int>(type: "INTEGER", nullable: false),
                     TotalLiabilities = table.Column<int>(type: "INTEGER", nullable: false),
                     CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -97,6 +100,12 @@ namespace FitApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Companies_Name",
+                table: "Companies",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dividends_CompanyId",

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitApi.Migrations
 {
     [DbContext(typeof(FitApiContext))]
-    [Migration("20251025100807_Initial")]
+    [Migration("20251026072614_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -34,6 +34,9 @@ namespace FitApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateOnly>("NextReportingDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ReportingCurrency")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -45,7 +48,18 @@ namespace FitApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ShareIsin")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShareSymbol")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -87,20 +101,20 @@ namespace FitApi.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NetIncome")
+                    b.Property<int>("Earnings")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NetSales")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("OutstandingShares")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("EarningsPerShare")
+                        .HasColumnType("REAL");
 
                     b.Property<DateOnly>("PeriodEnd")
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("PeriodStart")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Revenue")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("TotalAssets")
                         .HasColumnType("INTEGER");

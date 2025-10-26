@@ -9,6 +9,8 @@ public class CompaniesControllerTests : IDisposable
 
     private readonly HttpClient _client;
 
+    private readonly CompanyChangeDtoFaker _companyChangeDtoFaker = new();
+
     public CompaniesControllerTests()
     {
         _factory = new FitApiWebApplicationFactory<Program>();
@@ -37,14 +39,7 @@ public class CompaniesControllerTests : IDisposable
     public async Task PostAndGet_CreatesAndReturns()
     {
         // Arrange
-        var toCreate = new CompanyChangeDto
-        {
-            Name = "Name",
-            ReportingMultiplier = 1000,
-            ReportingCurrency = "CHF",
-            ShareCurrency = "CHF",
-            DividendCurrency = "CHF",
-        };
+        var toCreate = _companyChangeDtoFaker.Generate();
 
         // Act - create
         var postResponse = await _client.PostAsJsonAsync("/api/companies", toCreate);
@@ -71,14 +66,7 @@ public class CompaniesControllerTests : IDisposable
     public async Task PostAndGetAll_CreatesAndReturns()
     {
         // Arrange
-        var toCreate = new CompanyChangeDto
-        {
-            Name = "Name",
-            ReportingMultiplier = 1000,
-            ReportingCurrency = "CHF",
-            ShareCurrency = "CHF",
-            DividendCurrency = "CHF",
-        };
+        var toCreate = _companyChangeDtoFaker.Generate();
 
         // Act - create
         var postResponse = await _client.PostAsJsonAsync("/api/companies", toCreate);
@@ -106,14 +94,7 @@ public class CompaniesControllerTests : IDisposable
     public async Task PostAndPut_CreatesAndUpdates()
     {
         // Arrange
-        var toCreate = new CompanyChangeDto
-        {
-            Name = "Name",
-            ReportingMultiplier = 1000,
-            ReportingCurrency = "CHF",
-            ShareCurrency = "CHF",
-            DividendCurrency = "CHF",
-        };
+        var toCreate = _companyChangeDtoFaker.Generate();
 
         // Act - create
         var postResponse = await _client.PostAsJsonAsync("/api/companies", toCreate);
@@ -126,14 +107,7 @@ public class CompaniesControllerTests : IDisposable
         AssertEqual(toCreate, created);
 
         // Act - update
-        var toUpdate = new CompanyChangeDto
-        {
-            Name = "Name Updated",
-            ReportingMultiplier = 1000000,
-            ReportingCurrency = "USD",
-            ShareCurrency = "USD",
-            DividendCurrency = "USD",
-        };
+        var toUpdate = _companyChangeDtoFaker.Generate();
         var putResponse = await _client.PutAsJsonAsync($"/api/companies/{created.Id}", toUpdate);
 
         // Assert - update
@@ -148,14 +122,7 @@ public class CompaniesControllerTests : IDisposable
     public async Task PostAndDelete_CreatesAndDeletes()
     {
         // Arrange
-        var toCreate = new CompanyChangeDto
-        {
-            Name = "Name",
-            ReportingMultiplier = 1000,
-            ReportingCurrency = "CHF",
-            ShareCurrency = "CHF",
-            DividendCurrency = "CHF",
-        };
+        var toCreate = _companyChangeDtoFaker.Generate();
 
         // Act - create
         var postResponse = await _client.PostAsJsonAsync("/api/companies", toCreate);
@@ -177,9 +144,12 @@ public class CompaniesControllerTests : IDisposable
     private static void AssertEqual(CompanyChangeDto expected, CompanyDto actual)
     {
         Assert.Equal(expected.Name, actual.Name);
+        Assert.Equal(expected.NextReportingDate, actual.NextReportingDate);
         Assert.Equal(expected.ReportingMultiplier, actual.ReportingMultiplier);
         Assert.Equal(expected.ReportingCurrency, actual.ReportingCurrency);
         Assert.Equal(expected.ShareCurrency, actual.ShareCurrency);
+        Assert.Equal(expected.ShareIsin, actual.ShareIsin);
+        Assert.Equal(expected.ShareSymbol, actual.ShareSymbol);
         Assert.Equal(expected.DividendCurrency, actual.DividendCurrency);
     }
 }

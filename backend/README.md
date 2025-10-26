@@ -1,6 +1,8 @@
 # FIT - Backend
 
-Frequently used tasks and commands
+Prerequisites:
+
+-   .NET 9.0 SDK: https://dotnet.microsoft.com/en-us/download
 
 ## Packages
 
@@ -26,9 +28,9 @@ Frequently used tasks and commands
 
 ## Database
 
-### `dotnet ef database update`
+### `dotnet ef database update --project .\FitApi`
 
-### `dotnet ef migrations add <Name>`
+### `dotnet ef migrations add <Name> --project .\FitApi`
 
 ## Test
 

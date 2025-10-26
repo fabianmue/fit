@@ -10,23 +10,18 @@ public class Reporting : Entity
     [Required]
     public required DateOnly PeriodEnd { get; set; }
 
-    [Required]
     [Range(0, int.MaxValue)]
-    public required int NetSales { get; set; }
+    public required int Revenue { get; set; }
 
-    [Required]
     [Range(0, int.MaxValue)]
-    public required int NetIncome { get; set; }
+    public required int Earnings { get; set; }
 
-    [Required]
-    [Range(0, int.MaxValue)]
-    public required int OutstandingShares { get; set; }
+    [Range(0, double.MaxValue)]
+    public required double EarningsPerShare { get; set; }
 
-    [Required]
     [Range(0, int.MaxValue)]
     public required int TotalAssets { get; set; }
 
-    [Required]
     [Range(0, int.MaxValue)]
     public required int TotalLiabilities { get; set; }
 
