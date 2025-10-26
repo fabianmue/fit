@@ -4,4 +4,15 @@
         <p>{{ company().shareSymbol }}</p>
         <p>{{ company().shareIsin }}</p>
     </div>
+    <mat-chip-set class="chips">
+        @if (newReportingAvailable()) {
+            <mat-chip class="tertiary" disabled="true">Neuer Bericht</mat-chip>
+        } @else if (lastReportingPeriod() !== null) {
+            <mat-chip class="primary" disabled="true"
+                >Bericht: {{ lastReportingPeriod() }}</mat-chip
+            >
+        } @else {
+            <mat-chip class="secondary" disabled="true">Kein Bericht</mat-chip>
+        }
+    </mat-chip-set>
 </mat-card>

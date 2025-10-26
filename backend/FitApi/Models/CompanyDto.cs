@@ -7,8 +7,9 @@ public class CompanyDto : EntityDto
     [Required]
     public string Name { get; set; }
 
-    [Required]
-    public DateOnly NextReportingDate { get; set; }
+    public string? Story { get; set; }
+
+    public DateOnly? NextReportingDate { get; set; }
 
     public int ReportingMultiplier { get; set; }
 
@@ -26,4 +27,7 @@ public class CompanyDto : EntityDto
 
     [Required]
     public string DividendCurrency { get; set; }
+
+    // relations
+    public List<ReportingDto>? Reportings { get; set; }
 }

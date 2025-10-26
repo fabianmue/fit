@@ -10,13 +10,13 @@ public class Reporting : Entity
     [Required]
     public required DateOnly PeriodEnd { get; set; }
 
+    public string? Comment { get; set; }
+
     [Range(0, int.MaxValue)]
     public required int Revenue { get; set; }
 
-    [Range(0, int.MaxValue)]
     public required int Earnings { get; set; }
 
-    [Range(0, double.MaxValue)]
     public required double EarningsPerShare { get; set; }
 
     [Range(0, int.MaxValue)]

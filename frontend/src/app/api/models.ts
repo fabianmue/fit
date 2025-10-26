@@ -2,3 +2,5 @@
 
 export type { CompanyChangeDto } from './models/company-change-dto';
 export type { CompanyDto } from './models/company-dto';
+export type { ReportingChangeDto } from './models/reporting-change-dto';
+export type { ReportingDto } from './models/reporting-dto';

@@ -3,10 +3,11 @@
 export interface CompanyChangeDto {
     dividendCurrency: string;
     name: string;
-    nextReportingDate: string;
+    nextReportingDate?: string | null;
     reportingCurrency: string;
     reportingMultiplier?: number;
     shareCurrency: string;
     shareIsin: string;
     shareSymbol: string;
+    story?: string | null;
 }

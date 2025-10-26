@@ -7,30 +7,32 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CompanyChangeDto } from '../../models/company-change-dto';
-import { CompanyDto } from '../../models/company-dto';
+import { ReportingChangeDto } from '../../models/reporting-change-dto';
+import { ReportingDto } from '../../models/reporting-dto';
 
-export interface ApiCompaniesPost$Plain$Params {
-    body: CompanyChangeDto;
+export interface ApiCompaniesCompanyIdReportingsPost$Plain$Params {
+    companyId: number;
+    body: ReportingChangeDto;
 }
 
-export function apiCompaniesPost$Plain(
+export function apiCompaniesCompanyIdReportingsPost$Plain(
     http: HttpClient,
     rootUrl: string,
-    params: ApiCompaniesPost$Plain$Params,
+    params: ApiCompaniesCompanyIdReportingsPost$Plain$Params,
     context?: HttpContext,
-): Observable<StrictHttpResponse<CompanyDto>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesPost$Plain.PATH, 'post');
+): Observable<StrictHttpResponse<ReportingDto>> {
+    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdReportingsPost$Plain.PATH, 'post');
     if (params) {
+        rb.path('companyId', params.companyId, {});
         rb.body(params.body, 'application/*+json');
     }
 
     return http.request(rb.build({ responseType: 'text', accept: 'text/plain', context })).pipe(
         filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
         map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<CompanyDto>;
+            return r as StrictHttpResponse<ReportingDto>;
         }),
     );
 }
 
-apiCompaniesPost$Plain.PATH = '/api/companies';
+apiCompaniesCompanyIdReportingsPost$Plain.PATH = '/api/companies/{companyId}/reportings';

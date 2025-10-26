@@ -9,8 +9,9 @@ public class Company : Entity
     [Required]
     public required string Name { get; set; }
 
-    [Required]
-    public DateOnly NextReportingDate { get; set; }
+    public string? Story { get; set; }
+
+    public DateOnly? NextReportingDate { get; set; }
 
     [AllowedValues(1000, 1000000)]
     public int ReportingMultiplier { get; set; }

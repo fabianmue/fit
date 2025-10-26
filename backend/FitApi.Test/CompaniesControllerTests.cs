@@ -30,7 +30,7 @@ public class CompaniesControllerTests : IDisposable
         var getAllResponse = await _client.GetAsync("/api/companies");
 
         // Assert
-        getAllResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, getAllResponse.StatusCode);
         var read = await getAllResponse.Content.ReadFromJsonAsync<List<CompanyDto>>();
         Assert.NotNull(read);
     }
@@ -55,7 +55,7 @@ public class CompaniesControllerTests : IDisposable
         var getResponse = await _client.GetAsync($"/api/companies/{created.Id}");
 
         // Assert - get by id
-        getResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
         var read = await getResponse.Content.ReadFromJsonAsync<CompanyDto>();
         Assert.NotNull(read);
         Assert.Equal(created.Id, read.Id);
@@ -82,7 +82,7 @@ public class CompaniesControllerTests : IDisposable
         var getAllResponse = await _client.GetAsync($"/api/companies");
 
         // Assert - get all
-        getAllResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, getAllResponse.StatusCode);
         var read = await getAllResponse.Content.ReadFromJsonAsync<List<CompanyDto>>();
         Assert.NotNull(read);
         var readMatch = read.SingleOrDefault(d => d.Id == created.Id);
@@ -111,7 +111,7 @@ public class CompaniesControllerTests : IDisposable
         var putResponse = await _client.PutAsJsonAsync($"/api/companies/{created.Id}", toUpdate);
 
         // Assert - update
-        putResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, putResponse.StatusCode);
         var updated = await putResponse.Content.ReadFromJsonAsync<CompanyDto>();
         Assert.NotNull(updated);
         Assert.Equal(created.Id, updated.Id);
@@ -138,7 +138,7 @@ public class CompaniesControllerTests : IDisposable
         var deleteResponse = await _client.DeleteAsync($"/api/companies/{created.Id}");
 
         // Assert - delete
-        deleteResponse.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
     }
 
     private static void AssertEqual(CompanyChangeDto expected, CompanyDto actual)

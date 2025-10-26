@@ -9,19 +9,19 @@ import { RequestBuilder } from '../../request-builder';
 
 import { CompanyDto } from '../../models/company-dto';
 
-export interface ApiCompaniesIdGet$Json$Params {
-    id: number;
+export interface ApiCompaniesCompanyIdGet$Json$Params {
+    companyId: number;
 }
 
-export function apiCompaniesIdGet$Json(
+export function apiCompaniesCompanyIdGet$Json(
     http: HttpClient,
     rootUrl: string,
-    params: ApiCompaniesIdGet$Json$Params,
+    params: ApiCompaniesCompanyIdGet$Json$Params,
     context?: HttpContext,
 ): Observable<StrictHttpResponse<CompanyDto>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesIdGet$Json.PATH, 'get');
+    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdGet$Json.PATH, 'get');
     if (params) {
-        rb.path('id', params.id, {});
+        rb.path('companyId', params.companyId, {});
     }
 
     return http.request(rb.build({ responseType: 'json', accept: 'text/json', context })).pipe(
@@ -32,4 +32,4 @@ export function apiCompaniesIdGet$Json(
     );
 }
 
-apiCompaniesIdGet$Json.PATH = '/api/Companies/{id}';
+apiCompaniesCompanyIdGet$Json.PATH = '/api/companies/{companyId}';

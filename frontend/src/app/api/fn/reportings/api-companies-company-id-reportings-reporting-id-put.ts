@@ -7,19 +7,29 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-export interface ApiCompaniesIdDelete$Params {
-    id: number;
+import { ReportingChangeDto } from '../../models/reporting-change-dto';
+
+export interface ApiCompaniesCompanyIdReportingsReportingIdPut$Params {
+    companyId: number;
+    reportingId: number;
+    body: ReportingChangeDto;
 }
 
-export function apiCompaniesIdDelete(
+export function apiCompaniesCompanyIdReportingsReportingIdPut(
     http: HttpClient,
     rootUrl: string,
-    params: ApiCompaniesIdDelete$Params,
+    params: ApiCompaniesCompanyIdReportingsReportingIdPut$Params,
     context?: HttpContext,
 ): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesIdDelete.PATH, 'delete');
+    const rb = new RequestBuilder(
+        rootUrl,
+        apiCompaniesCompanyIdReportingsReportingIdPut.PATH,
+        'put',
+    );
     if (params) {
-        rb.path('id', params.id, {});
+        rb.path('companyId', params.companyId, {});
+        rb.path('reportingId', params.reportingId, {});
+        rb.body(params.body, 'application/*+json');
     }
 
     return http.request(rb.build({ responseType: 'text', accept: '*/*', context })).pipe(
@@ -30,4 +40,5 @@ export function apiCompaniesIdDelete(
     );
 }
 
-apiCompaniesIdDelete.PATH = '/api/Companies/{id}';
+apiCompaniesCompanyIdReportingsReportingIdPut.PATH =
+    '/api/companies/{companyId}/reportings/{reportingId}';

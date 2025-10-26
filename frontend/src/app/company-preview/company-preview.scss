@@ -4,17 +4,20 @@
     display: flex;
     gap: 8px;
     padding: 8px;
-    width: 240px;
+    width: 300px;
+    height: 116px;
 
     @include mat.card-overrides(
         (
             outlined-container-shape: 4px,
+            outlined-outline-color: var(--mat-sys-on-background),
         )
     );
 
     .title {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 500;
+        line-height: 24px;
         margin: 0;
     }
 
@@ -25,6 +28,43 @@
 
         p {
             margin: 0;
+        }
+    }
+
+    @include mat.chips-overrides(
+        (
+            container-shape-radius: 4px,
+        )
+    );
+    .chips {
+        height: 40px;
+        overflow: hidden;
+
+        .primary {
+            @include mat.chips-overrides(
+                (
+                    disabled-label-text-color: var(--mat-sys-primary),
+                    disabled-outline-color: var(--mat-sys-primary),
+                )
+            );
+        }
+
+        .secondary {
+            @include mat.chips-overrides(
+                (
+                    disabled-label-text-color: var(--mat-sys-secondary),
+                    disabled-outline-color: var(--mat-sys-secondary),
+                )
+            );
+        }
+
+        .tertiary {
+            @include mat.chips-overrides(
+                (
+                    disabled-label-text-color: var(--mat-sys-tertiary),
+                    disabled-outline-color: var(--mat-sys-tertiary),
+                )
+            );
         }
     }
 }

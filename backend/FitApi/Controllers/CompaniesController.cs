@@ -19,10 +19,12 @@ public class CompaniesController(FitApiContext context, IMapper mapper) : Contro
         return _mapper.Map<List<CompanyDto>>(companies);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<CompanyDto>> GetCompany(int id)
+    [HttpGet("{companyId:int}")]
+    public async Task<ActionResult<CompanyDto>> GetCompany([FromRoute] int companyId)
     {
-        var company = await _context.Companies.FindAsync(id);
+        var company = await _context
+            .Companies.Include(c => c.Reportings)
+            .FirstOrDefaultAsync(c => c.Id == companyId);
         if (company == null)
         {
             return NotFound();
@@ -32,26 +34,31 @@ public class CompaniesController(FitApiContext context, IMapper mapper) : Contro
     }
 
     [HttpPost]
-    public async Task<ActionResult<CompanyDto>> PostCompany(CompanyChangeDto companyCreateDto)
+    public async Task<ActionResult<CompanyDto>> PostCompany(
+        [FromBody] CompanyChangeDto companyChangeDto
+    )
     {
-        var company = _mapper.Map<Company>(companyCreateDto);
+        var company = _mapper.Map<Company>(companyChangeDto);
         _context.Companies.Add(company);
         await _context.SaveChangesAsync();
 
         var companyDto = _mapper.Map<CompanyDto>(company);
-        return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, companyDto);
+        return CreatedAtAction(nameof(GetCompany), new { companyId = company.Id }, companyDto);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutCompany(int id, CompanyChangeDto companyCreateDto)
+    [HttpPut("{companyId:int}")]
+    public async Task<IActionResult> PutCompany(
+        [FromRoute] int companyId,
+        [FromBody] CompanyChangeDto companyChangeDto
+    )
     {
-        var company = await _context.Companies.FindAsync(id);
+        var company = await _context.Companies.FindAsync(companyId);
         if (company == null)
         {
             return NotFound();
         }
 
-        _mapper.Map(companyCreateDto, company);
+        _mapper.Map(companyChangeDto, company);
 
         try
         {
@@ -59,7 +66,7 @@ public class CompaniesController(FitApiContext context, IMapper mapper) : Contro
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!_context.Companies.Any(e => e.Id == id))
+            if (!_context.Companies.Any(c => c.Id == companyId))
             {
                 return NotFound();
             }
@@ -69,10 +76,10 @@ public class CompaniesController(FitApiContext context, IMapper mapper) : Contro
         return Ok(_mapper.Map<CompanyDto>(company));
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCompany(int id)
+    [HttpDelete("{companyId:int}")]
+    public async Task<IActionResult> DeleteCompany([FromRoute] int companyId)
     {
-        var company = await _context.Companies.FindAsync(id);
+        var company = await _context.Companies.FindAsync(companyId);
         if (company == null)
         {
             return NotFound();

@@ -29,4 +29,4 @@ export function apiCompaniesGet$Plain(
     );
 }
 
-apiCompaniesGet$Plain.PATH = '/api/Companies';
+apiCompaniesGet$Plain.PATH = '/api/companies';

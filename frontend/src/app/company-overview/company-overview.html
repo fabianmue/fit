@@ -1,7 +1,9 @@
 @if (companies() === null) {
     <div>No companies available.</div>
 } @else {
-    @for (company of companies(); track company.id) {
-        <app-company-preview [company]="company"></app-company-preview>
-    }
+    <div class="companies">
+        @for (company of companies(); track company.id) {
+            <app-company-preview [company]="company"></app-company-preview>
+        }
+    </div>
 }

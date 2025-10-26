@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 import { Api } from '../api/api';
@@ -12,7 +12,7 @@ import { CompanyPreview } from '../company-preview/company-preview';
     templateUrl: './company-overview.html',
     styleUrl: './company-overview.scss',
 })
-export class CompanyOverview {
+export class CompanyOverview implements OnInit {
     readonly companies = signal<CompanyDto[] | null>(null);
 
     private readonly api = inject(Api);
