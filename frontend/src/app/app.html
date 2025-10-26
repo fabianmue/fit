@@ -1,0 +1,9 @@
+<mat-toolbar class="header">
+    <span>Fabians Investment Tool</span>
+    <span class="version"
+        >Version {{ appInfo.version }} - {{ appInfo.buildDate | date: 'longDate' }}</span
+    >
+</mat-toolbar>
+<div class="app-container">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+.header {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
+
+    @include mat.toolbar-overrides(
+        (
+            container-background-color: var(--mat-sys-primary),
+            container-text-color: var(--mat-sys-on-primary),
+            standard-height: 48px,
+        )
+    );
+
+    .version {
+        margin-left: auto;
+        font-size: 14px;
+    }
+}
+
+.app-container {
+    background-color: var(--mat-sys-background);
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 64px 16px 16px 16px;
+    overflow-y: auto;
+}

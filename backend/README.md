@@ -42,6 +42,6 @@ Prerequisites:
 
 see https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-format
 
-### `dotnet csharpier format .`
+### `dotnet csharpier format`
 
 see https://csharpier.com/docs/CLI
