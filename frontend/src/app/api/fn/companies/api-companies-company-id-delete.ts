@@ -7,27 +7,25 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+
 export interface ApiCompaniesCompanyIdDelete$Params {
-    companyId: number;
+  companyId: number;
 }
 
-export function apiCompaniesCompanyIdDelete(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesCompanyIdDelete$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdDelete.PATH, 'delete');
-    if (params) {
-        rb.path('companyId', params.companyId, {});
-    }
+export function apiCompaniesCompanyIdDelete(http: HttpClient, rootUrl: string, params: ApiCompaniesCompanyIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdDelete.PATH, 'delete');
+  if (params) {
+    rb.path('companyId', params.companyId, {});
+  }
 
-    return http.request(rb.build({ responseType: 'text', accept: '*/*', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 apiCompaniesCompanyIdDelete.PATH = '/api/companies/{companyId}';

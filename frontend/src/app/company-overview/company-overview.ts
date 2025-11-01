@@ -4,11 +4,11 @@ import { MatCardModule } from '@angular/material/card';
 import { Api } from '../api/api';
 import { apiCompaniesGet$Json } from '../api/functions';
 import { CompanyDto } from '../api/models';
-import { CompanyPreview } from '../company-preview/company-preview';
+import { CompanyPreviewCard } from '../company-preview-card/company-preview-card';
 
 @Component({
     selector: 'app-company-overview',
-    imports: [CompanyPreview, MatCardModule],
+    imports: [CompanyPreviewCard, MatCardModule],
     templateUrl: './company-overview.html',
     styleUrl: './company-overview.scss',
 })

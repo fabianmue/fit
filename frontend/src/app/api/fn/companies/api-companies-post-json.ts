@@ -11,26 +11,23 @@ import { CompanyChangeDto } from '../../models/company-change-dto';
 import { CompanyDto } from '../../models/company-dto';
 
 export interface ApiCompaniesPost$Json$Params {
-    body: CompanyChangeDto;
+      body: CompanyChangeDto
 }
 
-export function apiCompaniesPost$Json(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesPost$Json$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<CompanyDto>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesPost$Json.PATH, 'post');
-    if (params) {
-        rb.body(params.body, 'application/*+json');
-    }
+export function apiCompaniesPost$Json(http: HttpClient, rootUrl: string, params: ApiCompaniesPost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyDto>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesPost$Json.PATH, 'post');
+  if (params) {
+    rb.body(params.body, 'application/*+json');
+  }
 
-    return http.request(rb.build({ responseType: 'json', accept: 'text/json', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<CompanyDto>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'json', accept: 'text/json', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<CompanyDto>;
+    })
+  );
 }
 
 apiCompaniesPost$Json.PATH = '/api/companies';

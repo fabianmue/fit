@@ -10,35 +10,27 @@ import { RequestBuilder } from '../../request-builder';
 import { ReportingChangeDto } from '../../models/reporting-change-dto';
 
 export interface ApiCompaniesCompanyIdReportingsReportingIdPut$Params {
-    companyId: number;
-    reportingId: number;
-    body: ReportingChangeDto;
+  companyId: number;
+  reportingId: number;
+      body: ReportingChangeDto
 }
 
-export function apiCompaniesCompanyIdReportingsReportingIdPut(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesCompanyIdReportingsReportingIdPut$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(
-        rootUrl,
-        apiCompaniesCompanyIdReportingsReportingIdPut.PATH,
-        'put',
-    );
-    if (params) {
-        rb.path('companyId', params.companyId, {});
-        rb.path('reportingId', params.reportingId, {});
-        rb.body(params.body, 'application/*+json');
-    }
+export function apiCompaniesCompanyIdReportingsReportingIdPut(http: HttpClient, rootUrl: string, params: ApiCompaniesCompanyIdReportingsReportingIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdReportingsReportingIdPut.PATH, 'put');
+  if (params) {
+    rb.path('companyId', params.companyId, {});
+    rb.path('reportingId', params.reportingId, {});
+    rb.body(params.body, 'application/*+json');
+  }
 
-    return http.request(rb.build({ responseType: 'text', accept: '*/*', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
-apiCompaniesCompanyIdReportingsReportingIdPut.PATH =
-    '/api/companies/{companyId}/reportings/{reportingId}';
+apiCompaniesCompanyIdReportingsReportingIdPut.PATH = '/api/companies/{companyId}/reportings/{reportingId}';

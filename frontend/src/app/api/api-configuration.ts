@@ -7,15 +7,15 @@ import { Injectable } from '@angular/core';
  * Global configuration
  */
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class ApiConfiguration {
-    rootUrl: string = '/api';
+  rootUrl: string = 'http://localhost';
 }
 
 /**
  * Parameters for `.forRoot()`
  */
 export interface ApiConfigurationParams {
-    rootUrl?: string;
+  rootUrl?: string;
 }

@@ -11,28 +11,25 @@ import { ReportingChangeDto } from '../../models/reporting-change-dto';
 import { ReportingDto } from '../../models/reporting-dto';
 
 export interface ApiCompaniesCompanyIdReportingsPost$Json$Params {
-    companyId: number;
-    body: ReportingChangeDto;
+  companyId: number;
+      body: ReportingChangeDto
 }
 
-export function apiCompaniesCompanyIdReportingsPost$Json(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesCompanyIdReportingsPost$Json$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<ReportingDto>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdReportingsPost$Json.PATH, 'post');
-    if (params) {
-        rb.path('companyId', params.companyId, {});
-        rb.body(params.body, 'application/*+json');
-    }
+export function apiCompaniesCompanyIdReportingsPost$Json(http: HttpClient, rootUrl: string, params: ApiCompaniesCompanyIdReportingsPost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<ReportingDto>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdReportingsPost$Json.PATH, 'post');
+  if (params) {
+    rb.path('companyId', params.companyId, {});
+    rb.body(params.body, 'application/*+json');
+  }
 
-    return http.request(rb.build({ responseType: 'json', accept: 'text/json', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<ReportingDto>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'json', accept: 'text/json', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<ReportingDto>;
+    })
+  );
 }
 
 apiCompaniesCompanyIdReportingsPost$Json.PATH = '/api/companies/{companyId}/reportings';

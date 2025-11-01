@@ -15,6 +15,12 @@
         )
     );
 
+    .title {
+        color: var(--mat-sys-on-primary);
+        padding: 10px 0;
+        text-decoration: none;
+    }
+
     .version {
         margin-left: auto;
         font-size: 14px;
@@ -22,7 +28,7 @@
 }
 
 .app-container {
-    background-color: var(--mat-sys-background);
+    background-color: var(--mat-sys-surface-dim);
     box-sizing: border-box;
     min-height: 100vh;
     padding: 64px 16px 16px 16px;

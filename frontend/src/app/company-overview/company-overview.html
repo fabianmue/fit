@@ -3,7 +3,7 @@
 } @else {
     <div class="companies">
         @for (company of companies(); track company.id) {
-            <app-company-preview [company]="company"></app-company-preview>
+            <app-company-preview-card [company]="company"></app-company-preview-card>
         }
     </div>
 }

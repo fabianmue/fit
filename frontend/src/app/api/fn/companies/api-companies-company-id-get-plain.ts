@@ -10,26 +10,23 @@ import { RequestBuilder } from '../../request-builder';
 import { CompanyDto } from '../../models/company-dto';
 
 export interface ApiCompaniesCompanyIdGet$Plain$Params {
-    companyId: number;
+  companyId: number;
 }
 
-export function apiCompaniesCompanyIdGet$Plain(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesCompanyIdGet$Plain$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<CompanyDto>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdGet$Plain.PATH, 'get');
-    if (params) {
-        rb.path('companyId', params.companyId, {});
-    }
+export function apiCompaniesCompanyIdGet$Plain(http: HttpClient, rootUrl: string, params: ApiCompaniesCompanyIdGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<CompanyDto>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdGet$Plain.PATH, 'get');
+  if (params) {
+    rb.path('companyId', params.companyId, {});
+  }
 
-    return http.request(rb.build({ responseType: 'text', accept: 'text/plain', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<CompanyDto>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: 'text/plain', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<CompanyDto>;
+    })
+  );
 }
 
 apiCompaniesCompanyIdGet$Plain.PATH = '/api/companies/{companyId}';

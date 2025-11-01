@@ -30,6 +30,8 @@ public class Company : Entity
     [Required]
     public required string ShareSymbol { get; set; }
 
+    public DateOnly? NextDividendRecordingDate { get; set; }
+
     [Required]
     [AllowedValues("CHF", "USD", "EUR")]
     public required string DividendCurrency { get; set; }

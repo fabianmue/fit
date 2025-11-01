@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+
+.company-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .name {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28px;
+        margin: 0;
+    }
+
+    .category-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+
+        @include mat.card-overrides(
+            (
+                outlined-container-shape: 4px,
+                outlined-outline-color: var(--mat-sys-on-background),
+            )
+        );
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 24px;
+            margin: 0;
+        }
+
+        .unit {
+            font-size: 16px;
+            margin: 0;
+        }
+    }
+}

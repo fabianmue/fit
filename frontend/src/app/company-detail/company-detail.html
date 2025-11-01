@@ -1,0 +1,44 @@
+@if (company() === null) {
+    <div class="not-found">Company not found.</div>
+} @else {
+    <div class="company-detail-container">
+        <h2 class="name">{{ company()!.name }}</h2>
+
+        <mat-card appearance="outlined" class="category-card">
+            <div class="row">
+                <h3 class="title">Reportings</h3>
+                <span class="unit">
+                    in {{ company()!.reportingCurrency }} {{ reportingMultiplier() }}
+                </span>
+            </div>
+            @if (company()!.nextReportingDate) {
+                <div class="row">
+                    <span class="label">Next Report</span>
+                    <span class="value">{{
+                        !company()!.nextReportingDate
+                            ? 'Unknown'
+                            : (company()!.nextReportingDate | date)
+                    }}</span>
+                </div>
+            }
+        </mat-card>
+
+        <mat-card appearance="outlined" class="category-card">
+            <div class="row">
+                <h3 class="title">Shares</h3>
+                <span class="unit">in {{ company()!.shareCurrency }}</span>
+            </div>
+            <div class="row">
+                <span class="label">SWX:{{ company()!.shareSymbol }}</span>
+                <span class="value">{{ company()!.shareIsin }}</span>
+            </div>
+        </mat-card>
+
+        <mat-card appearance="outlined" class="category-card">
+            <div class="row">
+                <h3 class="title">Dividends</h3>
+                <span class="unit">in {{ company()!.dividendCurrency }}</span>
+            </div>
+        </mat-card>
+    </div>
+}

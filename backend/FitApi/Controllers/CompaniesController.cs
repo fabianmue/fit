@@ -24,6 +24,8 @@ public class CompaniesController(FitApiContext context, IMapper mapper) : Contro
     {
         var company = await _context
             .Companies.Include(c => c.Reportings)
+            .Include(c => c.Dividends)
+            .Include(c => c.SharePrices)
             .FirstOrDefaultAsync(c => c.Id == companyId);
         if (company == null)
         {

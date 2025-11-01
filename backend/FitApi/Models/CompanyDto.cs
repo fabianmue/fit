@@ -25,9 +25,15 @@ public class CompanyDto : EntityDto
     [Required]
     public string ShareSymbol { get; set; }
 
+    public DateOnly? NextDividendRecordingDate { get; set; }
+
     [Required]
     public string DividendCurrency { get; set; }
 
     // relations
     public List<ReportingDto>? Reportings { get; set; }
+
+    public List<SharePriceDto>? SharePrices { get; set; }
+
+    public List<DividendDto>? Dividends { get; set; }
 }

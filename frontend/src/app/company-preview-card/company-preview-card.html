@@ -1,8 +1,8 @@
-<mat-card class="company-preview-container" appearance="outlined">
-    <p class="title">{{ company().name }}</p>
+<mat-card class="company-preview-card-container" appearance="outlined">
+    <a [routerLink]="['/companies', company().id]" class="name">{{ company().name }}</a>
     <div class="row">
-        <p>{{ company().shareSymbol }}</p>
-        <p>{{ company().shareIsin }}</p>
+        <span>SWX:{{ company().shareSymbol }}</span>
+        <span>{{ company().shareIsin }}</span>
     </div>
     <mat-chip-set class="chips">
         @if (newReportingAvailable()) {

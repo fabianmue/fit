@@ -31,6 +31,9 @@ namespace FitApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateOnly?>("NextDividendRecordingDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateOnly?>("NextReportingDate")
                         .HasColumnType("TEXT");
 
@@ -76,7 +79,10 @@ namespace FitApi.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("PayoutDate")
+                    b.Property<DateOnly>("ExDividendDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("PaymentDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("PeriodEnd")

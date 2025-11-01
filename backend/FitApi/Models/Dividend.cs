@@ -11,9 +11,13 @@ public class Dividend : Entity
     public required DateOnly PeriodEnd { get; set; }
 
     [Required]
-    public required DateOnly PayoutDate { get; set; }
+    public required DateOnly ExDividendDate { get; set; }
 
     [Required]
+    public required DateOnly PaymentDate { get; set; }
+
+    [Required]
+    [Range(0, double.MaxValue)]
     public required double AmountPerShare { get; set; }
 
     // relations

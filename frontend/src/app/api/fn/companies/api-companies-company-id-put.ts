@@ -10,28 +10,25 @@ import { RequestBuilder } from '../../request-builder';
 import { CompanyChangeDto } from '../../models/company-change-dto';
 
 export interface ApiCompaniesCompanyIdPut$Params {
-    companyId: number;
-    body: CompanyChangeDto;
+  companyId: number;
+      body: CompanyChangeDto
 }
 
-export function apiCompaniesCompanyIdPut(
-    http: HttpClient,
-    rootUrl: string,
-    params: ApiCompaniesCompanyIdPut$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<void>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdPut.PATH, 'put');
-    if (params) {
-        rb.path('companyId', params.companyId, {});
-        rb.body(params.body, 'application/*+json');
-    }
+export function apiCompaniesCompanyIdPut(http: HttpClient, rootUrl: string, params: ApiCompaniesCompanyIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesCompanyIdPut.PATH, 'put');
+  if (params) {
+    rb.path('companyId', params.companyId, {});
+    rb.body(params.body, 'application/*+json');
+  }
 
-    return http.request(rb.build({ responseType: 'text', accept: '*/*', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 apiCompaniesCompanyIdPut.PATH = '/api/companies/{companyId}';

@@ -9,24 +9,22 @@ import { RequestBuilder } from '../../request-builder';
 
 import { CompanyDto } from '../../models/company-dto';
 
-export interface ApiCompaniesGet$Json$Params {}
+export interface ApiCompaniesGet$Json$Params {
+}
 
-export function apiCompaniesGet$Json(
-    http: HttpClient,
-    rootUrl: string,
-    params?: ApiCompaniesGet$Json$Params,
-    context?: HttpContext,
-): Observable<StrictHttpResponse<Array<CompanyDto>>> {
-    const rb = new RequestBuilder(rootUrl, apiCompaniesGet$Json.PATH, 'get');
-    if (params) {
-    }
+export function apiCompaniesGet$Json(http: HttpClient, rootUrl: string, params?: ApiCompaniesGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CompanyDto>>> {
+  const rb = new RequestBuilder(rootUrl, apiCompaniesGet$Json.PATH, 'get');
+  if (params) {
+  }
 
-    return http.request(rb.build({ responseType: 'json', accept: 'text/json', context })).pipe(
-        filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-        map((r: HttpResponse<any>) => {
-            return r as StrictHttpResponse<Array<CompanyDto>>;
-        }),
-    );
+  return http.request(
+    rb.build({ responseType: 'json', accept: 'text/json', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<Array<CompanyDto>>;
+    })
+  );
 }
 
 apiCompaniesGet$Json.PATH = '/api/companies';

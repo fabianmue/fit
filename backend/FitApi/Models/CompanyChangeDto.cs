@@ -28,6 +28,8 @@ public class CompanyChangeDto
     [Required]
     public string ShareSymbol { get; set; }
 
+    public DateOnly? NextDividendRecordingDate { get; set; }
+
     [Required]
     [AllowedValues("CHF", "USD", "EUR")]
     public string DividendCurrency { get; set; }
